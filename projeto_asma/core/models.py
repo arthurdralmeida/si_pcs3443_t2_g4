@@ -70,9 +70,25 @@ class Atividade(models.Model):
     paciente= models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.nome
+
 class DadosFitBit(models.Model):
     batimento = models.IntegerField(max_length=3,default=None)
     passos = models.IntegerField(max_length=8,default=None)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self
+
+class Atendente(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    nome = models.CharField(max_length=200, default=None)
+    email = models.EmailField(max_length=70, default=None)
+    def __str__(self):
+        return self.nome
+ 
+    class Meta:
+        verbose_name_plural = 'Atendentes'
+ 
+    def class_name(self):
+        return 'Atendente'
+
+
