@@ -19,7 +19,7 @@ from django.utils import timezone
 
 class Paciente(models.Model):
     nome = models.CharField(max_length=200, default=None)
-    idade = models.IntegerField(default=None)
+    dataNascimento = models.DateField(_("Date"), default=datetime.date.today)
     peso = models.FloatField(default=None)
     grauAsma = models.IntegerField(default=0)
     cpf=models.CharField(max_length=11,default=None)
