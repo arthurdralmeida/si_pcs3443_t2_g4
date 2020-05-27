@@ -6,5 +6,5 @@ from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^api/atendentes/$', views.atendentes_list),
-    re_path(r'^api/cadastro/$', views.cadastro),
+    #re_path(r'^api/cadastro/$', views.cadastro),
 ]
