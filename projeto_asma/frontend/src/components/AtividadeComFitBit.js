@@ -1,11 +1,20 @@
 import React, { Component } from "react";
 import { Layout, Menu, Space, Form, Input, Button, Checkbox, PageHeader } from 'antd';
+import { Progress } from 'antd';
 import { UserOutlined, 
+  FormOutlined,
   QuestionCircleOutlined,
+  LineChartOutlined,
   ToolFilled,
-  SearchOutlined } from '@ant-design/icons';
+  HeartOutlined,
+  CalendarOutlined,
+  SearchOutlined, FileSearchOutlined } from '@ant-design/icons';
 
-class Login extends Component {
+  function onChange(checkedValues) {
+    console.log('checked = ', checkedValues);
+  }
+
+class AtividadeComFitBit extends Component {
   render() {
     const { Header, Content, Sider } = Layout;
     const layout = {
@@ -36,24 +45,15 @@ class Login extends Component {
           <div className="logo" />
           <div>
             <Space size={22}>
-<<<<<<< HEAD
             <Space size={94}>
-=======
-            <Space size={86}>
->>>>>>> 1436bcdd8891b628faf1c0fddc5bb776f9b8aad7
             <Button icon={<SearchOutlined />}>Search</Button>
-            <Button type="primary">Sign Up</Button>
+            <Button>Log Out</Button>
             </Space>
-            <Button>Log In</Button>
             </Space>
           </div>
         </Header>
         <Layout>
-<<<<<<< HEAD
           <Sider width={240} className="site-layout-background">
-=======
-          <Sider width={230} className="site-layout-background">
->>>>>>> 1436bcdd8891b628faf1c0fddc5bb776f9b8aad7
             <Menu
               theme="dark"
               mode="inline"
@@ -61,27 +61,41 @@ class Login extends Component {
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-                <Menu.Item key="1" icon={<UserOutlined/>}><b>Entrar</b></Menu.Item>
-                <Menu.Item key="2" icon={<QuestionCircleOutlined />}><b>F.A.Q</b></Menu.Item>
+                <Menu.Item key="1" icon={<UserOutlined/>}><b>Informações pessoais</b></Menu.Item>
+                <Menu.Item key="2" icon={<FormOutlined />}><b>Atividades</b></Menu.Item>
+                <Menu.Item key="3" icon={<FileSearchOutlined />}><b>Visualização de atividades</b></Menu.Item>  
+                <Menu.Item key="4" icon={<FormOutlined />}><b>Metas</b></Menu.Item>
+                <Menu.Item key="5" icon={<CalendarOutlined />}><b>Calendário</b></Menu.Item>
+                <Menu.Item key="6" icon={<HeartOutlined />}><b>Saúde pessoal</b></Menu.Item>
+                <Menu.Item key="7" icon={<LineChartOutlined />}><b>Estatísticas</b></Menu.Item>
+                <Menu.Item key="8" icon={<QuestionCircleOutlined />}><b>F.A.Q</b></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
+                <Menu.Item key="9" icon={<ToolFilled />}><b>Configurações</b></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item key="8" icon={<ToolFilled />}><b>Configurações</b></Menu.Item>
             </Menu>
           </Sider>
-          <Layout style={{ padding: '0 24px 24px' }}>
+          <Layout style={{ padding: '0px 24px 24px' }}>
             <PageHeader
               className="site-page-header"
-              title="Log In"
+              title="Quantidade de batimentos:"
+            />
+            <HeartOutlined style={{ width: '5%' }}/>
+            <PageHeader
+              className="site-page-header"
+              title="Tipo de atividade:"
+            />
+            
+            <PageHeader
+              className="site-page-header"
+              title="Meta Diária de Passos:"
             />
             <Content
               className="site-layout-background"
               style={{
-                padding: 24,
-                margin: 0,
-                minHeight: 280
+                padding: 30,
+                margin: 20,
+                minHeight: 300
               }}
             > 
                <Form
@@ -94,37 +108,13 @@ class Login extends Component {
                 onFinishFailed={onFinishFailed}
               >
                 <Form.Item
-                  label="Username"
-                  name="username"
-                  rules={[
-                    {
-                      message: 'Please input your username!',
-                    },
-                  ]}
+                  
+                  name="MetaPassos" 
                 >
-                  <Input/>
-                </Form.Item>
-
-                <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[
-                    {
-                      message: 'Please input your password!',
-                    },
-                  ]}
-                >
-                  <Input.Password />
-                </Form.Item>
-
-                <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-                  <Checkbox>Lembrar me</Checkbox>
-                </Form.Item>
-                <Form.Item {...tailLayout}>
-                  <Button type="primary" htmlType="submit">
-                    Entrar
-                  </Button>
-                </Form.Item>
+                  <Space size={0}>
+                  <Progress type="circle" percent={75} />
+                  </Space>
+                </Form.Item> 
               </Form>
             </Content>
           </Layout>
@@ -134,4 +124,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default AtividadeComFitBit;

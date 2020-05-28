@@ -67,7 +67,7 @@ class Atividade(models.Model):
     nome = models.CharField(max_length=200, default=None)
     metaMensal = models.FloatField(default=None) #Em km
     duracao = models.FloatField(default=None) #Em Minutos 
-    paciente= models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.nome
 
