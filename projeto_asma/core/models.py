@@ -19,7 +19,7 @@ from django.utils import timezone
 
 class Paciente(models.Model):
     nome = models.CharField(max_length=200, default=None)
-    idade = models.IntegerField(default=None)
+    dataNascimento = models.DateField(default=datetime.date.today)
     peso = models.FloatField(default=None)
     grauAsma = models.IntegerField(default=0)
     cpf=models.CharField(max_length=11,default=None)
@@ -67,7 +67,7 @@ class Atividade(models.Model):
     nome = models.CharField(max_length=200, default=None)
     metaMensal = models.FloatField(default=None) #Em km
     duracao = models.FloatField(default=None) #Em Minutos 
-    paciente= models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.nome
 
