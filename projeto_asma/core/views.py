@@ -55,9 +55,19 @@ def updatePaciente(request):
 @api_view(['GET', 'POST'])
 def createPaciente(request):
     if request.method == 'GET':
-        pass
+        data = Paciente.objects.all()
+
+        serializer = PacienteSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
     elif request.method == 'POST':
-        pass
+        serializer = PacienteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+            
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #API para viuzalizar a lista de atividades

@@ -22,7 +22,7 @@ class DadosPessoais extends Component {
           <div>
             <Space size={22}>
             <Space size={86}>
-            <Button icon={<SearchOutlined />}>Search</Button>
+            <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
             <Button>Atualizar informações</Button>
             </Space>
             <Button>Alterar senha</Button>

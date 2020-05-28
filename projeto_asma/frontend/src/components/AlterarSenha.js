@@ -34,7 +34,7 @@ class AlterarSenha extends Component {
           <div className="logo" />
           <div>
             <Space size={22}>
-            <Button icon={<SearchOutlined />}>Search</Button>
+            <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
             </Space>
           </div>
         </Header>

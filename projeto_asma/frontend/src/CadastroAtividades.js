@@ -6,6 +6,7 @@ import { UserOutlined,
   SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined} from '@ant-design/icons';
 
 import MenuLateral from './components/MenuLateral'
+import { Link } from 'react-router-dom'
 import './App.css'
 class CadastroAtividades extends Component {
     render() {
@@ -58,8 +59,8 @@ class CadastroAtividades extends Component {
               <div>
                 <Space size={22}>
                 <Space size={94}>
-                <Button icon={<SearchOutlined />}>Search</Button>
-                <Button>Log Out</Button>
+                <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
+                <Link to={'/login'} ><Button>Log Out</Button></Link>
                 </Space>
                 </Space>
               </div>
@@ -76,7 +77,7 @@ class CadastroAtividades extends Component {
                   style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: 280
+                    minHeight: 800
                   }}
                 > 
                    <Form

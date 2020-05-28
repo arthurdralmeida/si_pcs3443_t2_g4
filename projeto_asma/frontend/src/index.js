@@ -4,9 +4,17 @@ import './index.css';
 import App from './App';
 import Home from './Home'
 import Login from './Login';
+import CadastroPaciente from './CadastroPaciente'
 import DadosPessoais from './DadosPessoais';
 import CadastroAtividades from './CadastroAtividades'
 import ListaAtividades from './ListaAtividades'
+import Metas from './Metas'
+import Calendario from './Calendario'
+import SaudePessoal from './SaudePessoal'
+import Estatisticas from './Estatisticas'
+import Faq from './Faq'
+import Configuracao from './Configuracao'
+
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -16,15 +24,16 @@ ReactDOM.render(
     <Switch>
       <Route path="/" exact={true} component={Home} />
       <Route path="/login" component={Login} />
+      <Route path='/cadastro' component={CadastroPaciente} /> 
       <Route path="/informacoes-pessoais" component={DadosPessoais} />
       <Route path="/cadastro-atividade" component={CadastroAtividades} />
       <Route path="/atividades" component={ListaAtividades} />
-      <Route path="/metas" />
-      <Route path="/calendario"/>
-      <Route path="/saude-pessoal" />
-      <Route path="/estatisticas" />
-      <Route path="/faq"/>
-      <Route path="/config" />
+      <Route path="/metas" component={Metas} />
+      <Route path="/calendario" component={Calendario} />
+      <Route path="/saude-pessoal" component={SaudePessoal} />
+      <Route path="/estatisticas" component={Estatisticas} />
+      <Route path="/faq" component={Faq} />
+      <Route path="/config" component={Configuracao} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')

@@ -5,6 +5,7 @@ import { UserOutlined,
   ToolFilled,
   SearchOutlined } from '@ant-design/icons';
 import './App.css'
+import { Link } from 'react-router-dom'
 
 class Login extends Component {
   render() {
@@ -23,6 +24,12 @@ class Login extends Component {
         span: 16,
       },
     };
+        const tailLayout2 = {
+      wrapperCol: {
+        offset: 8,
+        span: 12,
+      },
+    };
       const onFinish = values => {
         console.log('Success:', values);
       };
@@ -38,43 +45,23 @@ class Login extends Component {
           <div>
             <Space size={22}>
             <Space size={86}>
-            <Button icon={<SearchOutlined />}>Search</Button>
-            <Button type="primary">Registre-se</Button>
+            <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
             </Space>
-            <Button>Log In</Button>
             </Space>
           </div>
         </Header>
         <Layout>
-          <Sider width={230} className="site-layout-background">
-            <Menu
-              theme="dark"
-              mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
-              style={{ height: '100%', borderRight: 0 }}
-            >
-                <Menu.Item key="1" icon={<UserOutlined/>}><b>Entrar</b></Menu.Item>
-                <Menu.Item key="2" icon={<QuestionCircleOutlined />}><b>F.A.Q</b></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item key="8" icon={<ToolFilled />}><b>Configurações</b></Menu.Item>
-            </Menu>
-          </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
             <PageHeader
               className="site-page-header"
-              title="Log In"
+              title=""
             />
             <Content
               className="site-layout-background"
               style={{
                 padding: 24,
                 margin: 0,
-                minHeight: 280
+                minHeight: 800
               }}
             > 
                <Form
@@ -113,10 +100,9 @@ class Login extends Component {
                 <Form.Item {...tailLayout} name="remember" valuePropName="checked">
                   <Checkbox>Lembrar me</Checkbox>
                 </Form.Item>
-                <Form.Item {...tailLayout}>
-                  <Button type="primary" htmlType="submit">
-                    Entrar
-                  </Button>
+                <Form.Item {...tailLayout2}>
+                  <Button style={{marginRight: 20}}>Registre-se</Button>
+                  <Link to={'/'}><Button type="primary" htmlType="submit">Entrar</Button></Link>
                 </Form.Item>
               </Form>
             </Content>

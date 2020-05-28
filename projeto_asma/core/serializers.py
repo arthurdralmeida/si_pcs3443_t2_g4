@@ -7,6 +7,10 @@ class AtendenteSerializer(serializers.ModelSerializer):
         model = Atendente 
         fields = ('pk', 'nome', 'email')
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'password')
 
 class PacienteSerializer(serializers.ModelSerializer):
     class Meta:

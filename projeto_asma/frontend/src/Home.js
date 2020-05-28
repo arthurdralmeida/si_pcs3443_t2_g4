@@ -7,6 +7,7 @@ import { UserOutlined,
 
 import MenuLateral from './components/MenuLateral'
 import './App.css'
+import { Link } from 'react-router-dom'
 class Home extends Component {
     render() {
         const { Header, Content, Sider } = Layout;
@@ -58,8 +59,8 @@ class Home extends Component {
               <div>
                 <Space size={22}>
                 <Space size={94}>
-                <Button icon={<SearchOutlined />}>Search</Button>
-                <Button>Log Out</Button>
+                <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
+                <Link to={'/login'} ><Button>Log Out</Button></Link>
                 </Space>
                 </Space>
               </div>
@@ -76,7 +77,7 @@ class Home extends Component {
                   style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: 280
+                    minHeight: 800
                   }}
                 > 
                 </Content>
