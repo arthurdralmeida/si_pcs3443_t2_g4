@@ -120,12 +120,6 @@ class AlterarDados extends Component {
                 </Form.Item>
 
                 <Form.Item
-                  label="Idade"
-                  name="idade"
-                >
-                  <InputNumber min={1} max={120} defaultValue={0} onChange={onChange} />
-                  </Form.Item>
-                <Form.Item
                   label="Altura"
                   name="altura"
                 >
@@ -174,7 +168,6 @@ class AlterarDados extends Component {
                 >
                   <Input.Password style={{ width: '50%' }}/>
                 </Form.Item>
-
                 <Form.Item {...tailLayout}>
                   <Button type="primary" htmlType="submit">
                     Atualizar

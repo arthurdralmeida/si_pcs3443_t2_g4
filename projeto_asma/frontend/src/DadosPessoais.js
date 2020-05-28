@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, PageHeader } from 'antd';
+import { Layout, Menu, Space, Form, Descriptions, Badge, DatePicker, Input, Select, Button, InputNumber, PageHeader } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -80,25 +80,23 @@ class DadosPessoais extends Component {
                 minHeight: 800
               }}
             >
-              <b>Usuário:</b> XXXX
-              <br/>
-              <br/>
-              <b>Nome:</b> XXXX
-              <br/>
-              <br/>
-              <b>Idade:</b> XXXX
-              <br/>
-              <br/>
-              <b>Altura:</b> XXXX
-              <br/>
-              <br/>
-              <b>Peso:</b> XXXX
-              <br/>
-              <br/>
-              <b>CPF:</b> XXXX
-              <br/>
-              <br/>
-              <b>Grau de Asma:</b> XXXX
+              <Descriptions bordered>
+              <Descriptions.Item label="Usuário">JoaoSilva12</Descriptions.Item>
+              <Descriptions.Item label="Idade">23 anos</Descriptions.Item>
+              <Descriptions.Item label="Altura">1,82 metros</Descriptions.Item>
+              <Descriptions.Item label="Membro desde">2020-04-24</Descriptions.Item>
+              <Descriptions.Item label="Última consulta foi em" span={2}>
+                2019-04-24 18:00:00
+              </Descriptions.Item>
+              <Descriptions.Item label="Meta desta semana" span={3}>
+                <Badge status="success" text="Atingida" />
+              </Descriptions.Item>
+              <Descriptions.Item label="Nome" span={2}>Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier</Descriptions.Item>
+              <Descriptions.Item label="Grau de Asma">Leve</Descriptions.Item>
+              <Descriptions.Item label="Comentários">
+              Lorem ipsum dolor sit amet, tempor impetus delenit ei sit. Eum in commune facilisis. 
+              </Descriptions.Item>
+            </Descriptions>
             </Content>
               </Layout>
             </Layout>

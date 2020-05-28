@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { Layout, Menu, Space, Form, Input, Select, Button, InputNumber, PageHeader } from 'antd';
+import { Layout, DatePicker, Menu, Space, Form, Input, Select, Button, InputNumber, PageHeader } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
   SearchOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 class Cadastro extends Component {
   render() {
     const { Header, Content, Sider } = Layout;
+    
+    const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
     const layout = {
       labelCol: {
         span: 4,
@@ -106,11 +109,11 @@ class Cadastro extends Component {
               >
                 <Form.Item
                   label="Usuário"
-                  name="username"
+                  name="login"
                   rules={[
                     {
                       required: true,
-                      message: 'Insire um nome de usuário',
+                      message: 'Insira um nome de usuário',
                     },
                   ]}
                 >
@@ -119,11 +122,11 @@ class Cadastro extends Component {
 
                 <Form.Item
                   label="Senha"
-                  name="password"
+                  name="senha"
                   rules={[
                     {
                       required: true,
-                      message: 'Insire uma senha válida para sua conta',
+                      message: 'Insira uma senha válida para sua conta',
                     },
                   ]}
                 >
@@ -132,11 +135,11 @@ class Cadastro extends Component {
 
                 <Form.Item
                   label="Senha novamente"
-                  name="password2"
+                  name="senha2"
                   rules={[
                     {
                       required: true,
-                      message: 'Insire a senha que escolheu novamente',
+                      message: 'Insira a senha que escolheu novamente',
                     },
                   ]}
                 >
@@ -149,7 +152,7 @@ class Cadastro extends Component {
                   rules={[
                     {
                       required: true,
-                      message: 'Insire seu nome completo',
+                      message: 'Insira seu nome completo',
                     },
                   ]}
                 >
@@ -157,16 +160,16 @@ class Cadastro extends Component {
                 </Form.Item>
 
                 <Form.Item
-                  label="Idade"
-                  name="idade"
+                  label="Data de nascimento"
+                  name="dataNascimento"
                   rules={[
                     {
                       required: true,
-                      message: 'Insire sua idade',
+                      message: 'Insira sua data de nascimento',
                     },
                   ]}
                 >
-                  <InputNumber min={1} max={120} defaultValue={0} onChange={onChange} />
+                  <DatePicker defaultValue={moment('01/01/2015', dateFormatList[0])} format={dateFormatList} />
                   </Form.Item>
                 <Form.Item
                   label="Altura"
@@ -174,7 +177,7 @@ class Cadastro extends Component {
                   rules={[
                     {
                       required: true,
-                      message: 'Insire sua altura',
+                      message: 'Insira sua altura',
                     },
                   ]}
                 >
@@ -187,7 +190,7 @@ class Cadastro extends Component {
                   rules={[
                     {
                       required: true,
-                      message: 'Insire seu peso',
+                      message: 'Insira seu peso',
                     },
                   ]}
                 >
@@ -200,16 +203,11 @@ class Cadastro extends Component {
                   rules={[
                     {
                       required: true,
-                      message: 'Insire seu CPF',
+                      message: 'Insira seu CPF',
                     },
                   ]}
                 >
-                  <Input.Group compact>
-                    <InputNumber style={{ width: '12%' }} max={999} min={1} />
-                    <InputNumber style={{ width: '12%' }} max={999} min={1} />
-                    <InputNumber style={{ width: '12%' }} max={999} min={1} />
-                    <InputNumber style={{ width: '10%' }} max={99} min={1} />
-                  </Input.Group> 
+                  <InputNumber style={{ width: '30%' }} max={99999999999} min={1} />
                 </Form.Item>
 
                 <Form.Item

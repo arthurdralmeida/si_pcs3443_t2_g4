@@ -22,6 +22,7 @@ class Paciente(models.Model):
     dataNascimento = models.DateField(default=datetime.date.today)
     peso = models.FloatField(default=None)
     grauAsma = models.IntegerField(default=0)
+    altura = models.FloatField(default=None)
     cpf=models.CharField(max_length=11,default=None)
     login = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     senha = models.CharField(max_length=15, default=None)

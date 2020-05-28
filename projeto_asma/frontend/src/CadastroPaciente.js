@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Layout, Menu, Space, Form, Input, Select, Button, InputNumber, PageHeader } from 'antd';
+import moment from 'moment';
+import { Layout, Menu, DatePicker, Space, Form, Input, Select, Button, InputNumber, PageHeader } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -35,6 +36,7 @@ class CadastroPaciente extends Component {
     function onChange(value) {
       console.log('changed', value);
     }
+    const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
     const tailLayout = {
       wrapperCol: {
         offset: 6,
@@ -137,16 +139,16 @@ class CadastroPaciente extends Component {
                 </Form.Item>
 
                 <Form.Item
-                  label="Idade"
-                  name="idade"
+                  label="Data de nascimento"
+                  name="dataNascimento"
                   rules={[
                     {
                       required: true,
-                      message: 'Insire sua idade',
+                      message: 'Insira sua data de nascimento',
                     },
                   ]}
                 >
-                  <InputNumber min={1} max={120} defaultValue={0} onChange={onChange} />
+                  <DatePicker defaultValue={moment('01/01/2015', dateFormatList[0])} format={dateFormatList} />
                   </Form.Item>
                 <Form.Item
                   label="Altura"

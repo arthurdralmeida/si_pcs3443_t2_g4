@@ -67,7 +67,7 @@ class DadosPessoais extends Component {
               <b>Nome:</b> XXXX
               <br/>
               <br/>
-              <b>Idade:</b> XXXX
+              <b>Data de Nascimento:</b> XXXX
               <br/>
               <br/>
               <b>Altura:</b> XXXX

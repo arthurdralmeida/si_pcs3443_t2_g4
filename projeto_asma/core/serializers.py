@@ -7,6 +7,7 @@ class AtendenteSerializer(serializers.ModelSerializer):
         model = Atendente 
         fields = ('pk', 'nome', 'email')
 
+<<<<<<< Updated upstream
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -32,3 +33,16 @@ class DadosFitBitSerializer(serializers.ModelSerializer):
     class Meta:
         model = DadosFitBit
         fields = ('pk','batimento', 'gravidade', 'data', 'atividade')
+=======
+class CadastroDados(serializers.ModelSerializer):
+    model = Paciente
+    fields = ('login', 
+            'senha', 
+            'senha2', 
+            'dataNascimento', 
+            'peso', 
+            'cpf', 
+            'nome', 
+            'grauAsma', 
+            'altura')
+>>>>>>> Stashed changes
