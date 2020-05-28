@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, PageHeader } from 'antd';
+import { Layout,  Space, Calendar, Badge, Select, Button, PageHeader } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -11,46 +11,64 @@ import { Link } from 'react-router-dom'
 class Calendario extends Component {
     render() {
         const { Header, Content, Sider } = Layout;
-        const layout = {
-          labelCol: {
-            span: 4,
-          },
-          wrapperCol: {
-            span: 18,
-          },
-        };
-        const { Option } = Select;
-        function onChange2(value) {
-          console.log(`selected ${value}`);
+        function getListData(value) {
+          let listData;
+          switch (value.date()) {
+            case 8:
+              listData = [
+                { type: 'error', content: 'Sem atividade' },
+                { type: 'success', content: 'Atingiu meta' },
+              ];
+              break;
+            case 10:
+              listData = [
+                { type: 'error', content: 'Sem atividade' },
+                { type: 'success', content: 'Atingiu meta' },
+                { type: 'warning', content: 'Abaixo da meta' },
+              ];
+              break;
+            case 12:
+                listData = [
+                  { type: 'warning', content: 'Abaixo da meta' },
+                ];
+                break;
+            case 15:
+              listData = [
+                { type: 'success', content: 'Atingiu meta' },
+              ];
+              break;
+            default:
+          }
+          return listData || [];
         }
         
-        function onBlur() {
-          console.log('blur');
+        function dateCellRender(value) {
+          const listData = getListData(value);
+          return (
+            <ul className="events">
+              {listData.map(item => (
+                <li key={item.content}>
+                  <Badge status={item.type} text={item.content} />
+                </li>
+              ))}
+            </ul>
+          );
+        }
+        function getMonthData(value) {
+          if (value.month() === 8) {
+            return 1394;
+          }
         }
         
-        function onFocus() {
-          console.log('focus');
+        function monthCellRender(value) {
+          const num = getMonthData(value);
+          return num ? (
+            <div className="notes-month">
+              <section>{num}</section>
+              <span>Backlog number</span>
+            </div>
+          ) : null;
         }
-        
-        function onSearch(val) {
-          console.log('search:', val);
-        }
-        function onChange(value) {
-          console.log('changed', value);
-        }
-        const tailLayout = {
-          wrapperCol: {
-            offset: 10,
-            span: 16,
-          },
-        };
-          const onFinish = values => {
-            console.log('Success:', values);
-          };
-        
-          const onFinishFailed = errorInfo => {
-            console.log('Failed:', errorInfo);
-          };
         return (
             <Fragment>
           <Layout>
@@ -70,7 +88,7 @@ class Calendario extends Component {
               <Layout style={{ padding: '0 24px 24px' }}>
                 <PageHeader
                   className="site-page-header"
-                  title="Calendario"
+                  title="Calendário de atividades"
                 />
                 <Content
                   className="site-layout-background"
@@ -80,6 +98,8 @@ class Calendario extends Component {
                     minHeight: 800
                   }}
                 > 
+                <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+                
                 </Content>
               </Layout>
             </Layout>
