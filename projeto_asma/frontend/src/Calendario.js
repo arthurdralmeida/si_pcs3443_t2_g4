@@ -84,7 +84,7 @@ class Calendario extends Component {
               </div>
             </Header>
             <Layout>
-              <MenuLateral />
+              <MenuLateral valueFromParent={'6'} />
               <Layout style={{ padding: '0 24px 24px' }}>
                 <PageHeader
                   className="site-page-header"

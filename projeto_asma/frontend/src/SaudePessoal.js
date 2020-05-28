@@ -67,7 +67,7 @@ class SaudePessoal extends Component {
               </div>
             </Header>
             <Layout>
-              <MenuLateral />
+              <MenuLateral valueFromParent={'7'} />
               <Layout style={{ padding: '0 24px 24px' }}>
                 <PageHeader
                   className="site-page-header"
