@@ -7,12 +7,14 @@ import Login from "./components/Login";
 import AlterarDados from "./components/AlterarDados";
 import './App.css'
 import AlterarSenha from "./components/AlterarSenha";
+import ListaAtividades from "./components/ListaAtividades";
+
 
 class App extends Component {
   render() {
     return (
       <Fragment>
-        <Login/>
+        <ListaAtividades/>
       </Fragment>
     );
   }
