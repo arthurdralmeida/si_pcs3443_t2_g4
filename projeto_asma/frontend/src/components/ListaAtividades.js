@@ -1,11 +1,20 @@
 import React, { Component } from "react";
 import { Layout, Menu, Space, Form, Input, Button, Checkbox, PageHeader } from 'antd';
+import { Progress } from 'antd';
 import { UserOutlined, 
+  FormOutlined,
   QuestionCircleOutlined,
+  LineChartOutlined,
   ToolFilled,
+  HeartOutlined,
+  CalendarOutlined,
   SearchOutlined } from '@ant-design/icons';
 
-class Login extends Component {
+  function onChange(checkedValues) {
+    console.log('checked = ', checkedValues);
+  }
+
+class ListaAtividades extends Component {
   render() {
     const { Header, Content, Sider } = Layout;
     const layout = {
@@ -36,11 +45,7 @@ class Login extends Component {
           <div className="logo" />
           <div>
             <Space size={22}>
-<<<<<<< HEAD
-            <Space size={94}>
-=======
             <Space size={86}>
->>>>>>> 1436bcdd8891b628faf1c0fddc5bb776f9b8aad7
             <Button icon={<SearchOutlined />}>Search</Button>
             <Button type="primary">Sign Up</Button>
             </Space>
@@ -49,11 +54,7 @@ class Login extends Component {
           </div>
         </Header>
         <Layout>
-<<<<<<< HEAD
-          <Sider width={240} className="site-layout-background">
-=======
           <Sider width={230} className="site-layout-background">
->>>>>>> 1436bcdd8891b628faf1c0fddc5bb776f9b8aad7
             <Menu
               theme="dark"
               mode="inline"
@@ -61,12 +62,12 @@ class Login extends Component {
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-                <Menu.Item key="1" icon={<UserOutlined/>}><b>Entrar</b></Menu.Item>
-                <Menu.Item key="2" icon={<QuestionCircleOutlined />}><b>F.A.Q</b></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
+                <Menu.Item key="1" icon={<UserOutlined/>}><b>Informações pessoais</b></Menu.Item>
+                <Menu.Item key="2" icon={<FormOutlined />}><b>Metas</b></Menu.Item>
+                <Menu.Item key="3" icon={<CalendarOutlined />}><b>Calendário</b></Menu.Item>
+                <Menu.Item key="4" icon={<QuestionCircleOutlined />}><b>F.A.Q</b></Menu.Item>
+                <Menu.Item key="5" icon={<HeartOutlined />}><b>Saúde pessoal</b></Menu.Item>
+                <Menu.Item key="6" icon={<LineChartOutlined />}><b>Estatísticas</b></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item key="8" icon={<ToolFilled />}><b>Configurações</b></Menu.Item>
             </Menu>
@@ -74,7 +75,7 @@ class Login extends Component {
           <Layout style={{ padding: '0 24px 24px' }}>
             <PageHeader
               className="site-page-header"
-              title="Log In"
+              title="Atividades"
             />
             <Content
               className="site-layout-background"
@@ -94,37 +95,33 @@ class Login extends Component {
                 onFinishFailed={onFinishFailed}
               >
                 <Form.Item
-                  label="Username"
-                  name="username"
-                  rules={[
-                    {
-                      message: 'Please input your username!',
-                    },
-                  ]}
+                  label="Meta de Passos"
+                  name="MetaPassos" 
                 >
-                  <Input/>
+                  <Progress type="circle" percent={75} />
                 </Form.Item>
 
                 <Form.Item
-                  label="Password"
-                  name="password"
-                  rules={[
-                    {
-                      message: 'Please input your password!',
-                    },
-                  ]}
+                  label="Atividade 1"
+                  name="Atividade1"
                 >
-                  <Input.Password />
+                  <Checkbox onChange={onChange}>Descrição da Atividade 1</Checkbox>
                 </Form.Item>
 
-                <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-                  <Checkbox>Lembrar me</Checkbox>
+                <Form.Item
+                  label="Atividade 2"
+                  name="Atividade2"
+                >
+                  <Checkbox onChange={onChange}>Descrição da Atividade 2</Checkbox>
                 </Form.Item>
-                <Form.Item {...tailLayout}>
-                  <Button type="primary" htmlType="submit">
-                    Entrar
-                  </Button>
+
+                <Form.Item
+                  label="Exercício Respiratório"
+                  name="Atividade3"
+                >
+                  <Checkbox onChange={onChange}>Descrição da Atividade 3</Checkbox>
                 </Form.Item>
+                
               </Form>
             </Content>
           </Layout>
@@ -134,4 +131,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default ListaAtividades;
