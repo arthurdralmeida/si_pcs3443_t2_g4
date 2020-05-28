@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <Login/>
+        <DadosPessoais/>
       </Fragment>
     );
   }
