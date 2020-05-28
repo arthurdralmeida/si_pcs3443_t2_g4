@@ -36,11 +36,7 @@ class Login extends Component {
           <div className="logo" />
           <div>
             <Space size={22}>
-<<<<<<< HEAD
-            <Space size={94}>
-=======
             <Space size={86}>
->>>>>>> 1436bcdd8891b628faf1c0fddc5bb776f9b8aad7
             <Button icon={<SearchOutlined />}>Search</Button>
             <Button type="primary">Sign Up</Button>
             </Space>
@@ -49,11 +45,7 @@ class Login extends Component {
           </div>
         </Header>
         <Layout>
-<<<<<<< HEAD
-          <Sider width={240} className="site-layout-background">
-=======
           <Sider width={230} className="site-layout-background">
->>>>>>> 1436bcdd8891b628faf1c0fddc5bb776f9b8aad7
             <Menu
               theme="dark"
               mode="inline"

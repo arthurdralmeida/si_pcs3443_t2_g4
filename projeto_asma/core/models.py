@@ -32,6 +32,8 @@ class Paciente(models.Model):
 class Sintoma(models.Model):
     descricao = models.CharField(max_length=10000,default=None)
     gravidade = models.IntegerField(default=0)
+    data=models.DateField(default=datetime.date.today)
+    paciente= models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.descricao
 
@@ -74,6 +76,7 @@ class Atividade(models.Model):
 class DadosFitBit(models.Model):
     batimento = models.IntegerField(default=None)
     passos = models.IntegerField(default=None)
+    data = models.DateField(default=datetime.date.today)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self

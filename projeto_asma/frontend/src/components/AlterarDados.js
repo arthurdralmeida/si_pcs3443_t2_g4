@@ -64,11 +64,7 @@ class AlterarDados extends Component {
           </div>
         </Header>
         <Layout>
-<<<<<<< HEAD
-          <Sider width={240} className="site-layout-background">
-=======
           <Sider width={230} className="site-layout-background">
->>>>>>> 1436bcdd8891b628faf1c0fddc5bb776f9b8aad7
             <Menu
               theme="dark"
               mode="inline"

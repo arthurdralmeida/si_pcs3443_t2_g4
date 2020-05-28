@@ -1,25 +1,28 @@
 import React, { Component } from "react";
-import { Layout, Menu, PageHeader, Space, Button, Input, Form } from 'antd';
+import { Layout, Menu, Space, Form, Input, Button, Checkbox, PageHeader } from 'antd';
 import { UserOutlined, 
-  FormOutlined,
   QuestionCircleOutlined,
-  LineChartOutlined,
   ToolFilled,
-  HeartOutlined,
-  CalendarOutlined,
   SearchOutlined } from '@ant-design/icons';
+import './App.css'
 
-class AlterarSenha extends Component {
+class Login extends Component {
   render() {
     const { Header, Content, Sider } = Layout;
     const layout = {
-        labelCol: {
-          span: 4,
-        },
-        wrapperCol: {
-          span: 18,
-        },
-      };
+      labelCol: {
+        span: 4,
+      },
+      wrapperCol: {
+        span: 16,
+      },
+    };
+    const tailLayout = {
+      wrapperCol: {
+        offset: 10,
+        span: 16,
+      },
+    };
       const onFinish = values => {
         console.log('Success:', values);
       };
@@ -34,7 +37,11 @@ class AlterarSenha extends Component {
           <div className="logo" />
           <div>
             <Space size={22}>
+            <Space size={86}>
             <Button icon={<SearchOutlined />}>Search</Button>
+            <Button type="primary">Registre-se</Button>
+            </Space>
+            <Button>Log In</Button>
             </Space>
           </div>
         </Header>
@@ -47,21 +54,20 @@ class AlterarSenha extends Component {
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-                <Menu.Item key="1" icon={<UserOutlined/>}><b>Informações pessoais</b></Menu.Item>
-                <Menu.Item key="2" icon={<FormOutlined />}><b>Metas</b></Menu.Item>
-                <Menu.Item key="3" icon={<CalendarOutlined />}><b>Calendário</b></Menu.Item>
-                <Menu.Item key="4" icon={<QuestionCircleOutlined />}><b>F.A.Q</b></Menu.Item>
-                <Menu.Item key="5" icon={<HeartOutlined />}><b>Saúde pessoal</b></Menu.Item>
-                <Menu.Item key="6" icon={<LineChartOutlined />}><b>Estatísticas</b></Menu.Item>
+                <Menu.Item key="1" icon={<UserOutlined/>}><b>Entrar</b></Menu.Item>
+                <Menu.Item key="2" icon={<QuestionCircleOutlined />}><b>F.A.Q</b></Menu.Item>
+                <Menu.Item disabled="true"></Menu.Item>
+                <Menu.Item disabled="true"></Menu.Item>
+                <Menu.Item disabled="true"></Menu.Item>
+                <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item key="8" icon={<ToolFilled />}><b>Configurações</b></Menu.Item>
             </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
             <PageHeader
-              onBack={() => null}
               className="site-page-header"
-              title="Alterar senha"
+              title="Log In"
             />
             <Content
               className="site-layout-background"
@@ -70,8 +76,8 @@ class AlterarSenha extends Component {
                 margin: 0,
                 minHeight: 280
               }}
-            >
-            <Form
+            > 
+               <Form
                 {...layout}
                 name="basic"
                 initialValues={{
@@ -81,44 +87,38 @@ class AlterarSenha extends Component {
                 onFinishFailed={onFinishFailed}
               >
                 <Form.Item
-                  label="Senha antiga"
-                  name="password"
+                  label="Email"
+                  name="email"
                   rules={[
                     {
-                      required: true,
-                      message: 'Insire uma senha válida para sua conta',
+                      message: 'Por favor digite o seu email',
                     },
                   ]}
                 >
-                  <Input.Password style={{ width: '50%' }}/>
+                  <Input/>
                 </Form.Item>
 
                 <Form.Item
-                  label="Nova senha"
-                  name="password2"
+                  label="Senha"
+                  name="senha"
                   rules={[
                     {
-                      required: true,
-                      message: 'Insire uma senha válida para sua conta',
+                      message: 'Por favor digite a sua senha',
                     },
                   ]}
                 >
-                  <Input.Password style={{ width: '50%' }}/>
+                  <Input.Password />
                 </Form.Item>
 
-                <Form.Item
-                  label="Nova senha"
-                  name="password3"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Insire uma senha válida para sua conta',
-                    },
-                  ]}
-                >
-                  <Input.Password style={{ width: '50%' }}/>
+                <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+                  <Checkbox>Lembrar me</Checkbox>
                 </Form.Item>
-                </Form>
+                <Form.Item {...tailLayout}>
+                  <Button type="primary" htmlType="submit">
+                    Entrar
+                  </Button>
+                </Form.Item>
+              </Form>
             </Content>
           </Layout>
         </Layout>
@@ -127,4 +127,4 @@ class AlterarSenha extends Component {
   }
 }
 
-export default AlterarSenha;
+export default Login;
