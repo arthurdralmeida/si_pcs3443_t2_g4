@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from "react";
 import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, PageHeader } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
   SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined} from '@ant-design/icons';
+
+import MenuLateral from './components/MenuLateral'
+import './App.css'
 import { Link } from 'react-router-dom'
-import MenuLateral from './MenuLateral'
-class CadastroAtividades extends Component {
+class Calendario extends Component {
     render() {
         const { Header, Content, Sider } = Layout;
         const layout = {
@@ -50,6 +52,7 @@ class CadastroAtividades extends Component {
             console.log('Failed:', errorInfo);
           };
         return (
+            <Fragment>
           <Layout>
             <Header className="header">
               <div className="logo" />
@@ -67,53 +70,23 @@ class CadastroAtividades extends Component {
               <Layout style={{ padding: '0 24px 24px' }}>
                 <PageHeader
                   className="site-page-header"
-                  title="Cadastrar atividade"
+                  title="Calendario"
                 />
                 <Content
                   className="site-layout-background"
                   style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: 280
+                    minHeight: 800
                   }}
                 > 
-                   <Form
-                    {...layout}
-                    name="basic"
-                    initialValues={{
-                      remember: true,
-                    }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                  >
-                    <Form.Item label="Nome do paciente:">
-                    <Input style={{ width: '40%' }}/>
-                     </Form.Item>
-
-                    <Form.Item label="Atividade:">
-                    <Input style={{ width: '40%' }}/>
-                    </Form.Item>
-
-                    <Form.Item label="Meta mensal:">
-                        <InputNumber min={0} defaultValue={0} onChange={onChange} /> km
-                    </Form.Item>
-
-                    <Form.Item label="Duração:">
-                         <InputNumber min={0} defaultValue={0} max={1440} onChange={onChange} /> em minutos
-                    </Form.Item>
-
-                    <Form.Item {...tailLayout}>
-                      <Button type="primary" htmlType="submit">
-                        Cadastrar
-                      </Button>
-                    </Form.Item>
-                  </Form>
                 </Content>
               </Layout>
             </Layout>
           </Layout>
+          </Fragment>
         );
       }
 };
 
-export default CadastroAtividades;
+export default Calendario;

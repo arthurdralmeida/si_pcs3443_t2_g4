@@ -10,6 +10,8 @@ import { UserOutlined,
   CalendarOutlined,
   SearchOutlined, FileSearchOutlined } from '@ant-design/icons';
 
+  import { Link } from 'react-router-dom'
+
   function onChange(checkedValues) {
     console.log('checked = ', checkedValues);
   }
@@ -46,8 +48,8 @@ class AtividadeComFitBit extends Component {
           <div>
             <Space size={22}>
             <Space size={94}>
-            <Button icon={<SearchOutlined />}>Search</Button>
-            <Button>Log Out</Button>
+            <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
+            <Link to={'/login'} ><Button>Log Out</Button></Link>
             </Space>
             </Space>
           </div>
@@ -95,7 +97,7 @@ class AtividadeComFitBit extends Component {
               style={{
                 padding: 30,
                 margin: 20,
-                minHeight: 300
+                minHeight: 800
               }}
             > 
                <Form

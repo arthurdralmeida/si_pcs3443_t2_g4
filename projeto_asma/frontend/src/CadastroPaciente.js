@@ -5,7 +5,7 @@ import { UserOutlined,
   ToolFilled,
   SearchOutlined } from '@ant-design/icons';
 
-class Cadastro extends Component {
+class CadastroPaciente extends Component {
   render() {
     const { Header, Content, Sider } = Layout;
     const layout = {
@@ -37,7 +37,7 @@ class Cadastro extends Component {
     }
     const tailLayout = {
       wrapperCol: {
-        offset: 10,
+        offset: 6,
         span: 16,
       },
     };
@@ -57,42 +57,22 @@ class Cadastro extends Component {
             <Space size={22}>
             <Space size={86}>
             <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
-            <Button type="primary">Sign Up</Button>
             </Space>
-            <Button>Log In</Button>
             </Space>
           </div>
         </Header>
         <Layout>
-          <Sider width={230} className="site-layout-background">
-            <Menu
-              theme="dark"
-              mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
-              style={{ height: '100%', borderRight: 0 }}
-            >
-                <Menu.Item key="1" icon={<UserOutlined/>}><b>Cadastro</b></Menu.Item>
-                <Menu.Item key="2" icon={<QuestionCircleOutlined />}><b>F.A.Q</b></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item disabled="true"></Menu.Item>
-                <Menu.Item key="8" icon={<ToolFilled />}><b>Configurações</b></Menu.Item>
-            </Menu>
-          </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
             <PageHeader
               className="site-page-header"
-              title="Sign Up"
+              title="Registro"
             />
             <Content
               className="site-layout-background"
               style={{
                 padding: 24,
                 margin: 0,
-                minHeight: 280
+                minHeight: 800
               }}
             > 
                <Form
@@ -105,12 +85,12 @@ class Cadastro extends Component {
                 onFinishFailed={onFinishFailed}
               >
                 <Form.Item
-                  label="Usuário"
-                  name="username"
+                  label="Nome"
+                  name="name"
                   rules={[
                     {
                       required: true,
-                      message: 'Insire um nome de usuário',
+                      message: 'Insire seu nome completo',
                     },
                   ]}
                 >
@@ -144,16 +124,16 @@ class Cadastro extends Component {
                 </Form.Item>
 
                 <Form.Item
-                  label="Nome"
-                  name="nome"
+                  label="Email"
+                  name="email"
                   rules={[
                     {
                       required: true,
-                      message: 'Insire seu nome completo',
+                      message: 'Insire seu email',
                     },
                   ]}
                 >
-                  <Input/>
+                  <Input  style={{ width: '50%' }}/>
                 </Form.Item>
 
                 <Form.Item
@@ -254,4 +234,4 @@ class Cadastro extends Component {
   }
 }
 
-export default Cadastro;
+export default CadastroPaciente;

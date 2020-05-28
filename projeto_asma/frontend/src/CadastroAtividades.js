@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from "react";
 import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, PageHeader } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
   SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined} from '@ant-design/icons';
+
+import MenuLateral from './components/MenuLateral'
 import { Link } from 'react-router-dom'
-import MenuLateral from './MenuLateral'
+import './App.css'
 class CadastroAtividades extends Component {
     render() {
         const { Header, Content, Sider } = Layout;
@@ -50,6 +52,7 @@ class CadastroAtividades extends Component {
             console.log('Failed:', errorInfo);
           };
         return (
+            <Fragment>
           <Layout>
             <Header className="header">
               <div className="logo" />
@@ -74,7 +77,7 @@ class CadastroAtividades extends Component {
                   style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: 280
+                    minHeight: 800
                   }}
                 > 
                    <Form
@@ -112,6 +115,7 @@ class CadastroAtividades extends Component {
               </Layout>
             </Layout>
           </Layout>
+          </Fragment>
         );
       }
 };
