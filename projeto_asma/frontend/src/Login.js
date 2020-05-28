@@ -61,7 +61,7 @@ class Login extends Component {
               style={{
                 padding: 24,
                 margin: 0,
-                minHeight: 800
+                minHeight: 800,
               }}
             > 
                <Form
@@ -82,7 +82,7 @@ class Login extends Component {
                     },
                   ]}
                 >
-                  <Input/>
+                  <Input />
                 </Form.Item>
 
                 <Form.Item
@@ -101,7 +101,7 @@ class Login extends Component {
                   <Checkbox>Lembrar me</Checkbox>
                 </Form.Item>
                 <Form.Item {...tailLayout2}>
-                  <Button style={{marginRight: 20}}>Registre-se</Button>
+                  <Link to={'/cadastro'}><Button style={{marginRight: 20}}>Registre-se</Button></Link>
                   <Link to={'/'}><Button type="primary" htmlType="submit">Entrar</Button></Link>
                 </Form.Item>
               </Form>
