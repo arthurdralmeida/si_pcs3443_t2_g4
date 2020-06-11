@@ -14,6 +14,7 @@ import SaudePessoal from './SaudePessoal'
 import Estatisticas from './Estatisticas'
 import Faq from './Faq'
 import Configuracao from './Configuracao'
+import DiarioDeSintomas from './DiarioDeSintomas'
 
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,6 +35,7 @@ ReactDOM.render(
       <Route path="/estatisticas" component={Estatisticas} />
       <Route path="/faq" component={Faq} />
       <Route path="/config" component={Configuracao} />
+      <Route path="/diariodesintomas" component={DiarioDeSintomas} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')

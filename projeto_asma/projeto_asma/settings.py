@@ -25,8 +25,7 @@ SECRET_KEY = '+xw(fcb37zxx*e+bv#m3^%n9dc6hs67cwr6zz_cnq_53hd#9+6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -53,6 +52,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
+
 
 ROOT_URLCONF = 'projeto_asma.urls'
 

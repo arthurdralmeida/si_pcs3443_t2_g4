@@ -3,7 +3,7 @@ import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumb
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
-  SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined, HomeOutlined} from '@ant-design/icons';
+  SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined, HomeOutlined, DatabaseOutlined} from '@ant-design/icons';
   import { Link } from 'react-router-dom'
   import '../App.css'
 
@@ -65,9 +65,10 @@ class MenuLateral extends Component {
                 <Menu.Item key="4" icon={<FileSearchOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1',  }} to="/atividades"><b>Visualização de atividades</b></Link></Menu.Item>  
                 <Menu.Item key="5" icon={<FormOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/metas"><b>Metas</b></Link></Menu.Item>
                 <Menu.Item key="6" icon={<CalendarOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/calendario"><b>Calendário</b></Link></Menu.Item>
-                <Menu.Item key="7" icon={<HeartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/saude-pessoal"><b>Saúde pessoal</b></Link></Menu.Item>
-                <Menu.Item key="8" icon={<LineChartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/estatisticas"><b>Estatísticas</b></Link></Menu.Item>
-                <Menu.Item key="9" icon={<QuestionCircleOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/faq"><b>F.A.Q</b></Link></Menu.Item>
+                <Menu.Item key="7" icon={<DatabaseOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/diariodesintomas"><b>Diário de Sintomas</b></Link></Menu.Item>
+                <Menu.Item key="8" icon={<HeartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/saude-pessoal"><b>Saúde pessoal</b></Link></Menu.Item>
+                <Menu.Item key="9" icon={<LineChartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/estatisticas"><b>Estatísticas</b></Link></Menu.Item>
+                <Menu.Item key="10" icon={<QuestionCircleOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/faq"><b>F.A.Q</b></Link></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item key="10" icon={<ToolFilled />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/config"><b>Configurações</b></Link></Menu.Item>

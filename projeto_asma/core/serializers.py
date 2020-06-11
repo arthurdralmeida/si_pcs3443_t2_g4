@@ -1,13 +1,12 @@
 from rest_framework import serializers
 from .models import *
-
+'''
 class AtendenteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Atendente 
         fields = ('pk', 'nome', 'email')
-
-<<<<<<< Updated upstream
+'''
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -18,10 +17,10 @@ class PacienteSerializer(serializers.ModelSerializer):
         model = Paciente 
         fields = ('pk', 'nome', 'user', 'peso', 'grauAsma', 'cpf', 'dataNascimento', 'emEsperaDeMedico')
 
-class SintomaSerializer(serializers.ModelSerializer):
+class DiarioDeSintomasSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Sintoma
-        fields = ('pk','descricao', 'gravidade', 'data', 'paciente')
+        model = DiarioDeSintomas
+        fields = ('pk','tosse', 'chiado', 'dormir', 'faltaDeAr','observacao','data','paciente')
 
 
 class AtividadeSerializer(serializers.ModelSerializer):
@@ -33,7 +32,6 @@ class DadosFitBitSerializer(serializers.ModelSerializer):
     class Meta:
         model = DadosFitBit
         fields = ('pk','batimento', 'gravidade', 'data', 'atividade')
-=======
 class CadastroDados(serializers.ModelSerializer):
     model = Paciente
     fields = ('login', 
@@ -45,4 +43,3 @@ class CadastroDados(serializers.ModelSerializer):
             'nome', 
             'grauAsma', 
             'altura')
->>>>>>> Stashed changes
