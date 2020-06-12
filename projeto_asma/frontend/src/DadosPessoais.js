@@ -91,10 +91,10 @@ class DadosPessoais extends Component {
               <Descriptions.Item label="Meta desta semana" span={3}>
                 <Badge status="success" text="Atingida" />
               </Descriptions.Item>
-              <Descriptions.Item label="Nome" span={2}>Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier</Descriptions.Item>
+              <Descriptions.Item label="Nome" span={2}>João Victor da Silva</Descriptions.Item>
               <Descriptions.Item label="Grau de Asma">Leve</Descriptions.Item>
               <Descriptions.Item label="Comentários">
-              Lorem ipsum dolor sit amet, tempor impetus delenit ei sit. Eum in commune facilisis. 
+              Paciente com garu leve, costuma fazer exercícios. 
               </Descriptions.Item>
             </Descriptions>
             </Content>

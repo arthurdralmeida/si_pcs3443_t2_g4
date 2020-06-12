@@ -1,12 +1,16 @@
 from rest_framework import serializers
 from .models import *
-
+'''
 class AtendenteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Atendente 
         fields = ('pk', 'nome', 'email')
+<<<<<<< HEAD
 
+=======
+'''
+>>>>>>> 52f089b404d36172bc94c04014f1f0e703d1182d
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -17,10 +21,10 @@ class PacienteSerializer(serializers.ModelSerializer):
         model = Paciente 
         fields = ('pk', 'nome', 'user', 'peso', 'grauAsma', 'cpf', 'dataNascimento', 'emEsperaDeMedico')
 
-class SintomaSerializer(serializers.ModelSerializer):
+class DiarioDeSintomasSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Sintoma
-        fields = ('pk','descricao', 'gravidade', 'data', 'paciente')
+        model = DiarioDeSintomas
+        fields = ('pk','tosse', 'chiado', 'dormir', 'faltaDeAr','observacao','data','paciente')
 
 
 class AtividadeSerializer(serializers.ModelSerializer):
@@ -32,3 +36,17 @@ class DadosFitBitSerializer(serializers.ModelSerializer):
     class Meta:
         model = DadosFitBit
         fields = ('pk','batimento', 'gravidade', 'data', 'atividade')
+<<<<<<< HEAD
+=======
+class CadastroDados(serializers.ModelSerializer):
+    model = Paciente
+    fields = ('login', 
+            'senha', 
+            'senha2', 
+            'dataNascimento', 
+            'peso', 
+            'cpf', 
+            'nome', 
+            'grauAsma', 
+            'altura')
+>>>>>>> 52f089b404d36172bc94c04014f1f0e703d1182d

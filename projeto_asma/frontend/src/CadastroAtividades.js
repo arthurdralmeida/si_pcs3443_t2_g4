@@ -129,7 +129,17 @@ class CadastroAtividades extends Component {
                     ]}>
                     <TimePicker style={{ width: '13%' }} defaultValue={moment('00:00', format)} format={format} /> horas
                     </Form.Item>
-
+                    <Form.Item
+                    label="Passos:"
+                    name="passos"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Quantidade de passos',
+                      },
+                    ]}>
+                      <Input style={{ width: '13%' }}/>
+                    </Form.Item>
                     <Form.Item label="Realizada hoje?:">
                     <Checkbox defaultChecked='true' onChange={onChange}><b>Sim</b></Checkbox> <Divider type="vertical" /><Divider type="vertical" /><Divider type="vertical" />
                     Caso não tenha sido hoje, selecione o dia: <DatePicker onChange={onChange} />
@@ -195,6 +205,33 @@ class CadastroAtividades extends Component {
                       },
                     ]}>
                     <TimePicker style={{ width: '13%' }} defaultValue={moment('00:00', format)} format={format} /> horas
+                    </Form.Item>
+                    <Form.Item
+                    label="Intensidade:"
+                    name="intensidade"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Escolha a intensidade',
+                      },
+                    ]}>
+                      <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="Escolha a intensidade"
+                        optionFilterProp="children"
+                        onChange={onChange2}
+                        onFocus={onFocus}
+                        onBlur={onBlur}
+                        onSearch={onSearch}
+                        filterOption={(input, option) =>
+                          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                        }
+                      >
+                        <Option value="Vôlei">Fraca</Option>
+                        <Option value="Futebol">Moderada</Option>
+                        <Option value="Basquete">Intensa</Option>
+                      </Select>
                     </Form.Item>
 
                     <Form.Item label="Realizada hoje?:">
