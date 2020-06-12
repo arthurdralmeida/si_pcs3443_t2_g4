@@ -6,6 +6,8 @@ import { UserOutlined,
   SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined} from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import MenuLateral from './MenuLateral'
+import { API_URL } from '../constants';
+
 class CadastroAtividades extends Component {
     render() {
         const { Header, Content, Sider } = Layout;
@@ -49,6 +51,8 @@ class CadastroAtividades extends Component {
           const onFinishFailed = errorInfo => {
             console.log('Failed:', errorInfo);
           };
+
+
         return (
           <Layout>
             <Header className="header">

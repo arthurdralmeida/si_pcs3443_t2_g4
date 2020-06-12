@@ -18,6 +18,7 @@ import Configuracao from './Configuracao'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import ListaPacientes from './components/ListaPacientes';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -33,6 +34,7 @@ ReactDOM.render(
       <Route path="/saude-pessoal" component={SaudePessoal} />
       <Route path="/estatisticas" component={Estatisticas} />
       <Route path="/faq" component={Faq} />
+      <Route path="/ListaPacientes" component={ListaPacientes} />
       <Route path="/config" component={Configuracao} />
     </Switch>
   </BrowserRouter>,
