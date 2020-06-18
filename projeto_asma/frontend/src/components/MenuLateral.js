@@ -65,9 +65,9 @@ class MenuLateral extends Component {
                 <Menu.Item key="4" icon={<FileSearchOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1',  }} to="/atividades"><b>Visualização de atividades</b></Link></Menu.Item>  
                 <Menu.Item key="5" icon={<ProfileOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/metas"><b>Metas</b></Link></Menu.Item>
                 <Menu.Item key="6" icon={<CalendarOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/calendario"><b>Calendário</b></Link></Menu.Item>
-                <Menu.Item key="7" icon={<HeartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/saude-pessoal"><b>Saúde pessoal</b></Link></Menu.Item>
+                <Menu.Item key="7" icon={<HeartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/diariodesintomas"><b>Diário de Sintomas</b></Link></Menu.Item>
                 <Menu.Item key="8" icon={<LineChartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/estatisticas"><b>Estatísticas</b></Link></Menu.Item>
-                <Menu.Item key="10" icon={<SolutionOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/ListaPacientes"><b>Lista de Pacientes</b></Link></Menu.Item>
+                
                 <Menu.Item key="9" icon={<QuestionCircleOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/faq"><b>F.A.Q</b></Link></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>

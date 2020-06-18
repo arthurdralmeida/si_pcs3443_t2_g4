@@ -299,7 +299,14 @@ class ListaPacientes extends Component {
                   className="site-page-header"
                   title="Lista de Pacientes"
                 />
-                <Content>
+                <Content
+                  className="site-layout-background"
+                  style={{
+                    padding: 24,
+                    margin: 0,
+                    minHeight: 800
+                  }}                
+                >
                 <Table columns={columns} dataSource={data} onChange={this.handleChange}/>
                 </Content>
               </Layout>
