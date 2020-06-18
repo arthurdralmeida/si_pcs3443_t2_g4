@@ -37,8 +37,8 @@ class getPaciente(APIView):
 
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
-        data=Paciente.objects.filter(login=user)
-        serializer = PacienteSerializer(data, context={'request': request}, many=True)
+        data=Paciente.objects.get(login=user)
+        serializer = PacienteSerializer(data, context={'request': request})
         return Response(serializer.data)
 
 class getAgenteDeSaude(APIView):
@@ -48,7 +48,7 @@ class getAgenteDeSaude(APIView):
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
         data=Paciente.objects.get(login=user)
-        serializer = AgenteDeSaudeSerializer(data, context={'request': request}, many=True)
+        serializer = AgenteDeSaudeSerializer(data, context={'request': request})
         return Response(serializer.data)
 
 class getDiarioDeSintomasSerializer(APIView):
