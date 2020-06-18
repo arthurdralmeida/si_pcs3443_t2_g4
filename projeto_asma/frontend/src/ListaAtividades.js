@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, PageHeader, Checkbox } from 'antd';
+import { Layout, Menu, Space, Tabs, Form, Descriptions, Badge, DatePicker, Input, Select, Button, InputNumber, PageHeader, Checkbox, Divider } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -19,10 +19,99 @@ function onChange(checkedValues) {
     console.log('checked = ', checkedValues);
   }
 
+function callback(key) {
+  console.log(key);
+}
   
 class ListaAtividades extends Component {
     render() {
         const { Header, Content, Sider } = Layout;
+        const { TabPane } = Tabs;
+        const Demo = () => (
+          <Tabs defaultActiveKey="1" onChange={callback}>
+            <TabPane tab="Hoje" key="1">
+            <PageHeader
+              title="Caminhada ou corrida"
+            />
+            <Descriptions bordered>
+            <Descriptions.Item label="Passos dados">10293</Descriptions.Item>
+            <Descriptions.Item label="Horas ativas">1h23</Descriptions.Item>
+            <Descriptions.Item label="Metros percorridos⁎">4560m</Descriptions.Item>
+            <Descriptions.Item label="Meta de hoje" span={3}>
+            <Progress percent={65} status="active" />
+            </Descriptions.Item>
+          </Descriptions>
+          ⁎ = percorridos em média
+          <PageHeader
+              title="Outras atividades"
+            />
+          <Descriptions bordered>
+            <Descriptions.Item label="Atividade realizada" span={2}>
+              Judô
+            </Descriptions.Item>
+            <Descriptions.Item label="Duração">1h30</Descriptions.Item>
+            <Descriptions.Item label="Atividade realizada" span={2}>
+              Futebol
+            </Descriptions.Item>
+            <Descriptions.Item label="Duração">0h30</Descriptions.Item>
+            </Descriptions>
+            </TabPane>
+            <TabPane tab="Esta semana" key="2">
+            <PageHeader
+              title="Caminhada ou corrida"
+            />
+            <Descriptions bordered>
+            <Descriptions.Item label="Passos dados">10293</Descriptions.Item>
+            <Descriptions.Item label="Horas ativas">1h23</Descriptions.Item>
+            <Descriptions.Item label="Metros percorridos⁎">4560m</Descriptions.Item>
+            <Descriptions.Item label="Meta de hoje" span={3}>
+            <Progress percent={65} status="active" />
+            </Descriptions.Item>
+          </Descriptions>
+          ⁎ = percorridos em média
+          <PageHeader
+              title="Outras atividades"
+            />
+          <Descriptions bordered>
+            <Descriptions.Item label="Atividade realizada" span={2}>
+              Judô
+            </Descriptions.Item>
+            <Descriptions.Item label="Duração">1h30</Descriptions.Item>
+            <Descriptions.Item label="Atividade realizada" span={2}>
+              Futebol
+            </Descriptions.Item>
+            <Descriptions.Item label="Duração">0h30</Descriptions.Item>
+            </Descriptions>
+            </TabPane>
+            <TabPane tab="Este mês" key="3">
+            <PageHeader
+              title="Caminhada ou corrida"
+            />
+            <Descriptions bordered>
+            <Descriptions.Item label="Passos dados">10293</Descriptions.Item>
+            <Descriptions.Item label="Horas ativas">1h23</Descriptions.Item>
+            <Descriptions.Item label="Metros percorridos⁎">4560m</Descriptions.Item>
+            <Descriptions.Item label="Meta de hoje" span={3}>
+            <Progress percent={65} status="active" />
+            </Descriptions.Item>
+          </Descriptions>
+          ⁎ = percorridos em média
+          <PageHeader
+              title="Outras atividades"
+            />
+          <Descriptions bordered>
+            <Descriptions.Item label="Atividade realizada" span={2}>
+              Judô
+            </Descriptions.Item>
+            <Descriptions.Item label="Duração">1h30</Descriptions.Item>
+            <Descriptions.Item label="Atividade realizada" span={2}>
+              Futebol
+            </Descriptions.Item>
+            <Descriptions.Item label="Duração">0h30</Descriptions.Item>
+            </Descriptions>
+            </TabPane>
+          </Tabs>
+        );
         const layout = {
           labelCol: {
             span: 4,
@@ -73,44 +162,7 @@ class ListaAtividades extends Component {
                     minHeight: 800
                   }}
                 > 
-                <Form
-                {...layout}
-                name="basic"
-                initialValues={{
-                  remember: true,
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-              >
-                <Form.Item
-                  label="Meta de Passos"
-                  name="MetaPassos" 
-                >
-                  <Progress type="circle" percent={75} />
-                </Form.Item>
-
-                <Form.Item
-                  label="Atividade 1"
-                  name="Atividade1"
-                >
-                  <Checkbox onChange={onChange}>Descrição da Atividade 1</Checkbox>
-                </Form.Item>
-
-                <Form.Item
-                  label="Atividade 2"
-                  name="Atividade2"
-                >
-                  <Checkbox onChange={onChange}>Descrição da Atividade 2</Checkbox>
-                </Form.Item>
-
-                <Form.Item
-                  label="Exercício Respiratório"
-                  name="Atividade3"
-                >
-                  <Checkbox onChange={onChange}>Descrição da Atividade 3</Checkbox>
-                </Form.Item>
-                
-              </Form>
+                <Demo />
                 </Content>
               </Layout>
             </Layout>

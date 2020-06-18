@@ -300,13 +300,12 @@ class ListaPacientes extends Component {
                   title="Lista de Pacientes"
                 />
                 <Content
-                  className="site-layout-background"
-                  style={{
-                    padding: 24,
-                    margin: 0,
-                    minHeight: 800
-                  }}                
-                >
+                className="site-layout-background"
+                style={{
+                  padding: 24,
+                  margin: 0,
+                  minHeight: 800
+                }}>
                 <Table columns={columns} dataSource={data} onChange={this.handleChange}/>
                 </Content>
               </Layout>

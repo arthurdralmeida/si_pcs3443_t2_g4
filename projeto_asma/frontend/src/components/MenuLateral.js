@@ -3,7 +3,7 @@ import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumb
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
-  SearchOutlined, FileSearchOutlined, SolutionOutlined, FormOutlined, ProfileOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined, HomeOutlined} from '@ant-design/icons';
+  SearchOutlined, MessageOutlined, FileSearchOutlined, SolutionOutlined, FormOutlined, ProfileOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined, HomeOutlined} from '@ant-design/icons';
   import { Link } from 'react-router-dom'
   import '../App.css'
 
@@ -67,7 +67,7 @@ class MenuLateral extends Component {
                 <Menu.Item key="6" icon={<CalendarOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/calendario"><b>Calendário</b></Link></Menu.Item>
                 <Menu.Item key="7" icon={<HeartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/diariodesintomas"><b>Diário de Sintomas</b></Link></Menu.Item>
                 <Menu.Item key="8" icon={<LineChartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/estatisticas"><b>Estatísticas</b></Link></Menu.Item>
-                
+                <Menu.Item key="11" icon={<MessageOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/PlantaoDuvidas"><b>Plantão de Dúvidas</b></Link></Menu.Item>
                 <Menu.Item key="9" icon={<QuestionCircleOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/faq"><b>F.A.Q</b></Link></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
