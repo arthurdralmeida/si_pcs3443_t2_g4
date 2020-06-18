@@ -1,10 +1,13 @@
+from django.conf.urls import url, include
+from django.views.generic import TemplateView
+from django.urls import path
 from django.contrib import admin
-from django.urls import path, re_path
-from core import views
-from django.conf.urls import url
+
+from core import endpoints
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #re_path(r'^api/atendentes/$', views.atendentes_list),
-    re_path(r'^api/cadastrarsintomas/$', views.cadastrarSintomas),
+    url(r'^api/', include(endpoints)),
+    url(r'^api/auth/', include('knox.urls')),
+
 ]
