@@ -2,26 +2,6 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import *
 
-class PacienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Paciente 
-        fields = ('pk', 'nome', 'login', 'peso', 'grauAsma', 'cpf', 'dataNascimento', 'emEsperaDeMedico')
-
-class DiarioDeSintomasSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DiarioDeSintomas
-        fields = ('pk','tosse', 'chiado', 'dormir', 'faltaDeAr','observacao','data','paciente')
-
-
-class AtividadeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Atividade
-        fields = ('pk','nome', 'metaMensal', 'duracao', 'paciente')
-
-class DadosFitBitSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DadosFitBit
-        fields = ('pk','batimento', 'gravidade', 'data', 'atividade')
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,10 +13,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(validated_data['username'], None, validated_data['password'])
         return user
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username')
+
 
 class LoginUserSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -49,7 +31,67 @@ class LoginUserSerializer(serializers.Serializer):
         raise serializers.ValidationError("Não foi possível logar com essas credenciais")
 
 
-class AgenteDeSaudeSerializer(serializers.Serializer):
+class AdminSistemaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminSistema
+        fields = ('pk', 'nome', 'login')
+
+
+class PacienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Paciente 
+        fields = ('pk', 'nome', 'login', 'peso', 'grauAsma', 'cpf', 'dataNascimento', 'emEsperaDeMedico')
+
+
+class AgenteDeSaudeSerializer(serializers.ModelSerializer):
     class Meta:
         model = AgenteDeSaude
         fields = ('pk', 'nome', 'login')
+
+
+class AlocacaoMedicaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AlocacaoMedica
+        fields = ('pk', 'paciente', 'medico', 'ativo')
+
+
+class OrientacoesMedicasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrientacoesMedicas
+        fields = ('pk', 'mensagem', 'paciente', 'medico')
+
+
+class DiarioDeSintomasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiarioDeSintomas
+        fields = ('pk','tosse', 'chiado', 'dormir', 'faltaDeAr','observacao','data','paciente')
+
+
+class AtividadeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Atividade
+        fields = ('pk','nome', 'metaMensal', 'duracao', 'paciente')
+
+        
+class NotificacaoDeAtividadeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NotificacaoDeAtividade
+        fields = ('pk', 'mensagem', 'paciente', 'atividade', 'data')
+
+
+class DadosFitBitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DadosFitBit
+        fields = ('pk','batimento', 'gravidade', 'data', 'atividade')
+
+
+class ChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ('pk', 'mensagem', 'autor', 'alocacao', 'data', 'ativo')
+
+
+
+
+
+
