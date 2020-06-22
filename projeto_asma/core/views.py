@@ -6,6 +6,8 @@ from knox.models import AuthToken
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from datetime import date
+
 from .models import *
 from .serializers import *
 from .models import *
@@ -248,8 +250,9 @@ class createDiarioDeSintomas(APIView):
             chiado = request.data.chiado,
             dormir = request.data.dormir,
             faltaDeAr = request.data.faltaDeAr,
-            obeservacao = request.data.obeservacao,
-            data = request.data.data,
+            observacao = request.data.observacao,
+            bombinha = request.data.bombinha,
+            data = str(date.today()),
             paciente = paciente,
         )
         sintoma.save()
