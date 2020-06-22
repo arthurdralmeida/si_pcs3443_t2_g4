@@ -59,9 +59,17 @@ class DiarioDeSintomas extends Component {
     dormir:1,
     faltaDeAr:1,
     bombinha:1,
-    observacao:' '
+    observacao:' ',
+    sintomasList:[],
   }
+
+  getSintomas = () => {
+    axios.get("https://localhost:8000/api/getListDiarioDeSintomasLogged/").then(res => this.setState({ sintomasList: res.data }));
+  };
+  
+  
   setSintomas = () =>{
+    console.log(this.state.sintomasList);
     console.log(this.state.tosse,this.state.chiado,this.state.dormir,this.state.faltaDeAr,this.state.bombinha,this.state.observacao)
     axios.post("https://localhost:8000/api/createDiarioDeSintomas/",{
       tosse: this.state.tosse,
