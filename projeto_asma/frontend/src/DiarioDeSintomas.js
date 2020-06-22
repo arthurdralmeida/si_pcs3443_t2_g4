@@ -14,49 +14,70 @@ const data = [
     key: '5',
     diaDaSemana: 'Sexta',
     tags: ['Tosse', 'Chiado no peito'],
+    tosse: '2',
+    bombinha: '5',
+    observacoes: 'Muita falta de ar durante corrida',
+    
   },
   {
     key: '6',
     diaDaSemana: 'Sábado',
     tags: ['Falta de ar','Dificuldade de dormir'],
+    tosse: '2',
+    bombinha: '5',
   },
   {
     key: '7',
     diaDaSemana: 'Domingo',
     tags: ['Falta de ar','Dificuldade de dormir'],
+    tosse: '2',
+    bombinha: '5',
+    observacoes: 'Não foi feito nenhum exercício',
   },
   {
     key: '1',
     diaDaSemana: 'Segunda',
     tags: ['Tosse', 'Falta de ar'],
-    observacoes: 'Muita tosse de manhã'
+    observacoes: 'Muita tosse de manhã',
+    tosse: '2',
+    bombinha: '5',
   },
   {
     key: '2',
     diaDaSemana: 'Terça',
     tags: ['Tosse', 'Chiado no peito'],
+    tosse: '2',
+    bombinha: '5',
   },
 
 ];
 
 class DiarioDeSintomas extends Component {
   state={
-    tosse:false,
-    chiado:false,
-    dormir:true,
-    faltaDeAr:false,
-    observacao:' '
+    tosse:1,
+    chiado:1,
+    dormir:1,
+    faltaDeAr:1,
+    bombinha:1,
+    observacao:' ',
+    sintomasList:[],
   }
+
+  getSintomas = () => {
+    axios.get("https://0.0.0.0:8000/api/getListDiarioDeSintomasLogged/").then(res => this.setState({ sintomasList: res.data }));
+  };
+  
+  
   setSintomas = () =>{
-    console.log(this.state.tosse,this.state.chiado,this.state.dormir,this.state.faltaDeAr,this.state.observacao)
-    axios.post("https://localhost:8000/api/cadastrarsintomas/",{
+    console.log(this.state.sintomasList);
+    console.log(this.state.tosse,this.state.chiado,this.state.dormir,this.state.faltaDeAr,this.state.bombinha,this.state.observacao)
+    axios.post("https://0.0.0.0:8000/api/createDiarioDeSintomas/",{
       tosse: this.state.tosse,
       chiado: this.state.chiado,
       dormir: this.state.dormir,
       faltaDeAr: this.state.faltaDeAr,
+      bombinha: this.state.bombinha,
       observacao: this.state.observacao,
-      data: '2020-06-07',
-      paciente: 2,
     }).then(() => {
       console.log("Deu certo")
     })
@@ -83,6 +104,12 @@ class DiarioDeSintomas extends Component {
     console.log('radio checked', e.target.value);
     this.setState({
         faltaDeAr: e.target.value
+    });
+  };
+  onChangeBombinha = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        bombinha: e.target.value
     });
   };
   onChangeObservacao = e => {
@@ -152,22 +179,11 @@ class DiarioDeSintomas extends Component {
     <Table dataSource={data}>
     <ColumnGroup title='Sintomas da última semana'>
       <Column title="Dia da Semana" dataIndex="diaDaSemana" key="diaDaSemana" />
-    <Column
-      title="Sintomas"
-      dataIndex="tags"
-      key="tags"
-      render={tags => (
-        <>
-          {tags.map(tag => (
-            <Tag color="red" key={tag}>
-              {tag}
-            </Tag>
-          ))}
-        </>
-      )}
-    />
-      )}
-      />
+    <Column title="Tosse" dataIndex="tosse" key="tosse" />
+    <Column title="Chiados no peito" dataIndex="tosse" key="tosse" />
+    <Column title="Problemas para dormir" dataIndex="tosse" key="tosse" />
+    <Column title="Falta de Ar" dataIndex="tosse" key="tosse" />
+    <Column title="Uso da Bombinha" dataIndex="bombinha" key="bombinha" />
     <Column title="Observações" dataIndex="observacoes" key="observacoes" />
     </ColumnGroup>
     </Table>
@@ -180,12 +196,16 @@ class DiarioDeSintomas extends Component {
      <Divider>Sintomas de Hoje</Divider>
       <Tooltip title="A tosse é uma reação involuntária e um dos principais sintomas da asma. Acontece
 mais frequentemente no período da noite ou de manhã cedo. " placement="topLeft"> 
-       <Divider orientation='left'>  <span>Teve tosse hoje?</span></Divider>   
+       <Divider orientation='left'>  <span>Em uma escala de 1 a 6, como foi a tosse hoje?</span></Divider>   
       </Tooltip>
 
-      <Radio.Group onChange={this.onChange}  key='tosse'>
-        <Radio value={true}>Sim</Radio>
-        <Radio value={false}>Não</Radio>
+      <Radio.Group onChange={this.onChangeTosse}  key='tosse'>
+        <Radio value={1}>1</Radio>
+        <Radio value={2}>2</Radio>
+        <Radio value={3}>3</Radio>
+        <Radio value={4}>4</Radio>
+        <Radio value={5}>5</Radio>
+        <Radio value={6}>6</Radio>
       </Radio.Group>
 
       <Tooltip title="O chiado no peito também pode ser chamado de “gatinhos no peito” ou “sibilância”,
@@ -193,36 +213,66 @@ mais frequentemente no período da noite ou de manhã cedo. " placement="topLeft
 ruído (barulho) é agudo e acontece, principalmente, quando o ar entra nos pulmões.
 Isto acontece porque o tamanho dos brônquios (vias aéreas) diminui
 (broncoconstrição)." placement="topLeft"> 
-       <Divider orientation='left'>  <span>Sentiu algum chiado no peito ou “gatinhos no peito" hoje?</span></Divider>   
+       <Divider orientation='left'>  <span>Em uma escala de 1 a 6, como foram os chiado no peito ou “gatinhos no peito" hoje?</span></Divider>   
       </Tooltip>
       <Radio.Group onChange={this.onChangeChiado}  key='chiado'>
-        <Radio value={true}>Sim</Radio>
-        <Radio value={false}>Não</Radio>
+      <Radio value={1}>1</Radio>
+        <Radio value={2}>2</Radio>
+        <Radio value={3}>3</Radio>
+        <Radio value={4}>4</Radio>
+        <Radio value={5}>5</Radio>
+        <Radio value={6}>6</Radio>
       </Radio.Group>
       
       <Tooltip title="Os sintomas da asma podem mudar a qualidade do seu sono. Uma noite mal
                       dormida pode afetar as atividades do seu dia-a-dia e piorar os sintomas de asma. Por
                       isso, é importante seguir o tratamento, buscando controlar os sintomas e melhorar as
                       noites de sono." placement="topLeft"> 
-       <Divider orientation='left'>  <span>Teve problemas para dormir e acordar hoje?</span></Divider>   
+       <Divider orientation='left'>  <span>Em uma escala de 1 a 6, teve problemas para dormir e acordar hoje?</span></Divider>   
       </Tooltip>
 
       <Radio.Group onChange={this.onChangeDormir} key='dormir'>
-        <Radio value={true}>Sim</Radio>
-        <Radio value={false}>Não</Radio>
+        <Radio value={1}>1</Radio>
+        <Radio value={2}>2</Radio>
+        <Radio value={3}>3</Radio>
+        <Radio value={4}>4</Radio>
+        <Radio value={5}>5</Radio>
+        <Radio value={6}>6</Radio>
       </Radio.Group>
 
       <Tooltip title="A falta de ar é a dificuldade de respirar. Algumas pessoas sentem como uma
                       sensação de peso no peito, esforço para respirar e até mesmo quando não consegue
                       respirar fundo. Acontece porque os brônquios (ou vias aéreas) se fecham e dificultam
                       a passagem de ar. Muitas vezes vem junto com o chiado. Costuma aliviar quando usa
-                      a “bombinha” (broncodilatador)" arrowPointAtCenter> 
-       <Divider orientation='left'>  <span>Sentiu falta de ar hoje?</span></Divider>   
+                      a “bombinha” (broncodilatador)" placement="topLeft"> 
+       <Divider orientation='left'>  <span>Em uma escala de 1 a 6, sentiu falta de ar hoje?</span></Divider>   
       </Tooltip>
 
       <Radio.Group onChange={this.onChangeFaltaDeAr} key='FaltaDeAr'>
-        <Radio value={true}>Sim</Radio>
-        <Radio value={false}>Não</Radio>
+      <Radio value={1}>1</Radio>
+        <Radio value={2}>2</Radio>
+        <Radio value={3}>3</Radio>
+        <Radio value={4}>4</Radio>
+        <Radio value={5}>5</Radio>
+        <Radio value={6}>6</Radio>
+      </Radio.Group>
+      <Divider> </Divider>
+
+      <Tooltip title="A “bombinha” (ou broncodilatador) é usado para aliviar os sintomas da asma. Para
+                      o medicamento fazer efeito, é importante seguir as orientações dos profissionais de
+                      saúde e usá-lo corretamente. O efeito da “bombinha” (ou broncodilatador) é relaxar os 
+                      músculos dos brônquios (vias aéreas) e facilitar a passagem de ar e aliviar os
+                      sintomas" placement="topLeft"> 
+       <Divider orientation='left'>  <span>Em uma escala de 1 a 6, quanto usou a "bombinha" hoje?</span></Divider>   
+      </Tooltip>
+
+      <Radio.Group onChange={this.onChangeBombinha} key='Bombinha'>
+      <Radio value={1}>1</Radio>
+        <Radio value={2}>2</Radio>
+        <Radio value={3}>3</Radio>
+        <Radio value={4}>4</Radio>
+        <Radio value={5}>5</Radio>
+        <Radio value={6}>6</Radio>
       </Radio.Group>
       <Divider> </Divider>
     

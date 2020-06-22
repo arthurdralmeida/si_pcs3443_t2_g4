@@ -42,13 +42,15 @@ class OrientacoesMedicas(models.Model):
 
 
 class DiarioDeSintomas(models.Model):
-    tosse = models.BooleanField(default=False)
-    chiado = models.BooleanField(default=False)
-    dormir = models.BooleanField(default=False)
-    faltaDeAr = models.BooleanField(default=False)
-    observacao = models.CharField(max_length=10000)
-    data = models.DateField(default=datetime.now)
-    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
+    tosse=models.IntegerField(default=1)
+    chiado=models.IntegerField(default=1)
+    dormir=models.IntegerField(default=1)
+    faltaDeAr=models.IntegerField(default=1)
+    bombinha=models.IntegerField(default=1)
+    observacao=models.CharField(max_length=10000)
+    data= models.DateField(default=datetime.now)
+    paciente= models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
+
 
 
 class Atividade(models.Model):
@@ -63,6 +65,7 @@ class NotificacaoDeAtividade(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE, null=True)
     data = models.DateField(default=datetime.now)
+    ativo = models.BooleanField(default=False)
 
 
 class DadosFitBit(models.Model):

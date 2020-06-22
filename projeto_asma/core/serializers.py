@@ -64,7 +64,7 @@ class OrientacoesMedicasSerializer(serializers.ModelSerializer):
 class DiarioDeSintomasSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiarioDeSintomas
-        fields = ('pk','tosse', 'chiado', 'dormir', 'faltaDeAr','observacao','data','paciente')
+        fields = ('pk','tosse', 'chiado', 'dormir', 'faltaDeAr','bombinha','observacao','data','paciente')
 
 
 class AtividadeSerializer(serializers.ModelSerializer):
