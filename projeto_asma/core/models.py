@@ -63,6 +63,7 @@ class NotificacaoDeAtividade(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
     atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE, null=True)
     data = models.DateField(default=datetime.now)
+    ativo = models.BooleanField(default=False)
 
 
 class DadosFitBit(models.Model):
