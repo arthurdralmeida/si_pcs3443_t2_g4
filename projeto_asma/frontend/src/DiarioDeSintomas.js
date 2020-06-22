@@ -164,7 +164,7 @@ class DiarioDeSintomas extends Component {
         </div>
       </Header>
       <Layout >
-        <MenuLateral valueFromParent={'3'} />
+        <MenuLateral valueFromParent={'7'} />
         <Layout style={{ padding: '0 24px 24px' }}>
           <PageHeader
             className="site-page-header"
