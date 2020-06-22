@@ -13,8 +13,8 @@ urlpatterns = [
     url("^auth/login/$", LoginAPI.as_view()),
     url("^auth/user/$", UserAPI.as_view()),
     url("^getAdminLogged/$", getAdminLogged.as_view()),
-    url("^getPacienteLogged/$", getPacienteLoged.as_view()),
-    url("^getAgenteDeSaudeLoged/$", getAgenteDeSaudeLoged.as_view()),
+    url("^getPacienteLogged/$", getPacienteLogged.as_view()),
+    url("^getAgenteDeSaudeLoged/$", getAgenteDeSaudeLogged.as_view()),
 
     # urls de Paciente
     url("^getPaciente/$", getPaciente.as_view()),
@@ -46,7 +46,7 @@ urlpatterns = [
 
     # urls de Alocacao Medica
     url("^getListAlocacaoMedica/$", getListAlocacaoMedica.as_view()),
-    url("^getAlocacaoMedica/$", editAgetAlocacaoMedicatividade.as_view()),
+    url("^getAlocacaoMedica/$", getAlocacaoMedica.as_view()),
     url("^createAlocacaoMedicaLogged/$", createAlocacaoMedicaLogged.as_view()),
     url("^createAlocacaoMedicaOfMedico/$", createAlocacaoMedicaOfMedico.as_view()),
     url("^editAlocacaoMedicaLogged/$", editAlocacaoMedicaLogged.as_view()),
@@ -63,10 +63,11 @@ urlpatterns = [
     url("^createNotificacaoDeAtividade/$", createNotificacaoDeAtividade.as_view()),
     url("^disableNotificacaoDeAtividade/$", disableNotificacaoDeAtividade.as_view()),
 
+
     # urls de Chat
-    url("^getAllMessagesFromAlocacao/$", getAllMessagesFromAlocacao.as_view()),
-    url("^createMessage/$", createMessage.as_view()),
-    
+    #url("^getAllMessagesFromAlocacao/$", getAllMessagesFromAlocacao.as_view()),
+    #url("^createMessage/$", createMessage.as_view()),
+
     # urls de Dados do FitBit
 
     # urls de Estatisticas

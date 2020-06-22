@@ -548,13 +548,14 @@ class disableNotificacaoDeAtividade(APIView):
 # -------------
 # API DE CHAT
 # -------------
+'''
 class getAllMessagesFromAlocacao(APIView):
-pass
+    pass
 
 class createMessage(APIView):
     pass
 
-
+'''
 # ---------------------
 # API DE DADOS FITBIT
 # --------------------

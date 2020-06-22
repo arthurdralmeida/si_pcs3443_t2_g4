@@ -63,15 +63,13 @@ class DiarioDeSintomas extends Component {
   }
   setSintomas = () =>{
     console.log(this.state.tosse,this.state.chiado,this.state.dormir,this.state.faltaDeAr,this.state.bombinha,this.state.observacao)
-    axios.post("https://localhost:8000/api/cadastrarsintomas/",{
+    axios.post("https://localhost:8000/api/createDiarioDeSintomas/",{
       tosse: this.state.tosse,
       chiado: this.state.chiado,
       dormir: this.state.dormir,
       faltaDeAr: this.state.faltaDeAr,
       bombinha: this.state.bombinha,
       observacao: this.state.observacao,
-      data: '2020-06-07',
-      paciente: 2,
     }).then(() => {
       console.log("Deu certo")
     })
