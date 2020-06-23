@@ -220,7 +220,11 @@ function callback(key) {
 class ListaAtividades extends Component {
 
   getAtividades = () => {
-    axios.get("https://0.0.0.0:8000/api/getListAtividadeLogged/").then(res => this.setState({ atividadesList: res.data }));
+    axios.get("http://localhost:8000/api/getListAtividadeLogged/",
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }}).then(res => this.setState({ atividadesList: res.data }));
   };
 
     render() {

@@ -9,48 +9,7 @@ import { Link } from 'react-router-dom'
 import MenuLateral from './components/MenuLateral'
 import axios from 'axios'
 const { Column, ColumnGroup } = Table;
-const data = [
-  {
-    key: '5',
-    diaDaSemana: 'Sexta',
-    tags: ['Tosse', 'Chiado no peito'],
-    tosse: '2',
-    bombinha: '5',
-    observacoes: 'Muita falta de ar durante corrida',
-    
-  },
-  {
-    key: '6',
-    diaDaSemana: 'Sábado',
-    tags: ['Falta de ar','Dificuldade de dormir'],
-    tosse: '2',
-    bombinha: '5',
-  },
-  {
-    key: '7',
-    diaDaSemana: 'Domingo',
-    tags: ['Falta de ar','Dificuldade de dormir'],
-    tosse: '2',
-    bombinha: '5',
-    observacoes: 'Não foi feito nenhum exercício',
-  },
-  {
-    key: '1',
-    diaDaSemana: 'Segunda',
-    tags: ['Tosse', 'Falta de ar'],
-    observacoes: 'Muita tosse de manhã',
-    tosse: '2',
-    bombinha: '5',
-  },
-  {
-    key: '2',
-    diaDaSemana: 'Terça',
-    tags: ['Tosse', 'Chiado no peito'],
-    tosse: '2',
-    bombinha: '5',
-  },
 
-];
 
 class DiarioDeSintomas extends Component {
   state={
@@ -61,24 +20,36 @@ class DiarioDeSintomas extends Component {
     bombinha:1,
     observacao:' ',
     sintomasList:[],
+    feito:false,
   }
 
   getSintomas = () => {
-    axios.get("https://0.0.0.0:8000/api/getListDiarioDeSintomasLogged/").then(res => this.setState({ sintomasList: res.data }));
+    axios.get("http://localhost:8000/api/getListDiarioDeSintomasLogged/",
+    { headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }}).then(res => this.setState({ sintomasList: res.data }));
   };
   
   
   setSintomas = () =>{
     console.log(this.state.sintomasList);
     console.log(this.state.tosse,this.state.chiado,this.state.dormir,this.state.faltaDeAr,this.state.bombinha,this.state.observacao)
-    axios.post("https://0.0.0.0:8000/api/createDiarioDeSintomas/",{
-      tosse: this.state.tosse,
-      chiado: this.state.chiado,
-      dormir: this.state.dormir,
-      faltaDeAr: this.state.faltaDeAr,
-      bombinha: this.state.bombinha,
-      observacao: this.state.observacao,
-    }).then(() => { 
+    axios.post("http://localhost:8000/api/createDiarioDeSintomas/",
+      {
+        tosse: this.state.tosse,
+        chiado: this.state.chiado,
+        dormir: this.state.dormir,
+        faltaDeAr: this.state.faltaDeAr,
+        bombinha: this.state.bombinha,
+        observacao: this.state.observacao,
+      },
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }}).then(() => {
+        console.log("Deu certo")
+        window.location.reload(false);
     })
   }
   onChangeTosse = e => {
@@ -148,8 +119,10 @@ class DiarioDeSintomas extends Component {
 
     };
       const onFinish = values => {
-        console.log('Success:', values);
+        console.log('Success:', this.state);
         this.setSintomas();
+        window.location.reload();
+        
       };
     
       const onFinishFailed = errorInfo => {
@@ -175,15 +148,15 @@ class DiarioDeSintomas extends Component {
             className="site-page-header"
             title="Diario de Sintomas"
           />
-    <Table dataSource={data}>
-    <ColumnGroup title='Sintomas da última semana'>
-      <Column title="Dia da Semana" dataIndex="diaDaSemana" key="diaDaSemana" />
+    <Table dataSource={this.state.sintomasList}>
+    <ColumnGroup title='Sintomas dos últimos dias'>
+    <Column title="Data" dataIndex="data" key="data" />
     <Column title="Tosse" dataIndex="tosse" key="tosse" />
     <Column title="Chiados no peito" dataIndex="tosse" key="tosse" />
     <Column title="Problemas para dormir" dataIndex="tosse" key="tosse" />
     <Column title="Falta de Ar" dataIndex="tosse" key="tosse" />
     <Column title="Uso da Bombinha" dataIndex="bombinha" key="bombinha" />
-    <Column title="Observações" dataIndex="observacoes" key="observacoes" />
+    <Column title="Observações" dataIndex="observacao" key="observacao" />
     </ColumnGroup>
     </Table>
     <Form
@@ -279,8 +252,10 @@ Isto acontece porque o tamanho dos brônquios (vias aéreas) diminui
         <Input.TextArea />
     </Form.Item>
     <Form.Item {...tailLayout2}>
-      <Link to={'/diariodesintomas'}><Button type="primary" onSubmit={this.setSintomas()}>Enviar</Button></Link>
-    </Form.Item>
+    <Button type="primary" htmlType="submit">
+          Enviar 
+          </Button>
+      </Form.Item>
     </Form>
     </Layout>
     </Layout>

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Layout, Menu, Space, Form, Descriptions, Badge, DatePicker, Input, Select, Button, InputNumber, PageHeader } from 'antd';
+import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, PageHeader, Card } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -8,24 +8,8 @@ import { UserOutlined,
 import MenuLateral from './components/MenuLateral'
 import './App.css'
 import { Link } from 'react-router-dom'
-import axios from "axios";
-class DadosPessoais extends Component {
-  state={
-    paciente:{},
-  }
-
-  getPaciente = () => {
-    axios.get("https://localhost:8000/api/getPacienteLogged/",
-      { headers:{
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
-      }})
-      .then(res => {
-        this.setState({paciente: res.data});
-      })
-    
-  };
-
+import ReactPlayer from "react-player"
+class Videos extends Component {
     render() {
         const { Header, Content, Sider } = Layout;
         const layout = {
@@ -83,38 +67,32 @@ class DadosPessoais extends Component {
               </div>
             </Header>
             <Layout>
-              <MenuLateral valueFromParent={'2'} />
+              <MenuLateral valueFromParent={'1'} />
               <Layout style={{ padding: '0 24px 24px' }}>
                 <PageHeader
                   className="site-page-header"
-                  title="Dados Pessoais"
+                  title="Vídeos de Execícios"
                 />
-               <Content
-              className="site-layout-background"
-              style={{
-                padding: 24,
-                margin: 0,
-                minHeight: 800
-              }}
-            >
-              <Descriptions bordered>
-              <Descriptions.Item label="Usuário">{this.state.paciente.login}</Descriptions.Item>
-              <Descriptions.Item label="Data de nascimento">{this.state.paciente.dataNascimento}</Descriptions.Item>
-              <Descriptions.Item label="Altura">{this.state.paciente.altura}</Descriptions.Item>
-              <Descriptions.Item label="Membro desde">2020-04-24</Descriptions.Item>
-              <Descriptions.Item label="Última consulta foi em" span={2}>
-                2019-04-24 18:00:00
-              </Descriptions.Item>
-              <Descriptions.Item label="Meta desta semana" span={3}>
-                <Badge status="success" text="Atingida" />
-              </Descriptions.Item>
-              <Descriptions.Item label="Nome" span={2}>{this.state.paciente.nome}</Descriptions.Item>
-              <Descriptions.Item label="Grau de Asma">{this.state.paciente.grauAsma}</Descriptions.Item>
-              <Descriptions.Item label="Comentários">
-              Paciente com garu leve, costuma fazer exercícios. 
-              </Descriptions.Item>
-            </Descriptions>
-            </Content>
+                <Content
+                  className="site-layout-background"
+                  style={{
+                    padding: 24,
+                    margin: 0,
+                    minHeight: 800
+                  }}
+                > 
+                  <Card title="Exercício Respiratório:" bordered={true} style={{ width: 900}}>
+                    <ReactPlayer
+                        url="https://www.youtube.com/watch?v=0EcYKVrQEl0"
+                    />
+                  </Card>
+                  <h5> </h5>
+                  <Card title="Execício:" bordered={true} style={{ width: 900}}>
+                    <ReactPlayer
+                        url="https://www.youtube.com/watch?v=VXPi1wsEDU8"
+                    />
+                  </Card>
+                </Content>
               </Layout>
             </Layout>
           </Layout>
@@ -123,4 +101,4 @@ class DadosPessoais extends Component {
       }
 };
 
-export default DadosPessoais;
+export default Videos;
