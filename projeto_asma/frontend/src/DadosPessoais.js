@@ -8,7 +8,35 @@ import { UserOutlined,
 import MenuLateral from './components/MenuLateral'
 import './App.css'
 import { Link } from 'react-router-dom'
+import axios from "axios";
 class DadosPessoais extends Component {
+  state={
+    
+    paciente:{
+      
+        "pk": 2,
+        "nome": "bruno",
+        "login": "brunodel",
+        "peso": 70.0,
+        "grauAsma": 0,
+        "cpf": "1111111",
+        "dataNascimento": "2020-06-22",
+        "emEsperaDeMedico": false,
+        "altura": 1.74
+    
+    },
+
+  }
+
+  getPaciente = () => {
+    axios.get("https://0.0.0.0:8000/api/getPacienteLogged/")
+      .then(res => {
+        const paciente = res.data;
+        this.setState({paciente});
+      })
+    
+  };
+
     render() {
         const { Header, Content, Sider } = Layout;
         const layout = {
@@ -81,9 +109,9 @@ class DadosPessoais extends Component {
               }}
             >
               <Descriptions bordered>
-              <Descriptions.Item label="Usuário">JoaoSilva12</Descriptions.Item>
-              <Descriptions.Item label="Idade">23 anos</Descriptions.Item>
-              <Descriptions.Item label="Altura">1,82 metros</Descriptions.Item>
+              <Descriptions.Item label="Usuário">{this.state.paciente.login}</Descriptions.Item>
+              <Descriptions.Item label="Data de nascimento">{this.state.paciente.dataNascimento}</Descriptions.Item>
+              <Descriptions.Item label="Altura">{this.state.paciente.altura}</Descriptions.Item>
               <Descriptions.Item label="Membro desde">2020-04-24</Descriptions.Item>
               <Descriptions.Item label="Última consulta foi em" span={2}>
                 2019-04-24 18:00:00
@@ -91,8 +119,8 @@ class DadosPessoais extends Component {
               <Descriptions.Item label="Meta desta semana" span={3}>
                 <Badge status="success" text="Atingida" />
               </Descriptions.Item>
-              <Descriptions.Item label="Nome" span={2}>João Victor da Silva</Descriptions.Item>
-              <Descriptions.Item label="Grau de Asma">Leve</Descriptions.Item>
+              <Descriptions.Item label="Nome" span={2}>{this.state.paciente.nome}</Descriptions.Item>
+              <Descriptions.Item label="Grau de Asma">{this.state.paciente.grauAsma}</Descriptions.Item>
               <Descriptions.Item label="Comentários">
               Paciente com garu leve, costuma fazer exercícios. 
               </Descriptions.Item>

@@ -40,7 +40,7 @@ class AdminSistemaSerializer(serializers.ModelSerializer):
 class PacienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paciente 
-        fields = ('pk', 'nome', 'login', 'peso', 'grauAsma', 'cpf', 'dataNascimento', 'emEsperaDeMedico')
+        fields = ('pk', 'nome', 'login', 'peso', 'grauAsma', 'cpf', 'dataNascimento', 'emEsperaDeMedico', 'altura')
 
 
 class AgenteDeSaudeSerializer(serializers.ModelSerializer):
@@ -70,7 +70,7 @@ class DiarioDeSintomasSerializer(serializers.ModelSerializer):
 class AtividadeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Atividade
-        fields = ('pk','nome', 'metaMensal', 'duracao', 'paciente')
+        fields = ('pk','nome', 'passos', 'duracao', 'intensidade', 'dataRealizada', 'paciente')
 
         
 class NotificacaoDeAtividadeSerializer(serializers.ModelSerializer):
