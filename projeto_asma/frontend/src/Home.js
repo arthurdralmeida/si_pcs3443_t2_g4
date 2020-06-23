@@ -9,6 +9,7 @@ import MenuLateral from './components/MenuLateral'
 import './App.css'
 import { Link } from 'react-router-dom'
 class Home extends Component {
+
     render() {
         const { Header, Content, Sider } = Layout;
         const layout = {

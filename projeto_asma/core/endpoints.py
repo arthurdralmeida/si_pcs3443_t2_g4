@@ -10,8 +10,9 @@ urlpatterns = [
     url("^", include(router.urls)),
 
     # urls de login
-    url("^auth/login/$", LoginAPI.as_view()),
-    url("^auth/user/$", UserAPI.as_view()),
+    url("^auth/login/$", LoginAPIView.as_view()),
+    url("^auth/user/$", UserAPIView.as_view()),
+    url("^register/$", RegisterAPIView.as_view()),
     url("^getAdminLogged/$", getAdminLogged.as_view()),
     url("^getPacienteLogged/$", getPacienteLogged.as_view()),
     url("^getAgenteDeSaudeLoged/$", getAgenteDeSaudeLogged.as_view()),

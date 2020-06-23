@@ -5,7 +5,9 @@ import { UserOutlined,
   ToolFilled,
   SearchOutlined } from '@ant-design/icons';
 import './App.css'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { login } from './actions/auth'
 
 class Login extends Component {
   render() {
@@ -112,5 +114,9 @@ class Login extends Component {
     );
   }
 }
+
+Login = connect(
+  { login }
+)(Login);
 
 export default Login;

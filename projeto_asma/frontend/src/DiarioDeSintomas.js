@@ -8,6 +8,7 @@ import { UserOutlined,
 import { Link } from 'react-router-dom'
 import MenuLateral from './components/MenuLateral'
 import axios from 'axios'
+import { login } from './actions/auth'
 const { Column, ColumnGroup } = Table;
 const data = [
   {
@@ -71,16 +72,8 @@ class DiarioDeSintomas extends Component {
   setSintomas = () =>{
     console.log(this.state.sintomasList);
     console.log(this.state.tosse,this.state.chiado,this.state.dormir,this.state.faltaDeAr,this.state.bombinha,this.state.observacao)
-    axios.post("https://0.0.0.0:8000/api/createDiarioDeSintomas/",{
-      tosse: this.state.tosse,
-      chiado: this.state.chiado,
-      dormir: this.state.dormir,
-      faltaDeAr: this.state.faltaDeAr,
-      bombinha: this.state.bombinha,
-      observacao: this.state.observacao,
-    }).then(() => {
-      console.log("Deu certo")
-    })
+    login({username: 'artuzer95@gmail.com', password: 'teste'})
+    console.log('oii')
   }
   onChangeTosse = e => {
     console.log('radio checked', e.target.value);
