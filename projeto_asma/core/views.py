@@ -330,8 +330,10 @@ class createAtividadeLogged(APIView):
         paciente=Paciente.objects.get(login=user)
         atividade = Atividade.objects.create(
             nome = request.data.nome,
-            metaMensal = request.data.metaMensal,
+            passos = request.data.passos,
             duracao = request.data.duracao,
+            intensidade = request.data.intensidade,
+            dataRealizada = request.data.dataRealizada,
             paciente = paciente,
         )
         atividade.save()
@@ -347,8 +349,10 @@ class createAtividadeOfPaciente(APIView):
         paciente=Paciente.objects.get(pk=request.data.paciente_pk)
         atividade = Atividade.objects.create(
             nome = request.data.nome,
-            metaMensal = request.data.metaMensal,
+            passos = request.data.passos,
             duracao = request.data.duracao,
+            intensidade = request.data.intensidade,
+            dataRealizada = request.data.dataRealizada,
             paciente = paciente,
         )
         atividade.save()
@@ -363,8 +367,10 @@ class editAtividade(APIView):
     def post(self, request, *args, **kwargs):
         atividade = Atividade.objects.get(pk=request.data.atividade_pk)
         atividade.nome = request.data.nome
-        atividade.metaMensal = request.data.metaMensal
+        atividade.passos = request.data.passos
         atividade.duracao = request.data.duracao
+        atividade.intensidade = request.data.intensidade
+        atividade.dataRealizada = request.data.dataRealizada
         atividade.save()
         serializer = DiarioDeSintomasSerializer(data=atividade)
         if serializer.is_valid():

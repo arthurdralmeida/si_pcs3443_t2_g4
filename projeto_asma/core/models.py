@@ -55,9 +55,11 @@ class DiarioDeSintomas(models.Model):
 
 class Atividade(models.Model):
     nome = models.CharField(max_length=200, default=None)
-    metaMensal = models.FloatField(default=None) #Em km
+    passos = models.IntegerField(default=None) #Em km
+    intensidade = models.IntegerField(default=1)
     duracao = models.FloatField(default=None) #Em Minutos 
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
+    dataRealizada = models.DateField(default=datetime.now)
 
 
 

@@ -5,25 +5,29 @@ import { UserOutlined,
   ToolFilled,
   SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined} from '@ant-design/icons';
 
+import axios from 'axios'
+import moment from 'moment';
 import MenuLateral from './components/MenuLateral'
 import './App.css'
 import { Link } from 'react-router-dom'
 class Calendario extends Component {
+
+  getAtividades = () => {
+    axios.get("https://0.0.0.0:8000/api/getListAtividadeLogged/").then(res => this.setState({ atividadesList: res.data }));
+  };
+
     render() {
         const { Header, Content, Sider } = Layout;
         function getListData(value) {
           let listData;
           switch (value.date()) {
-            case 8:
+            case 16:
               listData = [
                 { type: 'error', content: 'Sem atividade' },
-                { type: 'success', content: 'Atingiu meta' },
               ];
               break;
             case 10:
               listData = [
-                { type: 'error', content: 'Sem atividade' },
-                { type: 'success', content: 'Atingiu meta' },
                 { type: 'warning', content: 'Abaixo da meta' },
               ];
               break;
@@ -56,7 +60,7 @@ class Calendario extends Component {
         }
         function getMonthData(value) {
           if (value.month() === 8) {
-            return 1394;
+            return ;
           }
         }
         
@@ -68,7 +72,7 @@ class Calendario extends Component {
               <span>Backlog number</span>
             </div>
           ) : null;
-        }
+          }
         return (
             <Fragment>
           <Layout>
