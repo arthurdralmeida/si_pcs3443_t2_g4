@@ -241,7 +241,7 @@ class ListaAtividades extends Component {
             <TabPane tab="Última semana" key="2">
             <Table dataSource={dataSemana}>
                 <ColumnGroup title='Atividades realizadas nos últimos 7 dias'>
-                <Column title="Dia" dataIndex="dia" key="dia" align="center"/>
+                <Column title="Dia" dataIndex="dataRealizada" key="dataRealizada" align="center"/>
                   <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
                 <Column title="Duração (horas)" dataIndex="duracao" key="duracao" align="center"/>
                 <Column title="Número de passos" dataIndex="passos" key="passos" align="center"/>
@@ -252,7 +252,7 @@ class ListaAtividades extends Component {
             <TabPane tab="Último mês" key="3">
             <Table dataSource={dataMes}>
                 <ColumnGroup title='Atividades realizadas nos últimos 30 dias'>
-                <Column title="Dia" dataIndex="dia" key="dia" align="center"/>
+                <Column title="Dia" dataIndex="dataRealizada" key="dataRealizada" align="center"/>
                   <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
                 <Column title="Duração (horas)" dataIndex="duracao" key="duracao" align="center"/>
                 <Column title="Número de passos" dataIndex="passos" key="passos" align="center"/>
