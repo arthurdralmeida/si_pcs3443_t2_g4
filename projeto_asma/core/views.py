@@ -49,7 +49,6 @@ class LoginAPIView(generics.GenericAPIView):
 
 
 class getAdminLogged(APIView):
-    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AdminSistemaSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
@@ -58,7 +57,6 @@ class getAdminLogged(APIView):
         return Response(serializer.data)
 
 class getPacienteLogged(APIView):
-    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = PacienteSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
@@ -71,7 +69,7 @@ class getAgenteDeSaudeLogged(APIView):
     serializer_class = AgenteDeSaudeSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
-        data=Paciente.objects.get(login=user)
+        data=AgenteDeSaude.objects.get(login=user)
         serializer = AgenteDeSaudeSerializer(data, context={'request': request})
         return Response(serializer.data)
 

@@ -15,7 +15,7 @@ export const loadUser = () => async (dispatch, getState) => {
   dispatch({ type: USER_LOADING });
 
   try {
-    const res = await axios.get('http://localhost:8000/api/auth/user', tokenConfig(getState));
+    const res = await axios.get('http://127.0.0.1:8000/api/auth/user/', tokenConfig(getState));
     dispatch({
       type: USER_LOADED,
       payload: res.data
@@ -40,14 +40,14 @@ export const login = ({ username, password }) => async dispatch => {
   const body = JSON.stringify({ username, password });
   console.log('oiii')
   try {
-    const res = await axios.post('http://localhost:8000/api/auth/login', body, config);
+    const res = axios.post('http://localhost:8000/api/auth/login/', body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
-    console.log('oiii')
+    console.log('deu')
   } catch (err) {
-      console.log('caos')
+      console.log('errou')
     dispatch({
       type: LOGIN_FAIL
     });

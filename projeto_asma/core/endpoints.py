@@ -15,7 +15,7 @@ urlpatterns = [
     url("^register/$", RegisterAPIView.as_view()),
     url("^getAdminLogged/$", getAdminLogged.as_view()),
     url("^getPacienteLogged/$", getPacienteLogged.as_view()),
-    url("^getAgenteDeSaudeLoged/$", getAgenteDeSaudeLogged.as_view()),
+    url("^getAgenteDeSaudeLogged/$", getAgenteDeSaudeLogged.as_view()),
 
     # urls de Paciente
     url("^getPaciente/$", getPaciente.as_view()),

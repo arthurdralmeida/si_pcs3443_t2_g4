@@ -81,6 +81,7 @@ class Home extends Component {
                     minHeight: 800
                   }}
                 > 
+                <p>{JSON.parse(sessionStorage.getItem('token'))}</p>
                 </Content>
               </Layout>
             </Layout>
