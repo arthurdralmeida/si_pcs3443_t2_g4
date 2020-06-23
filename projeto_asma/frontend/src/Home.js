@@ -6,16 +6,30 @@ import { UserOutlined,
   ToolFilled,
   SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined} from '@ant-design/icons';
 
-  import { Progress, Result, Carousel, Tabs } from 'antd';
+  import { Progress, Result, Carousel, Tabs, Table } from 'antd';
 import MenuLateral from './components/MenuLateral'
 import './App.css'
 import { Link } from 'react-router-dom'
+import axios from "axios";
 
 function onChange(checkedValues) {
   console.log('checked = ', checkedValues);
 }
 
 class Home extends Component { 
+
+  state = {
+    atividades: []
+  };
+
+  getListAtividadeLogged = () => {
+    axios.get('http://localhost:8000/api/getListAtividadeLogged/')
+      .then(res => {
+        const atividades = res.data;
+        this.setState({atividades});
+      })
+  };
+
     render() {
         const { Header, Content, Sider } = Layout;
         const layout = {
@@ -67,6 +81,23 @@ class Home extends Component {
             console.log(key);
           }
 
+          const { Column,} = Table;
+          const atividades = [
+            {
+              "pk": 1,
+              "nome": "fut",
+              "metaMensal": 2.0,
+              "duracao": 3.0,
+              "paciente": 2
+          },
+          {
+              "pk": 2,
+              "nome": "corrida",
+              "metaMensal": 3.0,
+              "duracao": 2.0,
+              "paciente": 2
+          }
+          ]
 
         return (
             <Fragment>
@@ -178,24 +209,12 @@ class Home extends Component {
 
               <h5>  </h5>
               <Card dark title = "Atividade Física" bordered={false} style={{ width: 500 }}>
-                <Form
-                {...layout}
-                name="basic"
-                initialValues={{
-                  remember: true,
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                >
-                  <Form.Item
-                  name="Atividade Física:"
-                  >
-                    <h5>Correr</h5>
-                    <h5>Jogar um fut</h5>
-                    <h5>Nadar</h5>
-                  </Form.Item>
-
-                </Form>
+              <Table dark 
+                dataSource={atividades}>
+                  <Column title="Nome" dataIndex="nome" key="nome" />                               
+                  <Column title="Meta mensal" dataIndex="metaMensal" key="metaMensal" />
+                  <Column title="Duração" dataIndex="duracao" key="duracao" />                                     
+                </Table>
               </Card>          
 
                 </Content>
