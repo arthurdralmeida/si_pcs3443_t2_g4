@@ -70,7 +70,7 @@ class DiarioDeSintomasSerializer(serializers.ModelSerializer):
 class AtividadeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Atividade
-        fields = ('pk','nome', 'metaMensal', 'duracao', 'paciente')
+        fields = ('pk','nome', 'passos', 'duracao', 'intensidade', 'dataRealizada', 'paciente')
 
         
 class NotificacaoDeAtividadeSerializer(serializers.ModelSerializer):

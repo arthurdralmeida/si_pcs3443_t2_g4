@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Layout, Menu, Space, Tabs, Form, Descriptions, Badge, DatePicker, Input, Select, Button, InputNumber, PageHeader, Checkbox, Divider } from 'antd';
+import { Layout, Menu, Space, Tabs, Form, Table, Descriptions, Badge, DatePicker, Input, Select, Button, InputNumber, PageHeader, Checkbox, Divider } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -8,12 +8,206 @@ import { UserOutlined,
   LineChartOutlined,
   HeartOutlined,
   CalendarOutlined} from '@ant-design/icons';
+  import axios from 'axios'
 
   import { Progress } from 'antd';
 
 import MenuLateral from './components/MenuLateral'
 import './App.css'
 import { Link } from 'react-router-dom'
+
+const { Column, ColumnGroup } = Table;
+const dataDia = [
+  {
+    atividade: 'Corrida',
+    duracao: '1:30',
+    passos: '250',
+    intensidade: '---',
+    
+  },
+  {
+    atividade: 'Futebol',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+];
+
+const dataSemana = [
+  {
+    dia: '13',
+    atividade: 'Corrida',
+    duracao: '1:30',
+    passos: '250',
+    intensidade: '---',
+    
+  },
+  {
+    dia: '13',
+    atividade: 'Futebol',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+  {
+    dia: '12',
+    atividade: 'Futebol',
+    duracao: '3:00',
+    passos: '---',
+    intensidade: 'Fraca',
+  },
+  {
+    dia: '10',
+    atividade: 'Caminhada',
+    duracao: '2:00',
+    passos: '450',
+    intensidade: '---',
+  },
+  {
+    dia: '10',
+    atividade: 'Corrida',
+    duracao: '1:00',
+    passos: '200',
+    intensidade: '---',
+  },
+  {
+    dia: '9',
+    atividade: 'Remo',
+    duracao: '0:30',
+    passos: '---',
+    intensidade: 'Intensa',
+  },
+  {
+    dia: '8',
+    atividade: 'Remo',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+];
+
+const dataMes = [
+  {
+    dia: '13/06',
+    atividade: 'Corrida',
+    duracao: '1:30',
+    passos: '250',
+    intensidade: '---',
+    
+  },
+  {
+    dia: '13/06',
+    atividade: 'Futebol',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+  {
+    dia: '12/06',
+    atividade: 'Futebol',
+    duracao: '3:00',
+    passos: '---',
+    intensidade: 'Fraca',
+  },
+  {
+    dia: '10/06',
+    atividade: 'Caminhada',
+    duracao: '2:00',
+    passos: '450',
+    intensidade: '---',
+  },
+  {
+    dia: '10/06',
+    atividade: 'Corrida',
+    duracao: '1:00',
+    passos: '200',
+    intensidade: '---',
+  },
+  {
+    dia: '9/06',
+    atividade: 'Remo',
+    duracao: '0:30',
+    passos: '---',
+    intensidade: 'Intensa',
+  },
+  {
+    dia: '8/06',
+    atividade: 'Remo',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+  {
+    dia: '4/06',
+    atividade: 'Remo',
+    duracao: '0:30',
+    passos: '---',
+    intensidade: 'Intensa',
+  },
+  {
+    dia: '2/06',
+    atividade: 'Remo',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+  {
+    dia: '2/06',
+    atividade: 'Remo',
+    duracao: '0:30',
+    passos: '---',
+    intensidade: 'Intensa',
+  },
+  {
+    dia: '28/05',
+    atividade: 'Remo',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+  {
+    dia: '26/05',
+    atividade: 'Remo',
+    duracao: '0:30',
+    passos: '---',
+    intensidade: 'Intensa',
+  },
+  {
+    dia: '25/05',
+    atividade: 'Remo',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+  {
+    dia: '25/05',
+    atividade: 'Remo',
+    duracao: '0:30',
+    passos: '---',
+    intensidade: 'Intensa',
+  },
+  {
+    dia: '24/05',
+    atividade: 'Remo',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+  {
+    dia: '22/05',
+    atividade: 'Remo',
+    duracao: '0:30',
+    passos: '---',
+    intensidade: 'Intensa',
+  },
+  {
+    dia: '21/05',
+    atividade: 'Remo',
+    duracao: '2:00',
+    passos: '---',
+    intensidade: 'Moderada',
+  },
+]; 
 
 function onChange(checkedValues) {
     console.log('checked = ', checkedValues);
@@ -24,91 +218,47 @@ function callback(key) {
 }
   
 class ListaAtividades extends Component {
+
+  getAtividades = () => {
+    axios.get("https://0.0.0.0:8000/api/getListAtividadeLogged/").then(res => this.setState({ atividadesList: res.data }));
+  };
+
     render() {
         const { Header, Content, Sider } = Layout;
         const { TabPane } = Tabs;
         const Demo = () => (
           <Tabs defaultActiveKey="1" onChange={callback}>
             <TabPane tab="Hoje" key="1">
-            <PageHeader
-              title="Caminhada ou corrida"
-            />
-            <Descriptions bordered>
-            <Descriptions.Item label="Passos dados">10293</Descriptions.Item>
-            <Descriptions.Item label="Horas ativas">1h23</Descriptions.Item>
-            <Descriptions.Item label="Metros percorridos⁎">4560m</Descriptions.Item>
-            <Descriptions.Item label="Meta de hoje" span={3}>
-            <Progress percent={65} status="active" />
-            </Descriptions.Item>
-          </Descriptions>
-          ⁎ = percorridos em média
-          <PageHeader
-              title="Outras atividades"
-            />
-          <Descriptions bordered>
-            <Descriptions.Item label="Atividade realizada" span={2}>
-              Judô
-            </Descriptions.Item>
-            <Descriptions.Item label="Duração">1h30</Descriptions.Item>
-            <Descriptions.Item label="Atividade realizada" span={2}>
-              Futebol
-            </Descriptions.Item>
-            <Descriptions.Item label="Duração">0h30</Descriptions.Item>
-            </Descriptions>
+                <Table dataSource={dataDia}>
+                <ColumnGroup title='Atividades realizadas hoje'>
+                  <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
+                <Column title="Duração (horas)" dataIndex="duracao" key="duracao" align="center"/>
+                <Column title="Número de passos" dataIndex="passos" key="passos" align="center"/>
+                <Column title="Intensidade" dataIndex="intensidade" key="intensidade" align="center"/>
+                </ColumnGroup>
+                </Table>
             </TabPane>
-            <TabPane tab="Esta semana" key="2">
-            <PageHeader
-              title="Caminhada ou corrida"
-            />
-            <Descriptions bordered>
-            <Descriptions.Item label="Passos dados">10293</Descriptions.Item>
-            <Descriptions.Item label="Horas ativas">1h23</Descriptions.Item>
-            <Descriptions.Item label="Metros percorridos⁎">4560m</Descriptions.Item>
-            <Descriptions.Item label="Meta de hoje" span={3}>
-            <Progress percent={65} status="active" />
-            </Descriptions.Item>
-          </Descriptions>
-          ⁎ = percorridos em média
-          <PageHeader
-              title="Outras atividades"
-            />
-          <Descriptions bordered>
-            <Descriptions.Item label="Atividade realizada" span={2}>
-              Judô
-            </Descriptions.Item>
-            <Descriptions.Item label="Duração">1h30</Descriptions.Item>
-            <Descriptions.Item label="Atividade realizada" span={2}>
-              Futebol
-            </Descriptions.Item>
-            <Descriptions.Item label="Duração">0h30</Descriptions.Item>
-            </Descriptions>
+            <TabPane tab="Última semana" key="2">
+            <Table dataSource={dataSemana}>
+                <ColumnGroup title='Atividades realizadas nos últimos 7 dias'>
+                <Column title="Dia" dataIndex="dia" key="dia" align="center"/>
+                  <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
+                <Column title="Duração (horas)" dataIndex="duracao" key="duracao" align="center"/>
+                <Column title="Número de passos" dataIndex="passos" key="passos" align="center"/>
+                <Column title="Intensidade" dataIndex="intensidade" key="intensidade" align="center"/>
+                </ColumnGroup>
+                </Table>
             </TabPane>
-            <TabPane tab="Este mês" key="3">
-            <PageHeader
-              title="Caminhada ou corrida"
-            />
-            <Descriptions bordered>
-            <Descriptions.Item label="Passos dados">10293</Descriptions.Item>
-            <Descriptions.Item label="Horas ativas">1h23</Descriptions.Item>
-            <Descriptions.Item label="Metros percorridos⁎">4560m</Descriptions.Item>
-            <Descriptions.Item label="Meta de hoje" span={3}>
-            <Progress percent={65} status="active" />
-            </Descriptions.Item>
-          </Descriptions>
-          ⁎ = percorridos em média
-          <PageHeader
-              title="Outras atividades"
-            />
-          <Descriptions bordered>
-            <Descriptions.Item label="Atividade realizada" span={2}>
-              Judô
-            </Descriptions.Item>
-            <Descriptions.Item label="Duração">1h30</Descriptions.Item>
-            <Descriptions.Item label="Atividade realizada" span={2}>
-              Futebol
-            </Descriptions.Item>
-            <Descriptions.Item label="Duração">0h30</Descriptions.Item>
-            </Descriptions>
+            <TabPane tab="Último mês" key="3">
+            <Table dataSource={dataMes}>
+                <ColumnGroup title='Atividades realizadas nos últimos 30 dias'>
+                <Column title="Dia" dataIndex="dia" key="dia" align="center"/>
+                  <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
+                <Column title="Duração (horas)" dataIndex="duracao" key="duracao" align="center"/>
+                <Column title="Número de passos" dataIndex="passos" key="passos" align="center"/>
+                <Column title="Intensidade" dataIndex="intensidade" key="intensidade" align="center"/>
+                </ColumnGroup>
+                </Table>
             </TabPane>
           </Tabs>
         );
