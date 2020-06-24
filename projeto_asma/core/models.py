@@ -62,6 +62,7 @@ class Atividade(models.Model):
     dataRealizada = models.DateField(default=datetime.now)
 
 
+
 class NotificacaoDeAtividade(models.Model):
     mensagem = models.CharField(max_length=1000)
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)

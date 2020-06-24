@@ -10,11 +10,12 @@ urlpatterns = [
     url("^", include(router.urls)),
 
     # urls de login
-    url("^auth/login/$", LoginAPI.as_view()),
-    url("^auth/user/$", UserAPI.as_view()),
+    url("^auth/login/$", LoginAPIView.as_view()),
+    url("^auth/user/$", UserAPIView.as_view()),
+    url("^register/$", RegisterAPIView.as_view()),
     url("^getAdminLogged/$", getAdminLogged.as_view()),
     url("^getPacienteLogged/$", getPacienteLogged.as_view()),
-    url("^getAgenteDeSaudeLoged/$", getAgenteDeSaudeLogged.as_view()),
+    url("^getAgenteDeSaudeLogged/$", getAgenteDeSaudeLogged.as_view()),
 
     # urls de Paciente
     url("^getPaciente/$", getPaciente.as_view()),
@@ -65,8 +66,8 @@ urlpatterns = [
 
 
     # urls de Chat
-    #url("^getAllMessagesFromAlocacao/$", getAllMessagesFromAlocacao.as_view()),
-    #url("^createMessage/$", createMessage.as_view()),
+    url("^getAllMessagesFromAlocacao/$", getAllMessagesFromAlocacao.as_view()),
+    url("^createMessage/$", createMessage.as_view()),
 
     # urls de Dados do FitBit
 

@@ -219,13 +219,42 @@ function callback(key) {
   
 class ListaAtividades extends Component {
 
-  getAtividades = () => {
-    axios.get("https://0.0.0.0:8000/api/getListAtividadeLogged/").then(res => this.setState({ atividadesList: res.data }));
-  };
+  states = {
+    paciente: {},
+    atividades: [],
+  }
+
+  componentDidMount(){
+    axios.get('http://localhost:8000/api/getPacienteLogged/',
+    { headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }})
+    .then(res => {
+      this.setState({paciente: res.data});
+      console.log(res.data)
+    })
+
+    axios.get('http://localhost:8000/api/getListAtividadeLogged/',
+      { headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
+      .then(res => {
+        this.setState({atividades: res.data});
+        console.log(res.data)
+      })
+  }
 
     render() {
         const { Header, Content, Sider } = Layout;
         const { TabPane } = Tabs;
+        const renderLogout = () => {
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('paciente');
+          sessionStorage.removeItem('medico');
+        }
         const Demo = () => (
           <Tabs defaultActiveKey="1" onChange={callback}>
             <TabPane tab="Hoje" key="1">
@@ -292,7 +321,7 @@ class ListaAtividades extends Component {
                 <Space size={22}>
                 <Space size={94}>
                 <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
-                <Link to={'/login'} ><Button>Log Out</Button></Link>
+                <Link to={'/login'} ><Button onClick={() => renderLogout()} >Log Out</Button></Link>
                 </Space>
                 </Space>
               </div>

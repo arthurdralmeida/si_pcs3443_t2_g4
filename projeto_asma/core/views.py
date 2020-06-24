@@ -17,26 +17,38 @@ from .models import *
 # ----------------
 # API DE LOGIN
 # ----------------
-class LoginAPI(generics.GenericAPIView):
-    serializer_class = LoginUserSerializer
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
-        print(user)
-        return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)
-        })
-
-class UserAPI(generics.RetrieveAPIView):
-    permission_classes = [permissions.IsAuthenticated, ]
+class UserAPIView(generics.RetrieveAPIView):
+    permission_classes = [
+        permissions.IsAuthenticated,]
     serializer_class = UserSerializer
     def get_object(self):
         return self.request.user
 
+
+class RegisterAPIView(generics.GenericAPIView):
+    serializer_class = RegisterSerializer
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "token": AuthToken.objects.create(user)[1]
+        })
+
+class LoginAPIView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data
+        return Response({
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "token": AuthToken.objects.create(user)[1]
+        })
+
+
 class getAdminLogged(APIView):
-    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AdminSistemaSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
@@ -45,7 +57,6 @@ class getAdminLogged(APIView):
         return Response(serializer.data)
 
 class getPacienteLogged(APIView):
-    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = PacienteSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
@@ -58,7 +69,7 @@ class getAgenteDeSaudeLogged(APIView):
     serializer_class = AgenteDeSaudeSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
-        data=Paciente.objects.get(login=user)
+        data=AgenteDeSaude.objects.get(login=user)
         serializer = AgenteDeSaudeSerializer(data, context={'request': request})
         return Response(serializer.data)
 
@@ -88,8 +99,8 @@ class createPaciente(APIView):
     def post(self, request, *args, **kwargs):
         request.data
         user = User.objects.create(
-            username = request.data.email,
-            password = request.data.senha
+            username = request.data.login.username,
+            password = request.data.login.password,
         )
         user.save()
         paciente = Paciente.objects.create(
@@ -243,8 +254,7 @@ class createDiarioDeSintomas(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DiarioDeSintomasSerializer
     def post(self, request, *args, **kwargs):
-        user = User.objects.get(username=request.user)
-        paciente=Paciente.objects.get(login=user)
+        print(request.data)
         sintoma = DiarioDeSintomas.objects.create(
             tosse = request.data.tosse,
             chiado = request.data.chiado,
@@ -253,7 +263,7 @@ class createDiarioDeSintomas(APIView):
             observacao = request.data.observacao,
             bombinha = request.data.bombinha,
             data = str(date.today()),
-            paciente = paciente,
+            paciente = request.data.paciente,
         )
         sintoma.save()
         serializer = DiarioDeSintomasSerializer(data=sintoma)
@@ -511,7 +521,7 @@ class getListNotificacaoDeAtividadeLogged(APIView):
     serializer_class = NotificacaoDeAtividadeSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
-        paciente = paciente.objects.get(login=user)
+        paciente = Paciente.objects.get(login=user)
         data = NotificacaoDeAtividade.objects.filter(paciente=paciente, ativo=True)
         serializer = NotificacaoDeAtividadeSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
@@ -554,14 +564,36 @@ class disableNotificacaoDeAtividade(APIView):
 # -------------
 # API DE CHAT
 # -------------
-'''
+
 class getAllMessagesFromAlocacao(APIView):
-    pass
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ChatSerializer
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(username=request.user)
+        paciente = Paciente.objects.get(login=user)
+        data = Chat.objects.filter(paciente=paciente, ativo=True)
+        serializer = ChatSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
 
 class createMessage(APIView):
-    pass
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ChatSerializer
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(username=request.user)
+        autor = Paciente.objects.get(login=user)
+        chat = Chat.objects.create(
+            mensagem = request.data.mensagem,
+            autor = autor,
+            alocacao = request.data.alocacao,
+            data = request.data.data,
+            ativo = request.data.ativo,
+        )
+        chat.save()
+        serializer = ChatSerializer(data=chat)
+        if serializer.is_valid():
+          return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-'''
 # ---------------------
 # API DE DADOS FITBIT
 # --------------------

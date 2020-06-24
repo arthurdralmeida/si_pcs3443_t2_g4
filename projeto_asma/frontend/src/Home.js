@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useEffect, useState } from "react";
 import { Card } from 'antd';
-import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, PageHeader, Checkbox } from 'antd';
+import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, Divider, PageHeader, Checkbox } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -12,21 +12,65 @@ import './App.css'
 import { Link } from 'react-router-dom'
 import axios from "axios";
 
-function onChange(checkedValues) {
-  console.log('checked = ', checkedValues);
-}
+
+const { Column, ColumnGroup } = Table;
+
+const gridStyle = {
+  width: '50%',
+  textAlign: 'center',
+};
 
 class Home extends Component { 
 
   state = {
-    atividades: []
+    paciente: {},
+    atividades: [],
+    sintomas: [],
+    metas: [],
   };
 
-  getListAtividadeLogged = () => {
-    axios.get('http://localhost:8000/api/getListAtividadeLogged/')
+
+  componentDidMount(){
+    axios.get('http://localhost:8000/api/getPacienteLogged/',
+    { headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }})
+    .then(res => {
+      this.setState({paciente: res.data});
+      console.log(res.data)
+    })
+
+    axios.get('http://localhost:8000/api/getListAtividadeLogged/',
+      { headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
       .then(res => {
-        const atividades = res.data;
-        this.setState({atividades});
+        this.setState({atividades: res.data});
+        console.log(res.data)
+      })
+      
+      axios.get('http://localhost:8000/api/getListDiarioDeSintomasLogged/',
+      { headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
+      .then(res => {
+        this.setState({sintomas: res.data});
+        console.log(res.data)
+      })
+  }
+
+  getListDiarioDeSintomasLogged = () => {
+    axios.get('http://localhost:8000/api/getListDiarioDeSintomasLogged/',
+      { headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
+      .then(res => {
+        const sintomasList = res.data;
+        this.setState({sintomasList});
       })
   };
 
@@ -60,7 +104,13 @@ class Home extends Component {
         function onChange(a, b, c) {
           console.log(a, b, c);
         }
-
+        const renderLogout = () => {
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('paciente');
+          sessionStorage.removeItem('medico');
+        }
+        console.log('oi')
         const tailLayout = {
           wrapperCol: {
             offset: 10,
@@ -85,17 +135,42 @@ class Home extends Component {
           const atividades = [
             {
               "pk": 1,
-              "nome": "fut",
-              "metaMensal": 2.0,
-              "duracao": 3.0,
-              "paciente": 2
+              "nome": "Caminhada",
+              "dataRealizada": 16,
+              "duracao": 2,
+              "passos": 250,
+              "intensidade": 0
           },
           {
               "pk": 2,
-              "nome": "corrida",
-              "metaMensal": 3.0,
-              "duracao": 2.0,
-              "paciente": 2
+              "nome": "Futebol",
+              "dataRealizada": 17,
+              "duracao": 1,
+              "passos": 0,
+              "intensidade": 3
+          }
+          ]
+
+          const sintomasList = [
+            {
+              "pk": 1,
+              "data": 17,
+              "chiado": 4,
+              "tosse": 1,
+              "dormir": 2,
+              "faltaDeAr": 2,
+              "bombinha": 2,
+              "observacao": "Dor no peito"
+          },
+          {
+              "pk": 2,
+              "data": 19,
+              "chiado": 1,
+              "tosse": 2,
+              "dormir": 3,
+              "faltaDeAr": 4,
+              "bombinha": 5,
+              "observacao": "Dor de cabeça"
           }
           ]
 
@@ -108,7 +183,7 @@ class Home extends Component {
                 <Space size={22}>
                 <Space size={94}>
                 <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
-                <Link to={'/login'} ><Button>Log Out</Button></Link>
+                <Link to={'/login'}><Button onClick={() => renderLogout()}>Log Out</Button></Link>
                 </Space>
                 </Space>
               </div>
@@ -129,91 +204,71 @@ class Home extends Component {
                   }}
                 > 
 
-                <Card title="Meta de Passos:" bordered={true} style={{ width: 500 }} theme="dark">
-                <Form
-                {...layout}
-                name="basic"
-                initialValues={{
-                  remember: true,
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-              >
-                <Form.Item
-                  
-                  name="MetaPassos" 
-                >
+                <Card title="Suas metas" bordered={true} style={{ width: 800 }} theme="dark">
+                <Card.Grid hoverable={false} style={gridStyle}>
+                <b>Caminhada e corrida</b>
+                <p></p>
                   <Tabs defaultActiveKey="1" onChange={callback}>
                     <TabPane tab="Hoje" key="1">
-                        <h5>Hoje - 07/06/2020</h5>
-                        <h6> </h6>
-                        <Progress type="circle" percent={0} />
+                        <h5>Restam 250 passos</h5>
+                        <Progress type="circle" percent={10} />
                     </TabPane>
-                    <TabPane tab="Sábado" key="2">
+                    <TabPane tab="Esta semana" key="2">
                         <h5>sábado - 06/06/2020</h5>
                         <h6> </h6>
                         <Progress type="circle" percent={50} />
                     </TabPane>
-                    <TabPane tab="Sexta-feira" key="3">
+                    <TabPane tab="Este mês" key="3">
                         <h5>sexta-feira - 05/06/2020</h5>
                         <h6> </h6>
                         <Progress type="circle" percent={75} />
                     </TabPane>
-                    <TabPane tab="Quinta-feira" key="4">
-                        <h5>quinta-feira - 04/06/2020</h5>
+                    </Tabs>
+                </Card.Grid>
+                <Card.Grid hoverable={false} style={gridStyle}>
+                <b>Outras atividades</b>
+                <p></p>
+                  <Tabs defaultActiveKey="1" onChange={callback}>
+                    <TabPane tab="Hoje" key="1">
+                        <h5>Restam 2 horas</h5>
                         <h6> </h6>
-                        <Progress type="circle" percent={100} />
+                        <Progress type="circle" percent={0} />
                     </TabPane>
-                    <TabPane tab="Quarta-feira" key="5">
-                        <h5>quarta-feira - 03/06/2020</h5>
+                    <TabPane tab="Esta semana" key="2">
+                        <h5>sábado - 06/06/2020</h5>
                         <h6> </h6>
-                        <Progress type="circle" percent={25} />
+                        <Progress type="circle" percent={50} />
                     </TabPane>
-                    <TabPane tab="Terça-feira" key="6">
-                        <h5>terça-feira - 02/06/2020</h5>
+                    <TabPane tab="Este mês" key="3">
+                        <h5>sexta-feira - 05/06/2020</h5>
                         <h6> </h6>
-                        <Progress type="circle" percent={5} />
-                    </TabPane>
-                    <TabPane tab="Segunda-feira" key="7">
-                        <h5>segunda-feira - 01/06/2020</h5>
-                        <h6> </h6>
-                        <Progress type="circle" percent={100} />
+                        <Progress type="circle" percent={75} />
                     </TabPane>
                     </Tabs>
-
-                </Form.Item>                
-              </Form>
+                </Card.Grid>
               </Card>
 
-              <h5>  </h5>
-              <Card dark title = "Diário de Sintomas:" bordered={false} style={{ width: 500 }}>
-                <Form
-                {...layout}
-                name="basic"
-                initialValues={{
-                  remember: true,
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                >
-                  <Form.Item
-                  name="DiarioDeSintomas:"
-                  >
-                    <Result
-                        status="success"
-                        title="Diário de Sintomas Salvo!"/>
-                  </Form.Item>
-
-                </Form>
+              <Divider/>
+              <Card dark title = "Sintomas recentes" bordered={false} style={{ width: 800 }}>
+              <Table dataSource={sintomasList}>
+                <Column title="Data" dataIndex="data" key="data" align='center'/>
+                <Column title="Tosse" dataIndex="tosse" key="tosse" align='center'/>
+                <Column title="Chiados no peito" dataIndex="chiado" key="chiado" align='center'/>
+                <Column title="Problemas para dormir" dataIndex="dormir" key="dormir" align='center'/>
+                <Column title="Falta de Ar" dataIndex="faltaDeAr" key="faltaDeAr" align='center'/>
+                <Column title="Uso da Bombinha" dataIndex="bombinha" key="bombinha" align='center'/>
+                <Column title="Observações" dataIndex="observacao" key="observacao" align='center'/>
+              </Table>
               </Card>
 
-              <h5>  </h5>
-              <Card dark title = "Atividade Física" bordered={false} style={{ width: 500 }}>
-              <Table dark 
-                dataSource={atividades}>
-                  <Column title="Nome" dataIndex="nome" key="nome" />                               
-                  <Column title="Meta mensal" dataIndex="metaMensal" key="metaMensal" />
-                  <Column title="Duração" dataIndex="duracao" key="duracao" />                                     
+              <Divider/>
+              <Card dark title = "Atividades recentes" bordered={false} style={{ width: 800 }}>
+              <Table dataSource={atividades}>
+                <Column title="Dia" dataIndex="dataRealizada" key="dataRealizada" align="center"/>
+                  <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
+                <Column title="Duração (horas)" dataIndex="duracao" key="duracao" align="center"/>
+                <Column title="Número de passos" dataIndex="passos" key="passos" align="center"/>
+                <Column title="Intensidade" dataIndex="intensidade" key="intensidade" align="center"/>
                 </Table>
               </Card>          
 

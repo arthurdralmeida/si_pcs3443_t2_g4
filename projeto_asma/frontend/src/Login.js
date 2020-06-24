@@ -5,7 +5,10 @@ import { UserOutlined,
   ToolFilled,
   SearchOutlined } from '@ant-design/icons';
 import './App.css'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { login } from './actions/auth';
+import axios from 'axios';
 
 class Login extends Component {
   render() {
@@ -30,8 +33,47 @@ class Login extends Component {
         span: 12,
       },
     };
-      const onFinish = values => {
-        console.log('Success:', values);
+      const onFinish = async(values) => {
+          await axios.post('http://localhost:8000/api/auth/login/',
+            {username: values.email,
+            password: values.senha}).then((res) => {
+              console.log(res.data)
+              sessionStorage.setItem('token', JSON.stringify(res.data.token))
+              sessionStorage.setItem('user', JSON.stringify(res.data.user))
+          }).catch((error) => {
+              console.log(error)
+          });
+          await axios.get('http://localhost:8000/api/auth/user/',
+            { headers:{
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+            }}).then((res) => {
+              console.log(res.data)
+            }).catch((error) => {
+              console.log(error)
+          });
+          await axios.get('http://localhost:8000/api/getPacienteLogged/',
+          { headers:{
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+          }}).then((res) => {
+            sessionStorage.setItem('paciente', JSON.stringify(res.data))
+            console.log(res.data)
+          }).catch((error) => {
+            console.log(error)
+        });
+        await axios.get('http://localhost:8000/api/getAgenteDeSaudeLogged/',
+        { headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+        }}).then((res) => {
+          sessionStorage.setItem('medico', JSON.stringify(res.data))
+          console.log(res.data)
+        }).catch((error) => {
+          console.log(error)
+      });
+      await (JSON.parse(sessionStorage.getItem('medico')) || JSON.parse(sessionStorage.getItem('paciente'))) ? this.props.history.push('/') : console.log('caos')
+
       };
     
       const onFinishFailed = errorInfo => {
@@ -102,7 +144,7 @@ class Login extends Component {
                 </Form.Item>
                 <Form.Item {...tailLayout2}>
                   <Link to={'/cadastro'}><Button style={{marginRight: 20}}>Registre-se</Button></Link>
-                  <Link to={'/'}><Button type="primary" htmlType="submit">Entrar</Button></Link>
+                  <Button type="primary" htmlType="submit">Entrar</Button>
                 </Form.Item>
               </Form>
             </Content>

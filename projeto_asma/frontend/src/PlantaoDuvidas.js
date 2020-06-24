@@ -5,11 +5,62 @@ import { UserOutlined,
   QuestionCircleOutlined,
   ToolFilled,
   FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined} from '@ant-design/icons';
-
+import axios from 'axios'
 import MenuLateral from './components/MenuLateral'
 import './App.css'
 import { Link } from 'react-router-dom'
 class PlantaoDuvidas extends Component {
+  getMessages = () => {
+    axios.get("http://localhost:8000/api/getAllMessagesFromAlocacao/",
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }}).then(res => this.setState({ atividadesList: res.data }));
+  };
+
+  setMessage = () =>{
+    console.log(this.state.messageList);
+    console.log(this.state.message,this.state.alocacao,this.state.data,this.state.ativo)
+    axios.post("http://localhost:8000/api/createMessage/",
+      {
+        message: this.state.message,
+        alocacao: this.state.alocacao,
+        data: this.state.data,
+        ativo: this.state.ativo,
+      },
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }}).then(() => {
+        console.log("Deu certo")
+        window.location.reload(false);
+    })
+  }
+  onChangeMessage = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        message: e.target.value
+    });
+  };
+  onChangeAlocacao = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        alocacao: e.target.value
+    });
+  };
+  onChangeData = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        data: e.target.value
+    });
+  };
+  onChangeAtivo = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        ativo: e.target.value
+    });
+  };
+
     render() {
         const { Header, Content, Sider } = Layout;
         const data = [
@@ -165,7 +216,7 @@ class PlantaoDuvidas extends Component {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
              >
-              <Form.Item>
+              <Form.Item onChange={this.onChangeMessage}>
               <TextArea rows={4}/></Form.Item>
               
               <Button type="primary">Submeter</Button>

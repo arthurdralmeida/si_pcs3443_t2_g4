@@ -12,6 +12,7 @@ class Login extends Component {
       labelCol: {
         span: 4,
       },
+      
       wrapperCol: {
         span: 16,
       },

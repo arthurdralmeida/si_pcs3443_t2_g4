@@ -11,28 +11,17 @@ import { Link } from 'react-router-dom'
 import axios from "axios";
 class DadosPessoais extends Component {
   state={
-    
-    paciente:{
-      
-        "pk": 2,
-        "nome": "bruno",
-        "login": "brunodel",
-        "peso": 70.0,
-        "grauAsma": 0,
-        "cpf": "1111111",
-        "dataNascimento": "2020-06-22",
-        "emEsperaDeMedico": false,
-        "altura": 1.74
-    
-    },
-
+    paciente:{},
   }
 
   getPaciente = () => {
-    axios.get("https://0.0.0.0:8000/api/getPacienteLogged/")
+    axios.get("https://localhost:8000/api/getPacienteLogged/",
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
       .then(res => {
-        const paciente = res.data;
-        this.setState({paciente});
+        this.setState({paciente: res.data});
       })
     
   };
@@ -72,6 +61,12 @@ class DadosPessoais extends Component {
             span: 16,
           },
         };
+        const renderLogout = () => {
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('paciente');
+          sessionStorage.removeItem('medico');
+        }
           const onFinish = values => {
             console.log('Success:', values);
           };
@@ -88,7 +83,7 @@ class DadosPessoais extends Component {
                 <Space size={22}>
                 <Space size={94}>
                 <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
-                <Link to={'/login'} ><Button>Log Out</Button></Link>
+                <Link to={'/login'} ><Button onClick={() => renderLogout()} >Log Out</Button></Link>
                 </Space>
                 </Space>
               </div>
