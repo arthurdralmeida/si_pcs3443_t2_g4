@@ -219,13 +219,32 @@ function callback(key) {
   
 class ListaAtividades extends Component {
 
-  getAtividades = () => {
-    axios.get("http://localhost:8000/api/getListAtividadeLogged/",
+  states = {
+    paciente: {},
+    atividades: [],
+  }
+
+  componentDidMount(){
+    axios.get('http://localhost:8000/api/getPacienteLogged/',
+    { headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }})
+    .then(res => {
+      this.setState({paciente: res.data});
+      console.log(res.data)
+    })
+
+    axios.get('http://localhost:8000/api/getListAtividadeLogged/',
       { headers:{
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
-      }}).then(res => this.setState({ atividadesList: res.data }));
-  };
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
+      .then(res => {
+        this.setState({atividades: res.data});
+        console.log(res.data)
+      })
+  }
 
     render() {
         const { Header, Content, Sider } = Layout;
