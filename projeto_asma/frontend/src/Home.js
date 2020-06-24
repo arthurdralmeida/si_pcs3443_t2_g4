@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
-import { Card, Breadcrumb } from 'antd';
-import { Layout, Menu, Space, Form, DatePicker, Input, Divider, Select, Button, InputNumber, PageHeader, Checkbox } from 'antd';
+import React, { Component, Fragment, useEffect, useState } from "react";
+import { Card } from 'antd';
+import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, Divider, PageHeader, Checkbox } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -26,12 +26,11 @@ const gridStyle = {
 class Home extends Component { 
 
   state = {
-    atividades: []
+    paciente: {},
+    atividades: [],
+    metas: [],
   };
 
-  state = {
-    sintomasList: []
-  };
 
   getListAtividadeLogged = () => {
     axios.get('http://localhost:8000/api/getListAtividadeLogged/',
@@ -86,6 +85,12 @@ class Home extends Component {
         
         function onChange(a, b, c) {
           console.log(a, b, c);
+        }
+        const renderLogout = () => {
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('paciente');
+          sessionStorage.removeItem('medico');
         }
 
         const tailLayout = {
@@ -160,7 +165,7 @@ class Home extends Component {
                 <Space size={22}>
                 <Space size={94}>
                 <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
-                <Link to={'/login'} ><Button>Log Out</Button></Link>
+                <Link to={'/login'}><Button onClick={() => renderLogout()}>Log Out</Button></Link>
                 </Space>
                 </Space>
               </div>

@@ -21,6 +21,7 @@ class DiarioDeSintomas extends Component {
     observacao:' ',
     sintomasList:[],
     feito:false,
+    paciente: {},
   }
 
   getSintomas = () => {
@@ -43,6 +44,8 @@ class DiarioDeSintomas extends Component {
         faltaDeAr: this.state.faltaDeAr,
         bombinha: this.state.bombinha,
         observacao: this.state.observacao,
+        paciente: this.state.paciente,
+        data: '2020-06-24',
       },
       { headers:{
         'Content-Type': 'application/json',

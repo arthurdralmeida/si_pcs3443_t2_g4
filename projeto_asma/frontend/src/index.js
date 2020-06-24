@@ -22,26 +22,31 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import ListaPacientes from './components/ListaPacientes';
 import PlantaoDuvidas from './PlantaoDuvidas';
+import HomeMedico from './HomeMedico'
+import { PrivateRoute } from './components/PrivateRoute'
+
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact={true} component={Home} />
+      <PrivateRoute exact path="/" component={Home} />
+      
       <Route path="/login" component={Login} />
-      <Route path='/cadastro' component={CadastroPaciente} /> 
-      <Route path="/informacoes-pessoais" component={DadosPessoais} />
-      <Route path="/cadastro-atividade" component={CadastroAtividades} />
-      <Route path="/atividades" component={ListaAtividades} />
-      <Route path="/metas" component={Metas} />
-      <Route path="/calendario" component={Calendario} />
-      <Route path="/saude-pessoal" component={SaudePessoal} />
-      <Route path="/estatisticas" component={Estatisticas} />
+      <Route path='/cadastro' component={CadastroPaciente} />
+
+      <PrivateRoute exact path="/informacoes-pessoais" component={DadosPessoais} />
+      <PrivateRoute exact path="/cadastro-atividade" component={CadastroAtividades} />
+      <PrivateRoute exact path="/atividades" component={ListaAtividades} />
+      <PrivateRoute exact path="/metas" component={Metas} />
+      <PrivateRoute exact path="/calendario" component={Calendario} />
+      <PrivateRoute exact path="/diariodesintomas" component={DiarioDeSintomas} />
+      <PrivateRoute exact path="/saude-pessoal" component={SaudePessoal} />
+      <PrivateRoute exact path="/estatisticas" component={Estatisticas} />
       <Route path="/faq" component={Faq} />
-      <Route path="/ListaPacientes" component={ListaPacientes} />
+      <PrivateRoute exact path="/ListaPacientes" component={ListaPacientes} />
       <Route path="/config" component={Configuracao} />
-      <Route path="/diariodesintomas" component={DiarioDeSintomas} />
-      <Route path="/PlantaoDuvidas" component={PlantaoDuvidas} />
-      <Route path="/home-m" component={HomeMedico} />
+      <PrivateRoute exact path="/PlantaoDuvidas" component={PlantaoDuvidas} />
+      <PrivateRoute exact path="/home-m" component={HomeMedico} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
