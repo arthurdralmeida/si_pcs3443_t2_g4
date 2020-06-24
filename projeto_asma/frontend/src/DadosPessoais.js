@@ -14,17 +14,17 @@ class DadosPessoais extends Component {
     paciente:{},
   }
 
-  getPaciente = () => {
-    axios.get("https://localhost:8000/api/getPacienteLogged/",
-      { headers:{
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
-      }})
-      .then(res => {
-        this.setState({paciente: res.data});
-      })
-    
-  };
+  componentDidMount(){
+    axios.get('http://localhost:8000/api/getPacienteLogged/',
+    { headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }})
+    .then(res => {
+      this.setState({paciente: res.data});
+      console.log(res.data)
+    })
+  }
 
     render() {
         const { Header, Content, Sider } = Layout;
@@ -104,21 +104,13 @@ class DadosPessoais extends Component {
               }}
             >
               <Descriptions bordered>
-              <Descriptions.Item label="Usuário">{this.state.paciente.login}</Descriptions.Item>
+              <Descriptions.Item label="Nome">{this.state.paciente.nome}</Descriptions.Item>
               <Descriptions.Item label="Data de nascimento">{this.state.paciente.dataNascimento}</Descriptions.Item>
               <Descriptions.Item label="Altura">{this.state.paciente.altura}</Descriptions.Item>
+              <Descriptions.Item label="Peso">{this.state.paciente.peso}</Descriptions.Item>
               <Descriptions.Item label="Membro desde">2020-04-24</Descriptions.Item>
-              <Descriptions.Item label="Última consulta foi em" span={2}>
-                2019-04-24 18:00:00
-              </Descriptions.Item>
-              <Descriptions.Item label="Meta desta semana" span={3}>
-                <Badge status="success" text="Atingida" />
-              </Descriptions.Item>
-              <Descriptions.Item label="Nome" span={2}>{this.state.paciente.nome}</Descriptions.Item>
               <Descriptions.Item label="Grau de Asma">{this.state.paciente.grauAsma}</Descriptions.Item>
-              <Descriptions.Item label="Comentários">
-              Paciente com garu leve, costuma fazer exercícios. 
-              </Descriptions.Item>
+
             </Descriptions>
             </Content>
               </Layout>

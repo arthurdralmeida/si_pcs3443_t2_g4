@@ -260,7 +260,7 @@ class ListaAtividades extends Component {
             <TabPane tab="Hoje" key="1">
                 <Table dataSource={dataDia}>
                 <ColumnGroup title='Atividades realizadas hoje'>
-                  <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
+                <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
                 <Column title="Duração (horas)" dataIndex="duracao" key="duracao" align="center"/>
                 <Column title="Número de passos" dataIndex="passos" key="passos" align="center"/>
                 <Column title="Intensidade" dataIndex="intensidade" key="intensidade" align="center"/>

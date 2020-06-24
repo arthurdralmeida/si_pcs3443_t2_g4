@@ -45,6 +45,7 @@ ReactDOM.render(
       <Route path="/faq" component={Faq} />
       <PrivateRoute exact path="/ListaPacientes" component={ListaPacientes} />
       <Route path="/config" component={Configuracao} />
+      <Route path="/videos" component={Videos} />
       <PrivateRoute exact path="/PlantaoDuvidas" component={PlantaoDuvidas} />
       <PrivateRoute exact path="/home-m" component={HomeMedico} />
     </Switch>
