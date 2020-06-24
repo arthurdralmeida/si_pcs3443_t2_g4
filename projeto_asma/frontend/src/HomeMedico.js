@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { Card } from 'antd';
-import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumber, PageHeader, Checkbox } from 'antd';
+import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, Divider, InputNumber, PageHeader, Checkbox } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled, SmileTwoTone,
-  SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined, WechatOutlined} from '@ant-design/icons';
+  SearchOutlined, FileSearchOutlined, FormOutlined, CalendarOutlined, CheckCircleTwoTone, LineChartOutlined, HeartOutlined, WechatOutlined} from '@ant-design/icons';
 
   import { Progress, Result, Table} from 'antd';
 import MenuLateral from './components/MenuLateral'
@@ -153,38 +153,59 @@ class HomeMedico extends Component {
                   }}
                 > 
 
-                <Card title="Pacientes:" bordered={true} style={{ width: 900}}>
+                <Card title="Pacientes alocados:" bordered={true} style={{ width: 800}}>
                  
                 <Table dark 
-                dataSource={pacientes}>
-                  <Column title="Nome" dataIndex="nome" key="nome" />                               
-                  <Column title="Peso" dataIndex="peso" key="peso" />
+                dataSource={lista_mocada}>
+                  <Column title="Nome" dataIndex="nome" key="nome" align='center'/>                               
+                  <Column title="Peso" dataIndex="peso" key="peso" align='center'/>
+                  <Column
+                      title="Sintomas"
+                      key="sintomas"
+                      align='center'
+                      render={(text, record) => (
+                          <a><SmileTwoTone /></a>
+                      )}
+                    />
                   <Column
                     title="Chat"
                     key="chat"
+                    align='center'
                     render={(text, record) => (
-                      <Space>
-                        <h5> </h5> 
                         <a><WechatOutlined/></a>
-                      </Space>
                     )}
                     />
+                  
+                </Table>
+
+                </Card>  
+                <Divider/>
+
+                <Card title="Pacientes desalocados:" bordered={true} style={{ width: 800}}>
+                 
+                <Table dark 
+                dataSource={lista_mocada}>
+                  <Column title="Nome" dataIndex="nomedesalocado" key="nomedesalocado" align='center' />                               
+                  <Column title="Peso" dataIndex="pesodesalocado" key="pesodesalocado" align='center' />
                     <Column
                       title="Sintomas"
-                      key="sintomas"
+                      key="sintomasdesalocado"
+                      align='center'
                       render={(text, record) => (
-                        <Space>
-                          <h5> </h5>
-                          <h5> </h5>
-                          <h5> </h5>
                           <a><SmileTwoTone /></a>
-                        </Space>
                       )}
                     />
-                  
-                </Table>,
+                  <Column
+                    title="Alocar paciente"
+                    key="alocar"
+                    align='center'
+                    render={(text, record) => (
+                        <a><CheckCircleTwoTone twoToneColor="#52c41a" /></a>
+                    )}
+                    />
+                </Table>
 
-                </Card>          
+                </Card>       
 
                 </Content>
               </Layout>

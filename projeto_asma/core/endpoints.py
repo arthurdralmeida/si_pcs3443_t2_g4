@@ -66,8 +66,8 @@ urlpatterns = [
 
 
     # urls de Chat
-    #url("^getAllMessagesFromAlocacao/$", getAllMessagesFromAlocacao.as_view()),
-    #url("^createMessage/$", createMessage.as_view()),
+    url("^getAllMessagesFromAlocacao/$", getAllMessagesFromAlocacao.as_view()),
+    url("^createMessage/$", createMessage.as_view()),
 
     # urls de Dados do FitBit
 

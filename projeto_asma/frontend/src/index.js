@@ -15,13 +15,13 @@ import Estatisticas from './Estatisticas'
 import Faq from './Faq'
 import Configuracao from './Configuracao'
 import DiarioDeSintomas from './DiarioDeSintomas'
+import HomeMedico from './HomeMedico'
 
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import ListaPacientes from './components/ListaPacientes';
 import PlantaoDuvidas from './PlantaoDuvidas';
-import HomeMedico from './HomeMedico'
 import { PrivateRoute } from './components/PrivateRoute'
 
 
