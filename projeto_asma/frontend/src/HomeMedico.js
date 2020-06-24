@@ -160,8 +160,8 @@ class HomeMedico extends Component {
                   <Column title="Nome" dataIndex="nome" key="nome" align='center'/>                               
                   <Column title="Peso" dataIndex="peso" key="peso" align='center'/>
                   <Column
-                      title="Sintomas"
-                      key="sintomas"
+                      title="Página do Paciente"
+                      key="paginaPaciente"
                       align='center'
                       render={(text, record) => (
                           <a><SmileTwoTone /></a>
