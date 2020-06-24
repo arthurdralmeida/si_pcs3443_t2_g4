@@ -60,6 +60,7 @@ class getPacienteLogged(APIView):
     serializer_class = PacienteSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
+        print(request)
         data=Paciente.objects.get(login=user)
         serializer = PacienteSerializer(data, context={'request': request})
         return Response(serializer.data)
@@ -97,7 +98,7 @@ class getPacienteList(APIView):
 class createPaciente(APIView):
     serializer_class = PacienteSerializer
     def post(self, request, *args, **kwargs):
-        request.data
+        print(request.data)
         user = User.objects.create(
             username = request.data.login.username,
             password = request.data.login.password,
@@ -251,22 +252,22 @@ class getDiarioDeSintomas(APIView):
         return Response(serializer.data)
 
 class createDiarioDeSintomas(APIView):
-    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DiarioDeSintomasSerializer
     def post(self, request, *args, **kwargs):
         print(request.data)
+        paciente = Paciente.objects.get(pk=request.data['paciente'][0])
         sintoma = DiarioDeSintomas.objects.create(
-            tosse = request.data.tosse,
-            chiado = request.data.chiado,
-            dormir = request.data.dormir,
-            faltaDeAr = request.data.faltaDeAr,
-            observacao = request.data.observacao,
-            bombinha = request.data.bombinha,
+            tosse = request.data['tosse'][0],
+            chiado = request.data['chiado'][0],
+            dormir = request.data['dormir'][0],
+            faltaDeAr = request.data['faltaDeAr'][0],
+            observacao = request.data['observacao'][0],
+            bombinha = request.data['bombinha'][0],
             data = str(date.today()),
-            paciente = request.data.paciente,
+            paciente = paciente,
         )
         sintoma.save()
-        serializer = DiarioDeSintomasSerializer(data=sintoma)
+        serializer = DiarioDeSintomasSerializer(sintoma, context={'request': request})
         if serializer.is_valid():
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
