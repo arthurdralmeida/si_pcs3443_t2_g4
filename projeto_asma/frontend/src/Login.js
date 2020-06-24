@@ -58,6 +58,7 @@ class Login extends Component {
             'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
           }}).then((res) => {
             sessionStorage.setItem('paciente', JSON.stringify(res.data))
+            console.log(res.data)
           }).catch((error) => {
             console.log(error)
         });
@@ -67,10 +68,11 @@ class Login extends Component {
           'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
         }}).then((res) => {
           sessionStorage.setItem('medico', JSON.stringify(res.data))
+          console.log(res.data)
         }).catch((error) => {
           console.log(error)
       });
-      await this.props.history.push('/')
+      await (JSON.parse(sessionStorage.getItem('medico')) || JSON.parse(sessionStorage.getItem('paciente'))) ? this.props.history.push('/') : console.log('caos')
 
       };
     

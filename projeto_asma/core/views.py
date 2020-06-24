@@ -99,8 +99,8 @@ class createPaciente(APIView):
     def post(self, request, *args, **kwargs):
         request.data
         user = User.objects.create(
-            username = request.data.email,
-            password = request.data.senha
+            username = request.data.login.username,
+            password = request.data.login.password,
         )
         user.save()
         paciente = Paciente.objects.create(
