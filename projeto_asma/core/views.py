@@ -522,7 +522,7 @@ class getListNotificacaoDeAtividadeLogged(APIView):
     serializer_class = NotificacaoDeAtividadeSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
-        paciente = paciente.objects.get(login=user)
+        paciente = Paciente.objects.get(login=user)
         data = NotificacaoDeAtividade.objects.filter(paciente=paciente, ativo=True)
         serializer = NotificacaoDeAtividadeSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
@@ -565,14 +565,36 @@ class disableNotificacaoDeAtividade(APIView):
 # -------------
 # API DE CHAT
 # -------------
-'''
+
 class getAllMessagesFromAlocacao(APIView):
-    pass
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ChatSerializer
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(username=request.user)
+        paciente = Paciente.objects.get(login=user)
+        data = Chat.objects.filter(paciente=paciente, ativo=True)
+        serializer = ChatSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
 
 class createMessage(APIView):
-    pass
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ChatSerializer
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(username=request.user)
+        autor = Paciente.objects.get(login=user)
+        chat = Chat.objects.create(
+            mensagem = request.data.mensagem,
+            autor = autor,
+            alocacao = request.data.alocacao,
+            data = request.data.data,
+            ativo = request.data.ativo,
+        )
+        chat.save()
+        serializer = ChatSerializer(data=chat)
+        if serializer.is_valid():
+          return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-'''
 # ---------------------
 # API DE DADOS FITBIT
 # --------------------
