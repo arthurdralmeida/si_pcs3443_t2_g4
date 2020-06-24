@@ -12,31 +12,48 @@ import './App.css'
 import { Link } from 'react-router-dom'
 import axios from "axios";
 
-function onChange(checkedValues) {
-  console.log('checked = ', checkedValues);
-}
 
 class Home extends Component { 
 
   state = {
     paciente: {},
     atividades: [],
+    sintomas: [],
     metas: [],
   };
 
 
+  componentDidMount(){
+    axios.get('http://localhost:8000/api/getPacienteLogged/',
+    { headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }})
+    .then(res => {
+      this.setState({paciente: res.data});
+      console.log(res.data)
+    })
 
-  getListAtividadeLogged = () => {
     axios.get('http://localhost:8000/api/getListAtividadeLogged/',
       { headers:{
       'Content-Type': 'application/json',
       'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
       }})
       .then(res => {
-        const atividades = res.data;
-        this.setState({atividades});
+        this.setState({atividades: res.data});
+        console.log(res.data)
       })
-  };
+      
+      axios.get('http://localhost:8000/api/getListDiarioDeSintomasLogged/',
+      { headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
+      .then(res => {
+        this.setState({sintomas: res.data});
+        console.log(res.data)
+      })
+  }
 
     render() {
         const { Header, Content, Sider } = Layout;
@@ -74,7 +91,7 @@ class Home extends Component {
           sessionStorage.removeItem('paciente');
           sessionStorage.removeItem('medico');
         }
-
+        console.log('oi')
         const tailLayout = {
           wrapperCol: {
             offset: 10,

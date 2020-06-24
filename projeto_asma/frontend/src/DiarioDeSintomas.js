@@ -23,18 +23,8 @@ class DiarioDeSintomas extends Component {
     feito:false,
     paciente: {},
   }
-
-  getSintomas = () => {
-    axios.get("http://localhost:8000/api/getListDiarioDeSintomasLogged/",
-    { headers:{
-      'Content-Type': 'application/json',
-      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
-    }}).then(res => this.setState({ sintomasList: res.data }));
-  };
-  
   
   setSintomas = () =>{
-    console.log(this.state.sintomasList);
     console.log(this.state.tosse,this.state.chiado,this.state.dormir,this.state.faltaDeAr,this.state.bombinha,this.state.observacao)
     axios.post("http://localhost:8000/api/createDiarioDeSintomas/",
       {
@@ -52,7 +42,6 @@ class DiarioDeSintomas extends Component {
         'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
       }}).then(() => {
         console.log("Deu certo")
-        window.location.reload(false);
     })
   }
   onChangeTosse = e => {
@@ -91,7 +80,33 @@ class DiarioDeSintomas extends Component {
         observacao: e.target.value
     });
   };
+
+  componentDidMount(){
+    axios.get('http://localhost:8000/api/getPacienteLogged/',
+    { headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }})
+    .then(res => {
+      this.setState({paciente: res.data});
+      console.log(res.data)
+    })
+      
+    axios.get('http://localhost:8000/api/getListDiarioDeSintomasLogged/',
+      { headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
+      .then(res => {
+        this.setState({sintomasList: res.data});
+        console.log(res.data)
+      })
+  }
+
+
   render() {
+
+
     const {Option}=Select;
     const { Header, Content, Sider } = Layout;
     const layout = {
@@ -121,11 +136,15 @@ class DiarioDeSintomas extends Component {
       },
 
     };
+    const renderLogout = () => {
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
+      sessionStorage.removeItem('paciente');
+      sessionStorage.removeItem('medico');
+    }
       const onFinish = values => {
         console.log('Success:', this.state);
-        this.setSintomas();
-        window.location.reload();
-        
+        this.setSintomas();      
       };
     
       const onFinishFailed = errorInfo => {
@@ -139,7 +158,7 @@ class DiarioDeSintomas extends Component {
           <Space size={22}>
           <Space size={94}>
           <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
-          <Link to={'/login'} ><Button>Log Out</Button></Link>
+          <Link to={'/login'} ><Button onClick={() => renderLogout()} >Log Out</Button></Link>
           </Space>
           </Space>
         </div>

@@ -45,6 +45,12 @@ class Estatisticas extends Component {
             span: 16,
           },
         };
+        const renderLogout = () => {
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('paciente');
+          sessionStorage.removeItem('medico');
+        }
           const onFinish = values => {
             console.log('Success:', values);
           };
@@ -61,7 +67,7 @@ class Estatisticas extends Component {
                 <Space size={22}>
                 <Space size={94}>
                 <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
-                <Link to={'/login'} ><Button>Log Out</Button></Link>
+                <Link to={'/login'} ><Button onClick={() => renderLogout()} >Log Out</Button></Link>
                 </Space>
                 </Space>
               </div>

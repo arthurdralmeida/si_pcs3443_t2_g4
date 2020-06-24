@@ -254,8 +254,7 @@ class createDiarioDeSintomas(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DiarioDeSintomasSerializer
     def post(self, request, *args, **kwargs):
-        user = User.objects.get(username=request.user)
-        paciente=Paciente.objects.get(login=user)
+        print(request.data)
         sintoma = DiarioDeSintomas.objects.create(
             tosse = request.data.tosse,
             chiado = request.data.chiado,
@@ -264,7 +263,7 @@ class createDiarioDeSintomas(APIView):
             observacao = request.data.observacao,
             bombinha = request.data.bombinha,
             data = str(date.today()),
-            paciente = paciente,
+            paciente = request.data.paciente,
         )
         sintoma.save()
         serializer = DiarioDeSintomasSerializer(data=sintoma)
