@@ -131,48 +131,7 @@ class Home extends Component {
             console.log(key);
           }
 
-          const { Column,} = Table;
-          const atividades = [
-            {
-              "pk": 1,
-              "nome": "Caminhada",
-              "dataRealizada": 16,
-              "duracao": 2,
-              "passos": 250,
-              "intensidade": 0
-          },
-          {
-              "pk": 2,
-              "nome": "Futebol",
-              "dataRealizada": 17,
-              "duracao": 1,
-              "passos": 0,
-              "intensidade": 3
-          }
-          ]
 
-          const sintomasList = [
-            {
-              "pk": 1,
-              "data": 17,
-              "chiado": 4,
-              "tosse": 1,
-              "dormir": 2,
-              "faltaDeAr": 2,
-              "bombinha": 2,
-              "observacao": "Dor no peito"
-          },
-          {
-              "pk": 2,
-              "data": 19,
-              "chiado": 1,
-              "tosse": 2,
-              "dormir": 3,
-              "faltaDeAr": 4,
-              "bombinha": 5,
-              "observacao": "Dor de cabeça"
-          }
-          ]
 
         return (
             <Fragment>
@@ -250,7 +209,7 @@ class Home extends Component {
 
               <Divider/>
               <Card dark title = "Sintomas recentes" bordered={false} style={{ width: 800 }}>
-              <Table dataSource={sintomasList}>
+              <Table dataSource={this.state.sintomas}>
                 <Column title="Data" dataIndex="data" key="data" align='center'/>
                 <Column title="Tosse" dataIndex="tosse" key="tosse" align='center'/>
                 <Column title="Chiados no peito" dataIndex="chiado" key="chiado" align='center'/>
@@ -263,7 +222,7 @@ class Home extends Component {
 
               <Divider/>
               <Card dark title = "Atividades recentes" bordered={false} style={{ width: 800 }}>
-              <Table dataSource={atividades}>
+              <Table dataSource={this.state.atividades}>
                 <Column title="Dia" dataIndex="dataRealizada" key="dataRealizada" align="center"/>
                   <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
                 <Column title="Duração (horas)" dataIndex="duracao" key="duracao" align="center"/>

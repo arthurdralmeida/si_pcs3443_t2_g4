@@ -45,15 +45,8 @@ ReactDOM.render(
       <Route path="/faq" component={Faq} />
       <PrivateRoute exact path="/ListaPacientes" component={ListaPacientes} />
       <Route path="/config" component={Configuracao} />
-<<<<<<< HEAD
-      <Route path="/diariodesintomas" component={DiarioDeSintomas} />
-      <Route path="/PlantaoDuvidas" component={PlantaoDuvidas} />
-      <Route path="/homemedico" component={HomeMedico} />
-      <Route path="/videos" component={Videos} />
-=======
       <PrivateRoute exact path="/PlantaoDuvidas" component={PlantaoDuvidas} />
       <PrivateRoute exact path="/home-m" component={HomeMedico} />
->>>>>>> 9edc48d9c5cbb13a615c6eb943f0a46d956ddca7
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
