@@ -71,10 +71,10 @@ class NotificacaoDeAtividade(models.Model):
 
 
 class DadosFitBit(models.Model):
-    batimento = models.IntegerField(default=None)
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
     passos = models.IntegerField(default=None)
     data = models.DateField(default=datetime.now)
-    atividade = models.ForeignKey(Atividade, on_delete=models.CASCADE, null=True)
+    
 
 
 class Chat(models.Model):
@@ -83,3 +83,8 @@ class Chat(models.Model):
     alocacao = models.ForeignKey(AlocacaoMedica, on_delete=models.CASCADE, null=True)
     data = models.DateField(default=datetime.now)
     ativo = models.BooleanField(default=False)
+
+class MetaMensal(models.Model):
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
+    passos =models.IntegerField(default=None)
+    horas = models.FloatField(default=None)

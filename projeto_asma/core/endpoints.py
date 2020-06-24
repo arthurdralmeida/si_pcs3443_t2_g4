@@ -69,8 +69,14 @@ urlpatterns = [
     url("^getAllMessagesFromAlocacao/$", getAllMessagesFromAlocacao.as_view()),
     url("^createMessage/$", createMessage.as_view()),
 
-    # urls de Dados do FitBit
+    # urls de Metas
+    url("^getMetaMensal/$", getMetaMensal.as_view()),
+    url("^createMetaMensal/$", createMetaMensal.as_view()),
 
+    #urls de Dados FitBit
+    url("^getDadosFitBit/$", getDadosFitBit.as_view()),
+    url("^createDadosFitBit/$", createDadosFitBit.as_view()),
+    
     # urls de Estatisticas
 
 ]

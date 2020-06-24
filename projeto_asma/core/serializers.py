@@ -86,13 +86,20 @@ class NotificacaoDeAtividadeSerializer(serializers.ModelSerializer):
 class DadosFitBitSerializer(serializers.ModelSerializer):
     class Meta:
         model = DadosFitBit
-        fields = ('pk','batimento', 'gravidade', 'data', 'atividade')
+        fields = ('pk','paciente','passos','data')
 
 
 class ChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chat
         fields = ('pk', 'mensagem', 'autor', 'alocacao', 'data', 'ativo')
+
+class MetaMensalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MetaMensal
+        fields = ('pk', 'paciente', 'passos', 'horas')
+
+
 
 
 

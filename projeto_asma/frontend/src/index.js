@@ -18,6 +18,7 @@ import DiarioDeSintomas from './DiarioDeSintomas'
 import HomeMedico from './HomeMedico'
 import MedicoPaciente from './MedicoPaciente'
 import Videos from './Videos'
+import FitBit from './FitBit'
 
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -43,6 +44,7 @@ ReactDOM.render(
       <PrivateRoute exact path="/diariodesintomas" component={DiarioDeSintomas} />
       <PrivateRoute exact path="/saude-pessoal" component={SaudePessoal} />
       <PrivateRoute exact path="/estatisticas" component={Estatisticas} />
+      <PrivateRoute exact path="/fitbit" component={FitBit} />
       <Route path="/faq" component={Faq} />
       <PrivateRoute exact path="/ListaPacientes" component={ListaPacientes} />
       <Route path="/config" component={Configuracao} />
