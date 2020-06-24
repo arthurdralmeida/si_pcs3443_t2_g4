@@ -525,6 +525,7 @@ class getListNotificacaoDeAtividadeLogged(APIView):
         data = NotificacaoDeAtividade.objects.filter(paciente=paciente, ativo=True)
         serializer = NotificacaoDeAtividadeSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
+        
 
 class createNotificacaoDeAtividade(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
@@ -597,6 +598,60 @@ class createMessage(APIView):
 # ---------------------
 # API DE DADOS FITBIT
 # --------------------
+class createMetaMensal(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = MetaMensalSerializer
+    def post(self, request, *args, **kwargs):
+        paciente = Paciente.objects.get(pk=request.data['paciente']['pk'])
+        meta = MetaMensal.objects.create(
+            paciente = paciente,
+            passos = request.data['passos'],
+            horas = request.data['horas'],
+        )
+        meta.save()
+        serializer = MetaMensalSerializer(data=meta)
+        if serializer.is_valid():
+          return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class getMetaMensal(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = MetaMensalSerializer
+    def get(self, request, *args, **kwargs):
+        paciente = Paciente.objects.get(pk=request.data['paciente']['pk'])
+        data = MetaMensal.objects.get(paciente=paciente)
+        serializer = MetaMensalSerializer(data, context={'request': request})
+        return Response(serializer.data)
+
+
+class getDadosFitBit(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = DadosFitBitSerializer
+    def get(self, request, *args, **kwargs):
+        paciente = Paciente.objects.get(pk=request.data['paciente']['pk'])
+        data = DadosFitBit.objects.get(paciente=paciente)
+        serializer = DadosFitBitSerializer(data, context={'request': request})
+        return Response(serializer.data)
+
+
+class createDadosFitBit(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = DadosFitBitSerializer
+    def post(self, request, *args, **kwargs):
+        paciente = Paciente.objects.get(pk=request.data['paciente']['pk'])
+        dados = DadosFitBit.objects.create(
+            paciente = paciente,
+            passos = request.data['passos'],
+            data = request.data['data'],
+        )
+        dados.save()
+        serializer = DadosFitBitSerializer(data=dados)
+        if serializer.is_valid():
+          return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 # ---------------------

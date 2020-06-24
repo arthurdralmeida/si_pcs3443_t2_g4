@@ -3,7 +3,7 @@ import { Layout, Menu, Space, Form, DatePicker, Input, Select, Button, InputNumb
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
-  SearchOutlined, MessageOutlined, FileSearchOutlined, SolutionOutlined, FormOutlined, ProfileOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined, HomeOutlined, YoutubeOutlined } from '@ant-design/icons';
+  SearchOutlined, MessageOutlined, FileSearchOutlined, SolutionOutlined, FormOutlined, ProfileOutlined, CalendarOutlined, LineChartOutlined, HeartOutlined, HomeOutlined, YoutubeOutlined,CloudUploadOutlined} from '@ant-design/icons';
   import { Link } from 'react-router-dom'
   import '../App.css'
 
@@ -62,7 +62,7 @@ class MenuLateral extends Component {
                 <Menu.Item key="1" icon={<HomeOutlined />}><Link className="link" style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/"><b>Home</b></Link></Menu.Item>
                 <Menu.Item key="2" icon={<UserOutlined/>}><Link className="link" style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/informacoes-pessoais"><b>Informações pessoais</b></Link></Menu.Item>
                 <Menu.Item key="3" icon={<FormOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1'}} to="/cadastro-atividade"><b>Atividade</b></Link></Menu.Item>
-                
+                <Menu.Item key="4" icon={<CloudUploadOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1'}} to="/fitbit"><b>FitBit</b></Link></Menu.Item>
                 <Menu.Item key="5" icon={<ProfileOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/metas"><b>Metas</b></Link></Menu.Item>
                 <Menu.Item key="6" icon={<CalendarOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/calendario"><b>Calendário</b></Link></Menu.Item>
                 <Menu.Item key="7" icon={<HeartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/diariodesintomas"><b>Diário de Sintomas</b></Link></Menu.Item>
