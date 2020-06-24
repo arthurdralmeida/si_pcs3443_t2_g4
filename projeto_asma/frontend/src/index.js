@@ -16,7 +16,11 @@ import Faq from './Faq'
 import Configuracao from './Configuracao'
 import DiarioDeSintomas from './DiarioDeSintomas'
 import HomeMedico from './HomeMedico'
+<<<<<<< HEAD
 import MedicoPaciente from './MedicoPaciente'
+=======
+import Videos from './Videos'
+>>>>>>> 0166bbdba5502e0124f6d778b658a4ab08e6aba5
 
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
