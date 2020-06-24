@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import moment from 'moment';
-import { Layout, Space, Form, TimePicker, Checkbox, Divider, DatePicker, Input, Select, Button, InputNumber, PageHeader } from 'antd';
+import { Layout, Space, Form, TimePicker, Checkbox, Divider, DatePicker, Input, Select, Button, InputNumber, PageHeader,Progress, Result, Carousel, Tabs, Table, Card } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -8,8 +8,36 @@ import { UserOutlined,
 
 import MenuLateral from './components/MenuLateral'
 import { Link } from 'react-router-dom'
+import axios from "axios";
 import './App.css'
+
+const { Column, ColumnGroup } = Table;
+
+const gridStyle = {
+  width: '50%',
+  textAlign: 'center',
+};
+
 class CadastroAtividades extends Component {
+
+  state={
+    atividades:[],
+  }
+  componentDidMount(){
+    axios.get('http://localhost:8000/api/getListAtividadeLogged/',
+      { headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
+      .then(res => {
+        this.setState({atividades: res.data});
+        console.log(res.data)
+      })
+      
+    }
+
+
+
     render() {
         const { Header, Content, Sider } = Layout;
         const layout = {
@@ -75,6 +103,17 @@ class CadastroAtividades extends Component {
             <Layout>
               <MenuLateral valueFromParent={'3'} />
               <Layout style={{ padding: '0 24px 24px' }}>
+              <Card dark title = "Atividades recentes" bordered={false} style={{ width: 800 }}>
+              <Table dataSource={this.state.atividades}>
+                <Column title="Dia" dataIndex="dataRealizada" key="dataRealizada" align="center"/>
+                  <Column title="Atividade" dataIndex="nome" key="nome" align="center"/>
+                <Column title="Duração (horas)" dataIndex="duracao" key="duracao" align="center"/>
+                <Column title="Número de passos" dataIndex="passos" key="passos" align="center"/>
+                <Column title="Intensidade" dataIndex="intensidade" key="intensidade" align="center"/>
+                </Table>
+              </Card>   
+
+
                 <PageHeader
                   className="site-page-header"
                   title="Caminhada ou corrida"
@@ -252,8 +291,11 @@ class CadastroAtividades extends Component {
                     </Form.Item>
                   </Form>
                 </Content>
+                
               </Layout>
+              
             </Layout>
+            
           </Layout>
           </Fragment>
         );

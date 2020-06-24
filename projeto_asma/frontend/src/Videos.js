@@ -67,7 +67,7 @@ class Videos extends Component {
               </div>
             </Header>
             <Layout>
-              <MenuLateral valueFromParent={'1'} />
+              <MenuLateral valueFromParent={'12'} />
               <Layout style={{ padding: '0 24px 24px' }}>
                 <PageHeader
                   className="site-page-header"
