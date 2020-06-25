@@ -72,7 +72,8 @@ class Login extends Component {
         }).catch((error) => {
           console.log(error)
       });
-      await (JSON.parse(sessionStorage.getItem('medico')) || JSON.parse(sessionStorage.getItem('paciente'))) ? this.props.history.push('/') : console.log('caos')
+      await JSON.parse(sessionStorage.getItem('medico')) ? this.props.history.push('/home') : console.log('caos')
+      await JSON.parse(sessionStorage.getItem('paciente')) ? this.props.history.push('/') : console.log('caos')
 
       };
     

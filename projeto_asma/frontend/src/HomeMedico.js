@@ -89,6 +89,10 @@ class HomeMedico extends Component {
             console.log(key);
           }
 
+          function setPacienteClicked(text) {
+            sessionStorage.setItem('paciente_selected', JSON.stringify(text))
+          }
+
           
 
           const { Column,} = Table;
@@ -123,7 +127,12 @@ class HomeMedico extends Component {
             },
           ];
           
-                  
+          const renderLogout = () => {
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('paciente');
+            sessionStorage.removeItem('medico');
+          }   
           const pacientes = this.state.pacientes;
           const resetState=this.resetState
 
@@ -138,7 +147,7 @@ class HomeMedico extends Component {
                 <Space size={22}>
                 <Space size={94}>
                 <p style={{color: '#f1f1f1'}}>Projeto Asma</p>
-                <Link to={'/login'} ><Button>Log Out</Button></Link>
+                <Link to={'/login'}><Button onClick={() => renderLogout()}>Log Out</Button></Link>
                 </Space>
                 </Space>
               </div>
@@ -170,7 +179,7 @@ class HomeMedico extends Component {
                       key="paginaPaciente"
                       align='center'
                       render={(text, record) => (
-                          <a><Link to={"./medicopaciente"}><SmileTwoTone /></Link></a>
+                          <Link to={"./medicopaciente"}><Button onClick={() => setPacienteClicked(text)}><SmileTwoTone /></Button></Link>
                       )}
                     />
                   <Column
@@ -198,7 +207,7 @@ class HomeMedico extends Component {
                       key="sintomasdesalocado"
                       align='center'
                       render={(text, record) => (
-                          <a><Link to={"./medicopaciente"}><SmileTwoTone /></Link></a>
+                          <Link to={"./medicopaciente"}><Button onClick={() => setPacienteClicked(text)}><SmileTwoTone /></Button></Link>
                       )}
                     />
                   <Column

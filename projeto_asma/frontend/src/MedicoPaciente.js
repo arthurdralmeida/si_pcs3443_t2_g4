@@ -22,10 +22,10 @@ class MedicoPaciente extends Component {
     paciente:{},
     atividades:[],
     sintomasList:[],
-    
+    metaMensal:{},
   };
   componentDidMount() {
-    this.resetState();
+    this.setState({ paciente: JSON.parse(sessionStorage.getItem('paciente_selected'))})
   }
   getPacientes = () => {
     axios.get('https://localhost:8000/api/getPaciente/',
@@ -186,10 +186,10 @@ class MedicoPaciente extends Component {
                 > 
                 <Card title="Informações Pessoais" bordered={true} style={{ width: 800}}>
                   <Descriptions bordered>
-                  <Descriptions.Item label="Nome" span={2}>{paciente.nome}</Descriptions.Item>
-                  <Descriptions.Item label="Data de nascimento">{paciente.dataNascimento}</Descriptions.Item>
-                  <Descriptions.Item label="Altura">{paciente.altura}</Descriptions.Item>
-                  <Descriptions.Item label="Grau de Asma">{paciente.grauAsma}</Descriptions.Item>
+                  <Descriptions.Item label="Nome" span={2}>{this.state.paciente.nome}</Descriptions.Item>
+                  <Descriptions.Item label="Data de nascimento">{this.state.paciente.dataNascimento}</Descriptions.Item>
+                  <Descriptions.Item label="Altura">{this.state.paciente.altura}</Descriptions.Item>
+                  <Descriptions.Item label="Grau de Asma">{this.state.paciente.grauAsma}</Descriptions.Item>
                   <Descriptions.Item label="Meta desta semana" span={3}>
                     <Badge status="success" text="Atingida" />
                   </Descriptions.Item>
@@ -225,7 +225,15 @@ class MedicoPaciente extends Component {
                 </Card>
                 <h5> </h5>
                 <h5> </h5>
-                <Card title="Cadastrar Meta Mensal:" bordered={true} style={{ width: 800}}>
+                <Card title="Meta Mensal:" bordered={true} style={{ width: 800}}>
+                  {(!this.state.metaMensal) ?
+                  <p>Meta mensal ainda não criada</p>:
+                  <>
+                  <p>Meta de passos: </p>
+                  <p>Meta de horas de atividade: </p>
+                  <p> </p>
+                  </>
+                  }
                 <Form
                     {...layout}
                     name="basic"
