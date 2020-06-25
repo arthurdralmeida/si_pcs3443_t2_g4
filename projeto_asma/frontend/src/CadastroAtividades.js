@@ -21,7 +21,12 @@ const gridStyle = {
 class CadastroAtividades extends Component {
 
   state={
-    atividades:[],
+    nome:' ',
+    passos: 0,
+    duracao: 2,
+    intensidade: ' ',
+    dataRealizada: '2020-05-05',
+    paciente: ' ',
   }
   componentDidMount(){
     axios.get('http://localhost:8000/api/getListAtividadeLogged/',
@@ -36,8 +41,53 @@ class CadastroAtividades extends Component {
       
     }
 
-
-
+    setAtividade = () =>{
+      console.log(this.state.nome, this.state.passos, this.state.duracao,this.state.intensidade,this.state.dataRealizada)
+      axios.post("http://localhost:8000/api/createAtividadeLogged/",
+        {
+          nome: this.state.nome,
+          passos: this.state.passos,
+          duracao: this.state.duracao,
+          intensidade: this.state.intensidade,
+          dataRealizada: this.state.dataRealizada,
+        },
+        { headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+        }}).then(() => {
+          console.log("Deu certo")
+      })
+    }
+    onChangeNome = e => {
+      console.log('radio checked', e.target.value);
+      this.setState({
+        nome: e.target.value
+      });
+    };
+    onChangePassos = e => {
+      console.log('radio checked', e.target.value);
+      this.setState({
+        passos: e.target.value
+      });
+    };
+    onChangeDuracao = e => {
+      console.log('radio checked', e.target.value);
+      this.setState({
+        duracao: e.target.value
+      });
+    };
+    onChangeIntensidade = e => {
+      console.log('radio checked', e.target.value);
+      this.setState({
+        intensidade: e.target.value
+      });
+    };
+    onChangeDataRealizada = e => {
+      console.log('radio checked', e.target.value);
+      this.setState({
+        dataRealizada: e.target.value
+      });
+    };
     render() {
         const { Header, Content, Sider } = Layout;
         const layout = {
@@ -136,8 +186,9 @@ class CadastroAtividades extends Component {
                     onFinishFailed={onFinishFailed}
                   >
                     <Form.Item
-                    label="Intensidade:"
-                    name="intensidade"
+                    label="intensidade:"
+                    name="nome"
+                    onChange={this.onChangeNome}
                     rules={[
                       {
                         required: true,
@@ -166,6 +217,7 @@ class CadastroAtividades extends Component {
                     <Form.Item
                     label="Duração:"
                     name="duraçao"
+                    onChange={this.onChangeDuracao}
                     rules={[
                       {
                         required: true,
@@ -177,6 +229,7 @@ class CadastroAtividades extends Component {
                     <Form.Item
                     label="Passos:"
                     name="passos"
+                    onChange={this.onChangePassos}
                     rules={[
                       {
                         required: true,
@@ -185,7 +238,7 @@ class CadastroAtividades extends Component {
                     ]}>
                       <Input style={{ width: '13%' }}/>
                     </Form.Item>
-                    <Form.Item label="Realizada hoje?:">
+                    <Form.Item label="Realizada hoje?:" onChange={this.onChangeDataRealizada}>
                     <Checkbox defaultChecked='true' onChange={onChange}><b>Sim</b></Checkbox> <Divider type="vertical" /><Divider type="vertical" /><Divider type="vertical" />
                     Caso não tenha sido hoje, selecione o dia: <DatePicker onChange={onChange} />
                     </Form.Item>
@@ -212,7 +265,8 @@ class CadastroAtividades extends Component {
                   >
                     <Form.Item
                     label="Atividade:"
-                    name="atividade"
+                    name="nome"
+                    onChange={this.onChangeNome}
                     rules={[
                       {
                         required: true,
@@ -243,6 +297,7 @@ class CadastroAtividades extends Component {
                     <Form.Item
                     label="Duração:"
                     name="duraçao"
+                    onChange={this.onChangeDuracao}
                     rules={[
                       {
                         required: true,
@@ -254,6 +309,7 @@ class CadastroAtividades extends Component {
                     <Form.Item
                     label="Intensidade:"
                     name="intensidade"
+                    onChange={this.onChangeIntensidade}
                     rules={[
                       {
                         required: true,
@@ -279,7 +335,7 @@ class CadastroAtividades extends Component {
                       </Select>
                     </Form.Item>
 
-                    <Form.Item label="Realizada hoje?:">
+                    <Form.Item label="Realizada hoje?:" onChange={this.onChangeDataRealizada}>
                     <Checkbox defaultChecked='true' onChange={onChange}><b>Sim</b></Checkbox> <Divider type="vertical" /><Divider type="vertical" /><Divider type="vertical" />
                     Caso não tenha sido hoje, selecione o dia: <DatePicker onChange={onChange} />
                     </Form.Item>

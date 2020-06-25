@@ -585,6 +585,26 @@ class disableNotificacaoDeAtividade(APIView):
 # API DE CHAT
 # -------------
 
+class getListofMessages(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ChatSerializer
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(username=request.user)
+        paciente = Paciente.objects.get(login=user)
+        data = Chat.objects.filter(paciente=paciente, ativo=True)
+        serializer = ChatSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+class getListofMessagesReceived(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = ChatSerializer
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(username=request.user)
+        agentedesaude = AgenteDeSaude.objects.get(login=user)
+        data = Chat.objects.filter(paciente=paciente, ativo=True)
+        serializer = ChatSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
+
 class getAllMessagesFromAlocacao(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = ChatSerializer

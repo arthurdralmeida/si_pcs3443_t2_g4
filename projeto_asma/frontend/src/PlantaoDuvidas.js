@@ -17,7 +17,20 @@ class PlantaoDuvidas extends Component {
         'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
       }}).then(res => this.setState({ atividadesList: res.data }));
   };
-
+  getListofMessages = () => {
+    axios.get("http://localhost:8000/api/getListofMessages/",
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }}).then(res => this.setState({ atividadesList: res.data }));
+  };
+  getListofMessagesReceived = () => {
+    axios.get("http://localhost:8000/api/getListofMessagesReceived/",
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }}).then(res => this.setState({ atividadesList: res.data }));
+  };
   setMessage = () =>{
     console.log(this.state.messageList);
     console.log(this.state.message,this.state.alocacao,this.state.data,this.state.ativo)
