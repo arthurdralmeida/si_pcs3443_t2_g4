@@ -201,7 +201,7 @@ class CadastroPaciente extends Component {
                   name="dataNascimento"
                   onChange={this.onChangeDataNascimento}
                 >
-                   <Input style={{ width: '20%' }}/>   (dd/mm/yyyy)
+                   <Input style={{ width: '20%' }}/>   (yyyy-mm-dd.)
                   </Form.Item>
                 <Form.Item
                   label="Altura"

@@ -132,7 +132,7 @@ class createPaciente(APIView):
             cpf = request.data['cpf'],
             login = user2,
             emEsperaDeMedico = request.data['emEsperaDeMedico'],
-            cadastro = request.data['cadastro'],
+            cadastro = True,
         )
         paciente.save()
         serializer = PacienteSerializer(data=paciente)
