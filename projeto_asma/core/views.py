@@ -256,8 +256,7 @@ class getListDiarioDeSintomasOfPaciente(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DiarioDeSintomasSerializer
     def get(self, request, *args, **kwargs):
-        paciente=Paciente.objects.get(pk=request.data['paciente_pk'])
-        data = DiarioDeSintomas.objects.filter(paciente=paciente)
+        data = DiarioDeSintomas.objects.all()
         serializer = DiarioDeSintomasSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
 
@@ -324,8 +323,7 @@ class getListAtividadeOfPaciente(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AtividadeSerializer
     def get(self, request, *args, **kwargs):
-        paciente=Paciente.objects.get(pk=request.data['paciente_pk'])
-        data = Atividade.objects.filter(paciente=paciente)
+        data = Atividade.objects.all()
         serializer = AtividadeSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
 
