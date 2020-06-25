@@ -256,8 +256,7 @@ class getListDiarioDeSintomasOfPaciente(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DiarioDeSintomasSerializer
     def get(self, request, *args, **kwargs):
-        paciente=Paciente.objects.get(pk=request.data['paciente_pk'])
-        data = DiarioDeSintomas.objects.filter(paciente=paciente)
+        data = DiarioDeSintomas.objects.all()
         serializer = DiarioDeSintomasSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
 
@@ -324,8 +323,7 @@ class getListAtividadeOfPaciente(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AtividadeSerializer
     def get(self, request, *args, **kwargs):
-        paciente=Paciente.objects.get(pk=request.data['paciente_pk'])
-        data = Atividade.objects.filter(paciente=paciente)
+        data = Atividade.objects.all()
         serializer = AtividadeSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
 
@@ -418,8 +416,10 @@ class createAlocacaoMedicaLogged(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AlocacaoMedicaSerializer
     def post(self, request, *args, **kwargs):
-        paciente = AlocacaoMedica.objects.get(pk=request.data['paciente_pk'])
+        paciente = Paciente.objects.get(pk=request.data['paciente_pk'])
         paciente.emEsperaDeMedico = False
+        paciente.save()
+        print(paciente)
         user = User.objects.get(username=request.user)
         medico = AgenteDeSaude.objects.get(login=user)
         alocacao = AlocacaoMedica.objects.create(
@@ -641,7 +641,7 @@ class createMetaMensal(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = MetaMensalSerializer
     def post(self, request, *args, **kwargs):
-        paciente = Paciente.objects.get(pk=request.data['paciente']['pk'])
+        paciente = Paciente.objects.get(pk=request.data['paciente_pk'])
         meta = MetaMensal.objects.create(
             paciente = paciente,
             passos = request.data['passos'],
@@ -660,8 +660,8 @@ class getMetaMensal(APIView):
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
         paciente = Paciente.objects.get(login=user)
-        data = MetaMensal.objects.filter(paciente=paciente)
-        serializer = MetaMensalSerializer(data, context={'request': request},many=True)
+        data = MetaMensal.objects.get(paciente=paciente)
+        serializer = MetaMensalSerializer(data, context={'request': request})
         return Response(serializer.data)
 
 

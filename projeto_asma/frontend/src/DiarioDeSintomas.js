@@ -170,6 +170,14 @@ class DiarioDeSintomas extends Component {
             className="site-page-header"
             title="Diario de Sintomas"
           />
+                <Content
+                  className="site-layout-background"
+                  style={{
+                    padding: 24,
+                    margin: 0,
+                    minHeight: 1100
+                  }}
+                > 
     <Table dataSource={this.state.sintomasList}>
     <ColumnGroup title='Sintomas dos últimos dias'>
     <Column title="Data" dataIndex="data" key="data" />
@@ -279,6 +287,7 @@ Isto acontece porque o tamanho dos brônquios (vias aéreas) diminui
           </Button>
       </Form.Item>
     </Form>
+    </Content>
     </Layout>
     </Layout>
     </Layout>

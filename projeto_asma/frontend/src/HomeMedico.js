@@ -93,6 +93,22 @@ class HomeMedico extends Component {
             sessionStorage.setItem('paciente_selected', JSON.stringify(text))
           }
 
+          function alocarPaciente(text) {
+            console.log(text.pk)
+            axios.post("http://localhost:8000/api/createAlocacaoMedicaLogged/",
+            {
+              paciente_pk: text.pk
+            },
+            { headers:{
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+            }}).then(() => {
+              console.log("Deu certo")
+              window.location.reload();
+          })
+          window.location.reload();
+          }
+
           
 
           const { Column,} = Table;
@@ -164,7 +180,7 @@ class HomeMedico extends Component {
                   style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: 800
+                    minHeight: 1100
                   }}
                 > 
 
@@ -215,7 +231,7 @@ class HomeMedico extends Component {
                     key="alocar"
                     align='center'
                     render={(text, record) => (
-                        <a><CheckCircleTwoTone twoToneColor="#52c41a" /></a>
+                        <Button onClick={() => alocarPaciente(text)}><CheckCircleTwoTone twoToneColor="#52c41a" /></Button>
                     )}
                     />
                 </Table>

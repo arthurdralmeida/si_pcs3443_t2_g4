@@ -26,6 +26,25 @@ class MedicoPaciente extends Component {
   };
   componentDidMount() {
     this.setState({ paciente: JSON.parse(sessionStorage.getItem('paciente_selected'))})
+    axios.get('http://localhost:8000/api/getListDiarioDeSintomasOfPaciente/',
+    { headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }})
+    .then(res => {
+      this.setState({sintomasList: res.data});
+      console.log(res.data)
+    })
+
+    axios.get('http://localhost:8000/api/getListAtividadeOfPaciente/',
+    { headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }})
+    .then(res => {
+      this.setState({atividades: res.data});
+      console.log(res.data)
+    })
   }
   getPacientes = () => {
     axios.get('https://localhost:8000/api/getPaciente/',
@@ -37,6 +56,7 @@ class MedicoPaciente extends Component {
         const pacientes = res.data;
         this.setState({pacientes});
       })
+
   };
   resetState = () => {
     this.getPacientes();
@@ -126,29 +146,6 @@ class MedicoPaciente extends Component {
                 "intensidade": 3
             }
             ]
-
-            const sintomasList = [
-              {
-                "pk": 1,
-                "data": 17/5,
-                "chiado": 4,
-                "tosse": 1,
-                "dormir": 2,
-                "faltaDeAr": 2,
-                "bombinha": 2,
-                "observacao": "Dor no peito"
-            },
-            {
-                "pk": 2,
-                "data": 16/5,
-                "chiado": 1,
-                "tosse": 2,
-                "dormir": 3,
-                "faltaDeAr": 4,
-                "bombinha": 5,
-                "observacao": "Dor de cabeça"
-            }
-            ]
           
           
           
@@ -202,7 +199,7 @@ class MedicoPaciente extends Component {
 
                 <Card title="Atividades Realizadas:" bordered={true} style={{ width: 800}}>
                 <Table dark 
-                dataSource={atividades}>
+                dataSource={this.state.atividades}>
                   <Column title="Nome" dataIndex="nome" key="nome" align='center'/>                               
                   <Column title="Duração" dataIndex="duracao" key="duracao" align='center'/>
                   <Column title="Data Realizada" dataIndex="dataRealizada" key="dataRealizada" align='center'/> 
@@ -213,7 +210,7 @@ class MedicoPaciente extends Component {
                 <h5> </h5>
                 <h5> </h5>
                 <Card title="Sintomas:" bordered={true} style={{ width: 800}}>
-                  <Table dataSource={sintomasList}>
+                  <Table dataSource={this.state.sintomasList}>
                     <Column title="Data" dataIndex="data" key="data" align='center'/>
                     <Column title="Tosse" dataIndex="tosse" key="tosse" align='center'/>
                     <Column title="Chiados no peito" dataIndex="chiado" key="chiado" align='center'/>

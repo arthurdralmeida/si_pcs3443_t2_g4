@@ -78,7 +78,7 @@ class Videos extends Component {
                   style={{
                     padding: 24,
                     margin: 0,
-                    minHeight: 800
+                    minHeight: 1100
                   }}
                 > 
                   <Card title="Exercício Respiratório:" bordered={true} style={{ width: 900}}>
