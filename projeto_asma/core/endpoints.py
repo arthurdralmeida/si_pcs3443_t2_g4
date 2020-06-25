@@ -72,6 +72,8 @@ urlpatterns = [
     # urls de Metas
     url("^getMetaMensal/$", getMetaMensal.as_view()),
     url("^createMetaMensal/$", createMetaMensal.as_view()),
+    url("^getMetaMensalFromPaciente/$", getMetaMensalFromPaciente.as_view()),
+    
 
     #urls de Dados FitBit
     url("^getDadosFitBit/$", getDadosFitBit.as_view()),

@@ -665,6 +665,15 @@ class getMetaMensal(APIView):
         return Response(serializer.data)
 
 
+class getMetaMensalFromPaciente(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = MetaMensalSerializer
+    def get(self, request, *args, **kwargs):
+        paciente = Paciente.objects.get(login=user)
+        data = MetaMensal.objects.get(paciente=paciente)
+        serializer = MetaMensalSerializer(data, context={'request': request})
+        return Response(serializer.data)
+
 class getDadosFitBit(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DadosFitBitSerializer
