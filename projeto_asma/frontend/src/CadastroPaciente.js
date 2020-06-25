@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import moment from 'moment';
-import { Layout, Menu,  DatePicker, Space, Form, Input, Select, Button, InputNumber, PageHeader } from 'antd';
+import { Layout, Menu,  Radio, DatePicker, Space, Form, Input, Select, Button, InputNumber, PageHeader } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
   SearchOutlined } from '@ant-design/icons';
 import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
+import { login } from "./actions/auth";
 
 class CadastroPaciente extends Component {
   state={
@@ -33,7 +34,7 @@ class CadastroPaciente extends Component {
         grauAsma: this.state.grauAsma,
         altura: this.state.altura,
         cpf: this.state.cpf,
-        emEsperaDeMedico: this.state.emEsperaDeMedico,
+        emEsperaDeMedico: true,
       },
       { headers:{
         'Content-Type': 'application/json',
@@ -90,18 +91,6 @@ class CadastroPaciente extends Component {
         cpf: e.target.value
     });
   };
-  onChangeEmEsperaDeMedico = e => {
-    console.log('radio checked', e.target.value);
-    this.setState({
-      emEsperaDeMedico: e.target.value
-    });
-  };
-  onChangeCadastro = e => {
-    console.log('radio checked', e.target.value);
-    this.setState({
-        cadastro: e.target.value
-    });
-  };
   render() {
     const { Header, Content, Sider } = Layout;
     const layout = {
@@ -138,8 +127,9 @@ class CadastroPaciente extends Component {
         span: 16,
       },
     };
-      const onFinish = values => {
-        console.log('Success:', values);
+      const onFinish = () => {
+        console.log('Success:', this.state);
+        this.setPaciente();
       };
     
       const onFinishFailed = errorInfo => {
@@ -175,9 +165,6 @@ class CadastroPaciente extends Component {
                <Form
                 {...layout}
                 name="basic"
-                initialValues={{
-                  remember: true,
-                }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
               >
@@ -185,12 +172,6 @@ class CadastroPaciente extends Component {
                   label="Nome"
                   name="name"
                   onChange={this.onChangeNome}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Insire seu nome completo',
-                    },
-                  ]}
                 >
                   <Input style={{ width: '50%' }}/>
                 </Form.Item>
@@ -199,12 +180,6 @@ class CadastroPaciente extends Component {
                   label="Senha"
                   name="password"
                   onChange={this.onChangePassword}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Insire uma senha válida para sua conta',
-                    },
-                  ]}
                 >
                   <Input.Password style={{ width: '50%' }}/>
                 </Form.Item>
@@ -213,12 +188,6 @@ class CadastroPaciente extends Component {
                   label="Senha novamente"
                   name="password2"
                   onChange={this.onChangePassword}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Insire a senha que escolheu novamente',
-                    },
-                  ]}
                 >
                   <Input.Password style={{ width: '50%' }}/>
                 </Form.Item>
@@ -227,12 +196,6 @@ class CadastroPaciente extends Component {
                   label="Email"
                   name="email"
                   onChange={this.onChangeUsername}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Insire seu email',
-                    },
-                  ]}
                 >
                   <Input style={{ width: '50%' }}/>
                 </Form.Item>
@@ -241,25 +204,13 @@ class CadastroPaciente extends Component {
                   label="Data de nascimento"
                   name="dataNascimento"
                   onChange={this.onChangeDataNascimento}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Insira sua data de nascimento',
-                    },
-                  ]}
                 >
-                  <DatePicker defaultValue={moment('01/01/2015', dateFormatList[0])} format={dateFormatList} />
+                   <Input style={{ width: '20%' }}/>   (dd/mm/yyyy)
                   </Form.Item>
                 <Form.Item
                   label="Altura"
                   name="altura"
                   onChange={this.onChangeAltura}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Insire sua altura',
-                    },
-                  ]}
                 >
                   <InputNumber min={60} max={300} defaultValue={0} />    cm 
                 </Form.Item>
@@ -268,26 +219,14 @@ class CadastroPaciente extends Component {
                   label="Peso"
                   name="peso"
                   onChange={this.onChangePeso}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Insire seu peso',
-                    },
-                  ]}
                 >
-                  <InputNumber min={1} max={500} defaultValue={0} onChange={onChange} /> kg
+                  <InputNumber min={1} max={500} defaultValue={0} /> kg
                 </Form.Item>
 
                 <Form.Item
                   label="CPF"
                   name="cpf"
                   onChange={this.onChangeCPF}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Insire seu CPF',
-                    },
-                  ]}
                 >
                   <Input  style={{ width: '50%' }}/> 
                 </Form.Item>
@@ -295,34 +234,16 @@ class CadastroPaciente extends Component {
                 <Form.Item
                   label="Grau de Asma"
                   name="grauAsma"
-                  onChange={this.onChangeGrauAsma}
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Identifique seu grau de asma',
-                    },
-                  ]}>
-                  <Select
-                    showSearch
-                    style={{ width: 200 }}
-                    placeholder="Identifique seu grau de asma"
-                    optionFilterProp="children"
-                    onChange={onChange2}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
-                    onSearch={onSearch}
-                    filterOption={(input, option) =>
-                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                    }
-                  >
-                    <Option value="Grave">Grave</Option>
-                    <Option value="Leve">Leve</Option>
-                    <Option value="Desconheço">Desconheço</Option>
-                  </Select>
+                >
+                  <Radio.Group onChange={this.onChangeGrauAsma} key='grauAsma'>
+                      <Radio value="Grave">Grave</Radio>
+                        <Radio value="Leve">Leve</Radio>
+                        <Radio value="Desconheço">Desconheço</Radio>
+                      </Radio.Group>
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
-                <Link to={'/login'}><Button type="primary" htmlType="submit" setPaciente>
+                <Link to={'/login'}><Button type="primary" htmlType="submit">
                     Cadastrar
                   </Button></Link>
                 </Form.Item>
