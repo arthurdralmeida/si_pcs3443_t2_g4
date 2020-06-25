@@ -19,7 +19,9 @@ const gridStyle = {
 };
 
 class CadastroAtividades extends Component {
-
+  state2 = {
+    disabled: true,
+  };
   state={
     nome:'Caminhada/Corrida',
     passos: 0,
@@ -106,6 +108,7 @@ class CadastroAtividades extends Component {
             span: 18,
           },
         };
+        
         const { Option } = Select;
         function onChange2(value) {
           console.log(`selected ${value}`);
@@ -253,9 +256,8 @@ class CadastroAtividades extends Component {
                     <Form.Item
                     label="Atividade:"
                     name="nome"
-                    onChange={this.onChangeNome}
                     >
-                      <Radio.Group onChange={this.onChangeIntensidade} key='intensidade'>
+                      <Radio.Group onChange={this.onChangeNome} key='intensidade'>
                       <Radio value={'Volei'}>Vôlei</Radio>
                         <Radio value={'Futebol'}>Futebol</Radio>
                         <Radio value={'Remo'}>Remo</Radio>
