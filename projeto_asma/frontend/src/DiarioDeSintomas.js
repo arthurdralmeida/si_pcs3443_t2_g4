@@ -41,6 +41,7 @@ class DiarioDeSintomas extends Component {
         'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
       }}).then(() => {
         console.log("Deu certo")
+        window.location.reload();
     })
   }
   onChangeTosse = e => {

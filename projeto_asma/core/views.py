@@ -273,7 +273,7 @@ class createDiarioDeSintomas(APIView):
     serializer_class = DiarioDeSintomasSerializer
     def post(self, request, *args, **kwargs):
         print(request.data)
-        paciente = Paciente.objects.get(pk=request.data['paciente_pk']['pk'])
+        paciente = Paciente.objects.get(pk=request.data['paciente']['pk'])
         sintoma = DiarioDeSintomas.objects.create(
             tosse = request.data['tosse'],
             chiado = request.data['chiado'],

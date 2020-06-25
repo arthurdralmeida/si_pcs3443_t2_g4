@@ -26,9 +26,20 @@ class CadastroAtividades extends Component {
     duracao: 2,
     intensidade: ' ',
     dataRealizada: '2020-05-05',
-    paciente: ' ',
+    paciente: {},
+    atividades: [],
   }
   componentDidMount(){
+    axios.get('http://localhost:8000/api/getPacienteLogged/',
+    { headers:{
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+    }})
+    .then(res => {
+      this.setState({paciente: res.data});
+      console.log(res.data)
+    })
+
     axios.get('http://localhost:8000/api/getListAtividadeLogged/',
       { headers:{
       'Content-Type': 'application/json',
