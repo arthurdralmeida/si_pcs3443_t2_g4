@@ -60,6 +60,16 @@ class Home extends Component {
         this.setState({sintomas: res.data});
         console.log(res.data)
       })
+
+      axios.get('http://localhost:8000/api/getMetaMensal/',
+      { headers:{
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
+      .then(res => {
+        this.setState({metas: res.data});
+        console.log(res.data)
+      })
   }
 
   getListDiarioDeSintomasLogged = () => {

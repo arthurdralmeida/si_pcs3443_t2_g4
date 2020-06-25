@@ -77,6 +77,7 @@ urlpatterns = [
     url("^getDadosFitBit/$", getDadosFitBit.as_view()),
     url("^createDadosFitBit/$", createDadosFitBit.as_view()),
     
-    # urls de Estatisticas
-
+    # urls de listas de pacientes
+    url("^getListPacienteEmEsperaDeMedico/$", getListPacienteEmEsperaDeMedico.as_view()),
+    url("^getListPacienteComMedico/$", getListPacienteComMedico.as_view()),
 ]

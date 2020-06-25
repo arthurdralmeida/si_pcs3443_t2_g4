@@ -59,9 +59,7 @@ class getAdminLogged(APIView):
 class getPacienteLogged(APIView):
     serializer_class = PacienteSerializer
     def get(self, request, *args, **kwargs):
-        print(request)
         user = User.objects.get(username=request.user)
-        print(request)
         data=Paciente.objects.get(login=user)
         serializer = PacienteSerializer(data, context={'request': request})
         return Response(serializer.data)
@@ -638,9 +636,10 @@ class getMetaMensal(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = MetaMensalSerializer
     def get(self, request, *args, **kwargs):
-        paciente = Paciente.objects.get(pk=request.data['paciente']['pk'])
-        data = MetaMensal.objects.get(paciente=paciente)
-        serializer = MetaMensalSerializer(data, context={'request': request})
+        user = User.objects.get(username=request.user)
+        paciente = Paciente.objects.get(login=user)
+        data = MetaMensal.objects.filter(paciente=paciente)
+        serializer = MetaMensalSerializer(data, context={'request': request},many=True)
         return Response(serializer.data)
 
 

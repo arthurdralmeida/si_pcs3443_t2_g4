@@ -88,7 +88,7 @@ class DiarioDeSintomas extends Component {
     }})
     .then(res => {
       this.setState({paciente: res.data});
-      console.log(res.data)
+      console.log('paciente: ', res.data)
     })
       
     axios.get('http://localhost:8000/api/getListDiarioDeSintomasLogged/',
