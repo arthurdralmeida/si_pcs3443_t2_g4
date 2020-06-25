@@ -234,7 +234,7 @@ class CadastroPaciente extends Component {
                     },
                   ]}
                 >
-                  <Input  style={{ width: '50%' }}/>
+                  <Input style={{ width: '50%' }}/>
                 </Form.Item>
 
                 <Form.Item

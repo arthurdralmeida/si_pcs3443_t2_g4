@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import moment from 'moment';
-import { Layout, Space, Form, TimePicker, Checkbox, Divider, DatePicker, Input, Select, Button, InputNumber, PageHeader,Progress, Result, Carousel, Tabs, Table, Card } from 'antd';
+import { Layout, Space, Radio, Form, TimePicker, Checkbox, Divider, DatePicker, Input, Select, Button, InputNumber, PageHeader,Progress, Result, Carousel, Tabs, Table, Card } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
@@ -153,6 +153,7 @@ class CadastroAtividades extends Component {
             <Layout>
               <MenuLateral valueFromParent={'3'} />
               <Layout style={{ padding: '0 24px 24px' }}>
+                <Divider/>
               <Card dark title = "Atividades recentes" bordered={false} style={{ width: 800 }}>
               <Table dataSource={this.state.atividades}>
                 <Column title="Dia" dataIndex="dataRealizada" key="dataRealizada" align="center"/>
@@ -162,6 +163,7 @@ class CadastroAtividades extends Component {
                 <Column title="Intensidade" dataIndex="intensidade" key="intensidade" align="center"/>
                 </Table>
               </Card>   
+              <Divider/>
 
 
                 <PageHeader
@@ -185,35 +187,7 @@ class CadastroAtividades extends Component {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                   >
-                    <Form.Item
-                    label="intensidade:"
-                    name="nome"
-                    onChange={this.onChangeNome}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Escolha qual exercício você fez',
-                      },
-                    ]}>
-                      <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="Caminhada ou corrida"
-                        optionFilterProp="children"
-                        onChange={onChange2}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
-                        onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        <Option value="Corrida">Corrida</Option>
-                        <Option value="Caminhada">Caminhada</Option>
-                        <Option value="Ambos">Ambos</Option>
-                      </Select>
-                    </Form.Item>
-
+    
                     <Form.Item
                     label="Duração:"
                     name="duraçao"
@@ -224,7 +198,7 @@ class CadastroAtividades extends Component {
                         message: 'Duração da atividade física',
                       },
                     ]}>
-                    <TimePicker style={{ width: '13%' }} defaultValue={moment('00:00', format)} format={format} /> horas
+                    <InputNumber style={{ width: '13%' }}/> horas
                     </Form.Item>
                     <Form.Item
                     label="Passos:"
@@ -238,9 +212,22 @@ class CadastroAtividades extends Component {
                     ]}>
                       <Input style={{ width: '13%' }}/>
                     </Form.Item>
-                    <Form.Item label="Realizada hoje?:" onChange={this.onChangeDataRealizada}>
-                    <Checkbox defaultChecked='true' onChange={onChange}><b>Sim</b></Checkbox> <Divider type="vertical" /><Divider type="vertical" /><Divider type="vertical" />
-                    Caso não tenha sido hoje, selecione o dia: <DatePicker onChange={onChange} />
+
+                    <Form.Item
+                    label="Intensidade:"
+                    name="intensidade"
+                    onChange={this.onChangeIntensidade}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Intensidade',
+                      },
+                    ]}>
+                    <Radio.Group onChange={this.onChangeIntensidade} key='Bombinha'>
+                      <Radio value={1}>Leve</Radio>
+                        <Radio value={2}>Moderado</Radio>
+                        <Radio value={3}>Forte</Radio>
+                      </Radio.Group>
                     </Form.Item>
                     
                     <Form.Item {...tailLayout}>
@@ -304,7 +291,7 @@ class CadastroAtividades extends Component {
                         message: 'Duração da atividade física',
                       },
                     ]}>
-                    <TimePicker style={{ width: '13%' }} defaultValue={moment('00:00', format)} format={format} /> horas
+                    <InputNumber style={{ width: '13%' }}/> horas
                     </Form.Item>
                     <Form.Item
                     label="Intensidade:"
@@ -316,30 +303,12 @@ class CadastroAtividades extends Component {
                         message: 'Escolha a intensidade',
                       },
                     ]}>
-                      <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="Escolha a intensidade"
-                        optionFilterProp="children"
-                        onChange={onChange2}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
-                        onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        <Option value="Vôlei">Fraca</Option>
-                        <Option value="Futebol">Moderada</Option>
-                        <Option value="Basquete">Intensa</Option>
-                      </Select>
+                      <Radio.Group onChange={this.onChangeIntensidade} key='Bombinha'>
+                      <Radio value={1}>Leve</Radio>
+                        <Radio value={2}>Moderado</Radio>
+                        <Radio value={3}>Forte</Radio>
+                      </Radio.Group>
                     </Form.Item>
-
-                    <Form.Item label="Realizada hoje?:" onChange={this.onChangeDataRealizada}>
-                    <Checkbox defaultChecked='true' onChange={onChange}><b>Sim</b></Checkbox> <Divider type="vertical" /><Divider type="vertical" /><Divider type="vertical" />
-                    Caso não tenha sido hoje, selecione o dia: <DatePicker onChange={onChange} />
-                    </Form.Item>
-                    
                     <Form.Item {...tailLayout}>
                       <Button type="primary" htmlType="submit">
                         Cadastrar

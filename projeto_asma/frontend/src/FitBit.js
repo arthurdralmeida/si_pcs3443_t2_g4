@@ -116,8 +116,16 @@ class FitBit extends Component {
                 className="site-page-header"
                 title="Dados FitBit"
               />
-            <DatePicker className={"Selecione o Dia"} style={{ width: '13%' }} onChange={this.onChangeDate}  />
-    <br />
+              <Content
+              className="site-layout-background"
+              style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 800
+              }}
+            ><Form.Item label='Selecione o Dia'>
+            <DatePicker style={{ width: '13%' }} onChange={this.onChangeDate}  />
+            </Form.Item>
     <Form.Item onChange={this.onChangePassos} label='Passos:' orientation="left">
         <Input style={{ width: '13%' }} />
     </Form.Item>
@@ -126,6 +134,7 @@ class FitBit extends Component {
           Enviar 
           </Button>
       </Form.Item>
+      </Content>
             </Layout>
           </Layout>
         </Layout>
