@@ -26,7 +26,8 @@ class Home extends Component {
     paciente: {},
     atividades: [],
     sintomas: [],
-    metas: [],
+    meta: 10000,
+    passosFitbit: 5000
   };
 
 
@@ -180,7 +181,7 @@ class Home extends Component {
                   <Tabs defaultActiveKey="1" onChange={callback}>
                     <TabPane tab="Hoje" key="1">
                         <h5>Restam 250 passos</h5>
-                        <Progress type="circle" percent={10} />
+                        <Progress type="circle" percent={this.state.passosFitbit/this.state.meta} />
                     </TabPane>
                     <TabPane tab="Esta semana" key="2">
                         <h5>sábado - 06/06/2020</h5>

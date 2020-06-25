@@ -45,11 +45,6 @@ class FitBit extends Component {
         });
     };
 
-
-
-
-
-
       render() {
 
 
