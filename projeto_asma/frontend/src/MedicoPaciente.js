@@ -22,7 +22,7 @@ class MedicoPaciente extends Component {
     paciente:{},
     atividades:[],
     sintomasList:[],
-    
+    metaMensal:{},
   };
   componentDidMount() {
     this.setState({ paciente: JSON.parse(sessionStorage.getItem('paciente_selected'))})
@@ -225,7 +225,15 @@ class MedicoPaciente extends Component {
                 </Card>
                 <h5> </h5>
                 <h5> </h5>
-                <Card title="Cadastrar Meta Mensal:" bordered={true} style={{ width: 800}}>
+                <Card title="Meta Mensal:" bordered={true} style={{ width: 800}}>
+                  {(!this.state.metaMensal) ?
+                  <p>Meta mensal ainda não criada</p>:
+                  <>
+                  <p>Meta de passos: </p>
+                  <p>Meta de horas de atividade: </p>
+                  <p> </p>
+                  </>
+                  }
                 <Form
                     {...layout}
                     name="basic"
