@@ -116,7 +116,7 @@ class FitBit extends Component {
               style={{
                 padding: 24,
                 margin: 0,
-                minHeight: 800
+                minHeight: 1100
               }}
             ><Form.Item label='Selecione o Dia'>
             <DatePicker style={{ width: '13%' }} onChange={this.onChangeDate}  />
