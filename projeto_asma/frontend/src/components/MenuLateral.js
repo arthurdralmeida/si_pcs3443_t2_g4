@@ -8,6 +8,15 @@ import { UserOutlined,
   import '../App.css'
 
 class MenuLateral extends Component {
+    state = {
+      paciente: {},
+      medico: {},
+    }
+
+    componentDidMount(){
+      this.setState({ paciente: JSON.parse(sessionStorage.getItem('paciente'))})
+      this.setState({ medico: JSON.parse(sessionStorage.getItem('medico'))})
+    }
     render() {
         const { Header, Content, Sider } = Layout;
         const layout = {
@@ -59,14 +68,28 @@ class MenuLateral extends Component {
                   defaultOpenKeys={['sub1']}
                   style={{ height: '100%', borderRight: 0 }}
                 >
-                <Menu.Item key="1" icon={<HomeOutlined />}><Link className="link" style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/"><b>Home</b></Link></Menu.Item>
-                <Menu.Item key="2" icon={<UserOutlined/>}><Link className="link" style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/informacoes-pessoais"><b>Informações pessoais</b></Link></Menu.Item>
-                <Menu.Item key="3" icon={<FormOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1'}} to="/cadastro-atividade"><b>Atividade</b></Link></Menu.Item>
-                <Menu.Item key="4" icon={<CloudUploadOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1'}} to="/fitbit"><b>FitBit</b></Link></Menu.Item>
-                <Menu.Item key="7" icon={<HeartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/diariodesintomas"><b>Diário de Sintomas</b></Link></Menu.Item>
-                <Menu.Item key="11" icon={<MessageOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/PlantaoDuvidas"><b>Plantão de Dúvidas</b></Link></Menu.Item>
+                  {this.state.paciente &&
+                    <Menu.Item key="1" icon={<HomeOutlined />}><Link className="link" style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/"><b>Home</b></Link></Menu.Item>
+                  }
+                  {this.state.paciente &&
+                    <Menu.Item key="2" icon={<UserOutlined/>}><Link className="link" style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/informacoes-pessoais"><b>Informações pessoais</b></Link></Menu.Item>
+                  }
+                  {this.state.paciente &&
+                    <Menu.Item key="3" icon={<FormOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1'}} to="/cadastro-atividade"><b>Atividade</b></Link></Menu.Item>
+                  }
+                  {this.state.paciente &&
+                    <Menu.Item key="4" icon={<CloudUploadOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1'}} to="/fitbit"><b>FitBit</b></Link></Menu.Item>
+                  }
+                  {this.state.paciente &&
+                    <Menu.Item key="7" icon={<HeartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/diariodesintomas"><b>Diário de Sintomas</b></Link></Menu.Item>
+                  }
+                  {this.state.paciente &&
+                    <Menu.Item key="11" icon={<MessageOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/PlantaoDuvidas"><b>Plantão de Dúvidas</b></Link></Menu.Item>
+                  }
+                  {this.state.medico &&
+                    <Menu.Item key="13" icon={<HomeOutlined />}><Link className="link" style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/home"><b>Home</b></Link></Menu.Item>
+                  }
                 <Menu.Item key="12" icon={<YoutubeOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/videos"><b>Videos de Exercícios</b></Link></Menu.Item>
-               
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>

@@ -50,7 +50,7 @@ ReactDOM.render(
       <Route path="/config" component={Configuracao} />
       <Route path="/videos" component={Videos} />
       <PrivateRoute exact path="/PlantaoDuvidas" component={PlantaoDuvidas} />
-      <PrivateRoute exact path="/home-m" component={HomeMedico} />
+      <PrivateRoute exact path="/home" component={HomeMedico} />
       <Route path="/MedicoPaciente" component={MedicoPaciente} />
 
     </Switch>
