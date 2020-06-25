@@ -53,9 +53,6 @@ class Login extends Component {
               console.log(error)
           });
           await axios.get('http://localhost:8000/api/getPacienteLogged/',
-          {
-            teste: '1'
-          },
           { headers:{
             'Content-Type': 'application/json',
             'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
