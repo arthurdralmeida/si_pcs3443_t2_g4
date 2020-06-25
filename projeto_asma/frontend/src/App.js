@@ -15,6 +15,7 @@ import DiarioDeSintomas from "./DiarioDeSintomas"
 
 
 
+
 class App extends Component {
   render() {
     return (
