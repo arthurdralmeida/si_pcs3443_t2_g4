@@ -23,7 +23,37 @@ class MedicoPaciente extends Component {
     atividades:[],
     sintomasList:[],
     metaMensal:{},
+    passos: 0,
+    horas: 0,
   };
+
+  onChangePassos = e => {
+    this.setState({
+      passos: e.target.value
+    });
+  };
+  onChangeDuracao = e => {
+    this.setState({
+      horas: e.target.value
+    });
+  };
+
+  setMeta = () => {
+    axios.post("http://localhost:8000/api/createMetaMensal/",
+      {
+        passos: this.state.tosse,
+        horas: this.state.horas,
+        paciente_pk: this.state.paciente.pk,
+      },
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }}).then(() => {
+        console.log("Deu certo")
+        window.location.reload();
+    })
+  }
+
   componentDidMount() {
     this.setState({ paciente: JSON.parse(sessionStorage.getItem('paciente_selected'))})
     axios.get('http://localhost:8000/api/getListDiarioDeSintomasOfPaciente/',
@@ -104,6 +134,7 @@ class MedicoPaciente extends Component {
         };
           const onFinish = values => {
             console.log('Success:', values);
+            this.setMeta();  
           };       
           const onFinishFailed = errorInfo => {
             console.log('Failed:', errorInfo);
