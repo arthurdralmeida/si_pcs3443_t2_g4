@@ -185,12 +185,10 @@ class MedicoPaciente extends Component {
                   <Descriptions bordered>
                   <Descriptions.Item label="Nome" span={2}>{this.state.paciente.nome}</Descriptions.Item>
                   <Descriptions.Item label="Data de nascimento">{this.state.paciente.dataNascimento}</Descriptions.Item>
-                  <Descriptions.Item label="Altura">{this.state.paciente.altura}</Descriptions.Item>
+                  <Descriptions.Item label="Altura (cm)">{this.state.paciente.altura}</Descriptions.Item>
+                  <Descriptions.Item label="Peso (kg)">{this.state.paciente.peso}</Descriptions.Item>
                   <Descriptions.Item label="Grau de Asma">{this.state.paciente.grauAsma}</Descriptions.Item>
-                  <Descriptions.Item label="Meta desta semana" span={3}>
-                    <Badge status="success" text="Atingida" />
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Membro desde">2020-04-24</Descriptions.Item>
+
                   
                   </Descriptions>
                 </Card>
@@ -244,6 +242,7 @@ class MedicoPaciente extends Component {
                     <Form.Item
                     label="Duração:"
                     name="duraçao"
+                    onChange={this.onChangeDuracao}
                     rules={[
                       {
                         required: true,
@@ -253,18 +252,19 @@ class MedicoPaciente extends Component {
                     <InputNumber min={0}/> horas
                     </Form.Item>
                     <Form.Item
-                    label="Mês:"
-                    name="mes"
+                    onChange={this.onChangePassos}
+                    label="Passos:"
+                    name="passos"
                     rules={[
                       {
                         required: true,
                         message: 'Insira o mês',
                       },
                     ]}>
-                      <Input style={{ width: '25%' }}/>
+                      <InputNumber min={0}/>
                     </Form.Item>
                     
-                    <Form.Item {...tailLayout}>
+                    <Form.Item  {...tailLayout}>
                       <Button type="primary" htmlType="submit">
                         Cadastrar
                       </Button>
