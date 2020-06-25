@@ -322,7 +322,7 @@ class CadastroPaciente extends Component {
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
-                <Link to={'/login'}><Button type="primary" htmlType="submit">
+                <Link to={'/login'}><Button type="primary" htmlType="submit" setPaciente>
                     Cadastrar
                   </Button></Link>
                 </Form.Item>

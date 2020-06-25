@@ -21,13 +21,13 @@ const gridStyle = {
 class CadastroAtividades extends Component {
 
   state={
-    nome:' ',
+    nome:'Caminhada/Corrida',
     passos: 0,
-    duracao: 2,
-    intensidade: ' ',
-    dataRealizada: '2020-05-05',
-    paciente: {},
-    atividades: [],
+    duracao: 0,
+    intensidade: 0,
+    dataRealizada: '2020-06-25',
+    atividades:[],
+    paciente:{},
   }
   componentDidMount(){
     axios.get('http://localhost:8000/api/getPacienteLogged/',
@@ -37,7 +37,7 @@ class CadastroAtividades extends Component {
     }})
     .then(res => {
       this.setState({paciente: res.data});
-      console.log(res.data)
+      console.log('paciente: ', res.data)
     })
 
     axios.get('http://localhost:8000/api/getListAtividadeLogged/',
@@ -60,14 +60,17 @@ class CadastroAtividades extends Component {
           passos: this.state.passos,
           duracao: this.state.duracao,
           intensidade: this.state.intensidade,
-          dataRealizada: this.state.dataRealizada,
+          dataRealizada: '2020-06-26',
+          paciente: this.state.paciente,
         },
         { headers:{
           'Content-Type': 'application/json',
           'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
         }}).then(() => {
           console.log("Deu certo")
+          window.location.reload();
       })
+      window.location.reload();
     }
     onChangeNome = e => {
       console.log('radio checked', e.target.value);
@@ -93,12 +96,6 @@ class CadastroAtividades extends Component {
         intensidade: e.target.value
       });
     };
-    onChangeDataRealizada = e => {
-      console.log('radio checked', e.target.value);
-      this.setState({
-        dataRealizada: e.target.value
-      });
-    };
     render() {
         const { Header, Content, Sider } = Layout;
         const layout = {
@@ -113,6 +110,13 @@ class CadastroAtividades extends Component {
         function onChange2(value) {
           console.log(`selected ${value}`);
         }
+        const normFile = e => {
+          console.log('Upload event:', e);
+          if (Array.isArray(e)) {
+              return e;
+          }
+          return e && e.fileList;
+          };
         const renderLogout = () => {
           sessionStorage.removeItem('token');
           sessionStorage.removeItem('user');
@@ -141,7 +145,8 @@ class CadastroAtividades extends Component {
           },
         };
           const onFinish = values => {
-            console.log('Success:', values);
+            console.log('Success:', this.state);
+            this.setAtividade();
           };
         
           const onFinishFailed = errorInfo => {
@@ -203,38 +208,22 @@ class CadastroAtividades extends Component {
                     label="Duração:"
                     name="duraçao"
                     onChange={this.onChangeDuracao}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Duração da atividade física',
-                      },
-                    ]}>
-                    <InputNumber style={{ width: '13%' }}/> horas
+                    >
+                    <InputNumber style={{ width: '13%' }} min={0.1} max={15}/> horas
                     </Form.Item>
                     <Form.Item
                     label="Passos:"
                     name="passos"
                     onChange={this.onChangePassos}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Quantidade de passos',
-                      },
-                    ]}>
-                      <Input style={{ width: '13%' }}/>
+                    >
+                      <InputNumber style={{ width: '13%' }} min={0.1}/>
                     </Form.Item>
 
                     <Form.Item
                     label="Intensidade:"
                     name="intensidade"
-                    onChange={this.onChangeIntensidade}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Intensidade',
-                      },
-                    ]}>
-                    <Radio.Group onChange={this.onChangeIntensidade} key='Bombinha'>
+                    >
+                    <Radio.Group onChange={this.onChangeIntensidade} key='intensidade'>
                       <Radio value={1}>Leve</Radio>
                         <Radio value={2}>Moderado</Radio>
                         <Radio value={3}>Forte</Radio>
@@ -265,56 +254,29 @@ class CadastroAtividades extends Component {
                     label="Atividade:"
                     name="nome"
                     onChange={this.onChangeNome}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Escolha qual exercício você fez',
-                      },
-                    ]}>
-                      <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="Escolha uma atividade"
-                        optionFilterProp="children"
-                        onChange={onChange2}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
-                        onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        <Option value="Vôlei">Vôlei</Option>
-                        <Option value="Futebol">Futebol</Option>
-                        <Option value="Basquete">Basquete</Option>
-                        <Option value="Remo">Remo</Option>
-                        <Option value="Natação">Natação</Option>
-                      </Select>
+                    >
+                      <Radio.Group onChange={this.onChangeIntensidade} key='intensidade'>
+                      <Radio value={'Volei'}>Vôlei</Radio>
+                        <Radio value={'Futebol'}>Futebol</Radio>
+                        <Radio value={'Remo'}>Remo</Radio>
+                        <Radio value={'Natação'}>Natação</Radio>
+                        <Radio value={'Basquete'}>Basquete</Radio>
+                        <Radio value={'Musculação'}>Musculação</Radio>
+                      </Radio.Group>
                     </Form.Item>
 
                     <Form.Item
                     label="Duração:"
                     name="duraçao"
                     onChange={this.onChangeDuracao}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Duração da atividade física',
-                      },
-                    ]}>
-                    <InputNumber style={{ width: '13%' }}/> horas
+                    >
+                    <InputNumber style={{ width: '13%' }} min={0.1} max={15}/> horas
                     </Form.Item>
                     <Form.Item
                     label="Intensidade:"
                     name="intensidade"
-                    onChange={this.onChangeIntensidade}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Escolha a intensidade',
-                      },
-                    ]}>
-                      <Radio.Group onChange={this.onChangeIntensidade} key='Bombinha'>
+                    >
+                      <Radio.Group onChange={this.onChangeIntensidade} key='intensidade'>
                       <Radio value={1}>Leve</Radio>
                         <Radio value={2}>Moderado</Radio>
                         <Radio value={3}>Forte</Radio>
