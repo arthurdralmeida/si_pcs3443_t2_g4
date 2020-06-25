@@ -416,8 +416,10 @@ class createAlocacaoMedicaLogged(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AlocacaoMedicaSerializer
     def post(self, request, *args, **kwargs):
-        paciente = AlocacaoMedica.objects.get(pk=request.data['paciente_pk'])
+        paciente = Paciente.objects.get(pk=request.data['paciente_pk'])
         paciente.emEsperaDeMedico = False
+        paciente.save()
+        print(paciente)
         user = User.objects.get(username=request.user)
         medico = AgenteDeSaude.objects.get(login=user)
         alocacao = AlocacaoMedica.objects.create(
