@@ -26,8 +26,11 @@ class Home extends Component {
     paciente: {},
     atividades: [],
     sintomas: [],
-    meta: 10000,
-    passosFitbit: 5000
+    metas:[],
+    metaPassos: 10000,
+    metaHoras: 100,
+    passosFitbit: 5000,
+    horasExercitadas:68,
   };
 
 
@@ -176,43 +179,23 @@ class Home extends Component {
 
                 <Card title="Suas metas" bordered={true} style={{ width: 800 }} theme="dark">
                 <Card.Grid hoverable={false} style={gridStyle}>
-                <b>Caminhada e corrida</b>
+                <b>Meta de Passos</b>
                 <p></p>
                   <Tabs defaultActiveKey="1" onChange={callback}>
-                    <TabPane tab="Hoje" key="1">
-                        <h5>Restam 250 passos</h5>
-                        <Progress type="circle" percent={this.state.passosFitbit/this.state.meta} />
-                    </TabPane>
-                    <TabPane tab="Esta semana" key="2">
-                        <h5>sábado - 06/06/2020</h5>
-                        <h6> </h6>
-                        <Progress type="circle" percent={50} />
-                    </TabPane>
-                    <TabPane tab="Este mês" key="3">
-                        <h5>sexta-feira - 05/06/2020</h5>
-                        <h6> </h6>
-                        <Progress type="circle" percent={75} />
+                    <TabPane tab="Passos" key="1">
+                        <h5></h5>
+                        <Progress type="circle" percent={(this.state.passosFitbit/this.state.metas.passos)*100} />
                     </TabPane>
                     </Tabs>
                 </Card.Grid>
                 <Card.Grid hoverable={false} style={gridStyle}>
-                <b>Outras atividades</b>
+                <b>Meta de Horas</b>
                 <p></p>
                   <Tabs defaultActiveKey="1" onChange={callback}>
-                    <TabPane tab="Hoje" key="1">
-                        <h5>Restam 2 horas</h5>
+                    <TabPane tab="Horas" key="1">
+                        <h5></h5>
                         <h6> </h6>
-                        <Progress type="circle" percent={0} />
-                    </TabPane>
-                    <TabPane tab="Esta semana" key="2">
-                        <h5>sábado - 06/06/2020</h5>
-                        <h6> </h6>
-                        <Progress type="circle" percent={50} />
-                    </TabPane>
-                    <TabPane tab="Este mês" key="3">
-                        <h5>sexta-feira - 05/06/2020</h5>
-                        <h6> </h6>
-                        <Progress type="circle" percent={75} />
+                        <Progress type="circle" percent={(this.state.horasExercitadas/this.state.metas.horas)*100} />
                     </TabPane>
                     </Tabs>
                 </Card.Grid>
