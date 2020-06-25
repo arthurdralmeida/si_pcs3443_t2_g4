@@ -641,7 +641,7 @@ class createMetaMensal(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = MetaMensalSerializer
     def post(self, request, *args, **kwargs):
-        paciente = Paciente.objects.get(pk=request.data['paciente']['pk'])
+        paciente = Paciente.objects.get(pk=request.data['paciente_pk'])
         meta = MetaMensal.objects.create(
             paciente = paciente,
             passos = request.data['passos'],
@@ -660,8 +660,8 @@ class getMetaMensal(APIView):
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
         paciente = Paciente.objects.get(login=user)
-        data = MetaMensal.objects.filter(paciente=paciente)
-        serializer = MetaMensalSerializer(data, context={'request': request},many=True)
+        data = MetaMensal.objects.get(paciente=paciente)
+        serializer = MetaMensalSerializer(data, context={'request': request})
         return Response(serializer.data)
 
 
