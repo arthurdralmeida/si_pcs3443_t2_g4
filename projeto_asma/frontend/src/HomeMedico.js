@@ -19,24 +19,30 @@ function onChange(checkedValues) {
 
 class HomeMedico extends Component { 
   state = {
-    pacientes: []
+    pacientesDesalocados: [],
+    pacientesAlocados: [],
   };
   componentDidMount() {
-    this.resetState();
-  }
-  getPacientes = () => {
-    axios.get('http://localhost:8000/api/pacientes/',
+    axios.get('http://localhost:8000/api/getListPacienteEmEsperaDeMedico/',
       { headers:{
         'Content-Type': 'application/json',
         'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
       }})
       .then(res => {
-        const pacientes = res.data;
-        this.setState({pacientes});
+        this.setState({pacientesDesalocados: res.data});
+        console.log(this.state.pacientesDesalocados)
       })
-  };
-  resetState = () => {
-    this.getPacientes();
+
+
+      axios.get('http://localhost:8000/api/getListPacienteComMedico/',
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }})
+      .then(res => {
+        this.setState({pacientesAlocados: res.data});
+        console.log(this.state.pacientesAlocados)
+      })
   };
 
     render() {
@@ -156,15 +162,15 @@ class HomeMedico extends Component {
                 <Card title="Pacientes alocados:" bordered={true} style={{ width: 800}}>
                  
                 <Table dark 
-                dataSource={lista_mocada}>
+                dataSource={this.state.pacientesAlocados}>
                   <Column title="Nome" dataIndex="nome" key="nome" align='center'/>                               
-                  <Column title="Peso" dataIndex="peso" key="peso" align='center'/>
+                  <Column title="Grau de Asma" dataIndex="grauAsma" key="grauAsma" align='center'/>
                   <Column
                       title="Página do Paciente"
                       key="paginaPaciente"
                       align='center'
                       render={(text, record) => (
-                          <a><SmileTwoTone /></a>
+                          <a><Link to={"./medicopaciente"}><SmileTwoTone /></Link></a>
                       )}
                     />
                   <Column
@@ -172,7 +178,7 @@ class HomeMedico extends Component {
                     key="chat"
                     align='center'
                     render={(text, record) => (
-                        <a><WechatOutlined/></a>
+                        <a><Link to={"./faq"}> <WechatOutlined/> </Link> </a>
                     )}
                     />
                   
@@ -184,15 +190,15 @@ class HomeMedico extends Component {
                 <Card title="Pacientes desalocados:" bordered={true} style={{ width: 800}}>
                  
                 <Table dark 
-                dataSource={lista_mocada}>
-                  <Column title="Nome" dataIndex="nomedesalocado" key="nomedesalocado" align='center' />                               
-                  <Column title="Peso" dataIndex="pesodesalocado" key="pesodesalocado" align='center' />
+                dataSource={this.state.pacientesDesalocados}>
+                  <Column title="Nome" dataIndex="nome" key="nome" align='center' />                               
+                  <Column title="Grau de Asma" dataIndex="grauAsma" key="grauAsma" align='center' />
                     <Column
-                      title="Sintomas"
+                      title="Pagina do paciente"
                       key="sintomasdesalocado"
                       align='center'
                       render={(text, record) => (
-                          <a><SmileTwoTone /></a>
+                          <a><Link to={"./medicopaciente"}><SmileTwoTone /></Link></a>
                       )}
                     />
                   <Column
