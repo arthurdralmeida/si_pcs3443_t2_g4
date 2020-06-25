@@ -26,7 +26,7 @@ class CadastroPaciente extends Component {
     console.log(this.state.username, this.state.password, this.state.nome,this.state.dataNascimento,this.state.peso,this.state.grauAsma,this.state.altura,this.state.cpf,this.state.emEsperaDeMedico,this.state.cadastro)
     axios.post("http://localhost:8000/api/createPaciente/",
       {
-        username: this.state.username,
+        email: this.state.username,
         password: this.state.password,
         nome: this.state.nome,
         dataNascimento: this.state.dataNascimento,
@@ -35,11 +35,7 @@ class CadastroPaciente extends Component {
         altura: this.state.altura,
         cpf: this.state.cpf,
         emEsperaDeMedico: true,
-      },
-      { headers:{
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
-      }}).then(() => {
+      }).then(() => {
         console.log("Deu certo")
     })
   }
@@ -243,9 +239,9 @@ class CadastroPaciente extends Component {
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
-                <Link to={'/login'}><Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit">
                     Cadastrar
-                  </Button></Link>
+                  </Button>
                 </Form.Item>
               </Form>
             </Content>

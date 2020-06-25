@@ -119,17 +119,18 @@ class createPaciente(APIView):
         print(request.data)
         user = User.objects.create(
             username = request.data['email'],
-            password = request.data.login['password'],
+            password = request.data['password'],
         )
         user.save()
+        user2 = User.objects.get(username=request.data['email'])
         paciente = Paciente.objects.create(
             nome = request.data['nome'],
-            dataNascimento = request.data['dataNacimento'],
+            dataNascimento = request.data['dataNascimento'],
             peso = request.data['peso'],
             grauAsma = request.data['grauAsma'],
             altura = request.data['altura'],
             cpf = request.data['cpf'],
-            login = user,
+            login = user2,
             emEsperaDeMedico = request.data['emEsperaDeMedico'],
             cadastro = request.data['cadastro'],
         )
