@@ -59,7 +59,9 @@ class getAdminLogged(APIView):
 class getPacienteLogged(APIView):
     serializer_class = PacienteSerializer
     def get(self, request, *args, **kwargs):
+        print(request)
         user = User.objects.get(username=request.user)
+        print(request)
         data=Paciente.objects.get(login=user)
         serializer = PacienteSerializer(data, context={'request': request})
         return Response(serializer.data)
