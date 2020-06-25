@@ -109,39 +109,7 @@ class HomeMedico extends Component {
           window.location.reload();
           }
 
-          
-
           const { Column,} = Table;
-          const lista_mocada = [
-            {
-              key: '1',
-              nome: 'John Brown',
-              email: 'brown@uol.com',
-              address: 'New York No. 1 Lake Park',
-              tags: ['nice', 'developer'],
-            },
-            {
-              key: '2',
-              nome: 'Jim Green',
-              email: 'brown@uol.com',
-              address: 'London No. 1 Lake Park',
-              tags: ['loser'],
-            },
-            {
-              key: '3',
-              nome: 'Joe Black',
-              email: 'brown@uol.com',
-              address: 'Sidney No. 1 Lake Park',
-              tags: ['cool', 'teacher'],
-            },
-            {
-              key: '4',
-              nome: 'Bruno',
-              email: 'bdelbiancosoares@gmail.com',
-              address: 'Limão',
-              tags: ['cool', 'teacher'],
-            },
-          ];
           
           const renderLogout = () => {
             sessionStorage.removeItem('token');
