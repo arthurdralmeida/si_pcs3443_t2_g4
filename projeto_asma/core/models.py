@@ -17,7 +17,7 @@ class Paciente(models.Model):
     altura = models.FloatField(default=None)
     cpf = models.CharField(max_length=14,default=None)
     login = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    emEsperaDeMedico = models.BooleanField(default=False)
+    emEsperaDeMedico = models.BooleanField(default=True)
     cadastro = models.BooleanField(default=False)
 
 
@@ -60,7 +60,6 @@ class Atividade(models.Model):
     duracao = models.FloatField(default=None) #Em Minutos 
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, null=True)
     dataRealizada = models.DateField(default=datetime.now)
-
 
 
 class NotificacaoDeAtividade(models.Model):

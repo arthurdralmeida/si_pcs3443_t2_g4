@@ -173,9 +173,9 @@ class DiarioDeSintomas extends Component {
     <ColumnGroup title='Sintomas dos últimos dias'>
     <Column title="Data" dataIndex="data" key="data" />
     <Column title="Tosse" dataIndex="tosse" key="tosse" />
-    <Column title="Chiados no peito" dataIndex="tosse" key="tosse" />
-    <Column title="Problemas para dormir" dataIndex="tosse" key="tosse" />
-    <Column title="Falta de Ar" dataIndex="tosse" key="tosse" />
+    <Column title="Chiados no peito" dataIndex="chiado" key="chiado" />
+    <Column title="Problemas para dormir" dataIndex="dormir" key="dormir" />
+    <Column title="Falta de Ar" dataIndex="faltaDeAr" key="faltaDeAr" />
     <Column title="Uso da Bombinha" dataIndex="bombinha" key="bombinha" />
     <Column title="Observações" dataIndex="observacao" key="observacao" />
     </ColumnGroup>

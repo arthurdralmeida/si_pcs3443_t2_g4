@@ -63,13 +63,9 @@ class MenuLateral extends Component {
                 <Menu.Item key="2" icon={<UserOutlined/>}><Link className="link" style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/informacoes-pessoais"><b>Informações pessoais</b></Link></Menu.Item>
                 <Menu.Item key="3" icon={<FormOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1'}} to="/cadastro-atividade"><b>Atividade</b></Link></Menu.Item>
                 <Menu.Item key="4" icon={<CloudUploadOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1'}} to="/fitbit"><b>FitBit</b></Link></Menu.Item>
-                <Menu.Item key="5" icon={<ProfileOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/metas"><b>Metas</b></Link></Menu.Item>
-                <Menu.Item key="6" icon={<CalendarOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/calendario"><b>Calendário</b></Link></Menu.Item>
                 <Menu.Item key="7" icon={<HeartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/diariodesintomas"><b>Diário de Sintomas</b></Link></Menu.Item>
-                <Menu.Item key="8" icon={<LineChartOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/estatisticas"><b>Estatísticas</b></Link></Menu.Item>
                 <Menu.Item key="11" icon={<MessageOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/PlantaoDuvidas"><b>Plantão de Dúvidas</b></Link></Menu.Item>
                 <Menu.Item key="12" icon={<YoutubeOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/videos"><b>Videos de Exercícios</b></Link></Menu.Item>
-                <Menu.Item key="9" icon={<QuestionCircleOutlined />}><Link style={{ textDecoration: 'none', color: '#f1f1f1' }} to="/faq"><b>F.A.Q</b></Link></Menu.Item>
                
                 <Menu.Item disabled="true"></Menu.Item>
                 <Menu.Item disabled="true"></Menu.Item>

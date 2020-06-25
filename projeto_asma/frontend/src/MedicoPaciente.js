@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Card } from 'antd';
-import { Layout, Menu, Space, Form, TimePicker, Divider, Descriptions, Badge, DatePicker, Input, Select, Button, InputNumber, PageHeader, Checkbox } from 'antd';
+import { Layout, Menu, Space, Form, Divider, Descriptions, Badge, DatePicker, Input, Select, Button, InputNumber, PageHeader, Checkbox } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled, SmileTwoTone,
@@ -112,7 +112,7 @@ class MedicoPaciente extends Component {
               {
                 "pk": 1,
                 "nome": "Caminhada",
-                "dataRealizada": 16,
+                "dataRealizada": 16/5,
                 "duracao": 2,
                 "passos": 250,
                 "intensidade": 0
@@ -120,7 +120,7 @@ class MedicoPaciente extends Component {
             {
                 "pk": 2,
                 "nome": "Futebol",
-                "dataRealizada": 17,
+                "dataRealizada": 15/5,
                 "duracao": 1,
                 "passos": 0,
                 "intensidade": 3
@@ -130,7 +130,7 @@ class MedicoPaciente extends Component {
             const sintomasList = [
               {
                 "pk": 1,
-                "data": 17,
+                "data": 17/5,
                 "chiado": 4,
                 "tosse": 1,
                 "dormir": 2,
@@ -140,7 +140,7 @@ class MedicoPaciente extends Component {
             },
             {
                 "pk": 2,
-                "data": 19,
+                "data": 16/5,
                 "chiado": 1,
                 "tosse": 2,
                 "dormir": 3,
@@ -149,7 +149,6 @@ class MedicoPaciente extends Component {
                 "observacao": "Dor de cabeça"
             }
             ]
-            const nome = paciente.nome; 
           
           
           
@@ -175,7 +174,7 @@ class MedicoPaciente extends Component {
               <Layout style={{ padding: '0 24px 24px' }}>
                 <PageHeader
                   className="site-page-header"
-                  title="Página do Paciente: "
+                  title="Página do Paciente: " 
                 />
                 <Content
                   className="site-layout-background"
@@ -201,7 +200,7 @@ class MedicoPaciente extends Component {
                 <h5> </h5>
                 <h5> </h5>
 
-                <Card title="Atividades Cadastradas:" bordered={true} style={{ width: 800}}>
+                <Card title="Atividades Realizadas:" bordered={true} style={{ width: 800}}>
                 <Table dark 
                 dataSource={atividades}>
                   <Column title="Nome" dataIndex="nome" key="nome" align='center'/>                               
@@ -226,7 +225,7 @@ class MedicoPaciente extends Component {
                 </Card>
                 <h5> </h5>
                 <h5> </h5>
-                <Card title="Cadastrar Atividade:" bordered={true} style={{ width: 800}}>
+                <Card title="Cadastrar Meta Mensal:" bordered={true} style={{ width: 800}}>
                 <Form
                     {...layout}
                     name="basic"
@@ -236,33 +235,6 @@ class MedicoPaciente extends Component {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                   >
-                    <Form.Item
-                    label="Intensidade:"
-                    name="intensidade"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Escolha qual exercício você fez',
-                      },
-                    ]}>
-                      <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="Caminhada ou corrida"
-                        optionFilterProp="children"
-                        onChange={onChange2}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
-                        onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
-                      >
-                        <Option value="Corrida">Corrida</Option>
-                        <Option value="Caminhada">Caminhada</Option>
-                        <Option value="Ambos">Ambos</Option>
-                      </Select>
-                    </Form.Item>
 
                     <Form.Item
                     label="Duração:"
@@ -270,25 +242,21 @@ class MedicoPaciente extends Component {
                     rules={[
                       {
                         required: true,
-                        message: 'Duração da atividade física',
+                        message: 'Horas de Atividade Física',
                       },
                     ]}>
-                    <TimePicker style={{ width: '13%' }} defaultValue={moment('00:00', format)} format={format} /> horas
+                    <InputNumber min={0}/> horas
                     </Form.Item>
                     <Form.Item
-                    label="Passos:"
-                    name="passos"
+                    label="Mês:"
+                    name="mes"
                     rules={[
                       {
                         required: true,
-                        message: 'Quantidade de passos',
+                        message: 'Insira o mês',
                       },
                     ]}>
-                      <Input style={{ width: '13%' }}/>
-                    </Form.Item>
-                    <Form.Item label="Realizadar hoje?:">
-                    <Checkbox defaultChecked='true' onChange={onChange}><b>Sim</b></Checkbox> <Divider type="vertical" /><Divider type="vertical" /><Divider type="vertical" />
-                    Caso não tenha sido hoje, selecione o dia: <DatePicker onChange={onChange} />
+                      <Input style={{ width: '25%' }}/>
                     </Form.Item>
                     
                     <Form.Item {...tailLayout}>

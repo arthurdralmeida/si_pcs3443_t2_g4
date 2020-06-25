@@ -59,7 +59,9 @@ class getAdminLogged(APIView):
 class getPacienteLogged(APIView):
     serializer_class = PacienteSerializer
     def get(self, request, *args, **kwargs):
+        print(request)
         user = User.objects.get(username=request.user)
+        print(request)
         data=Paciente.objects.get(login=user)
         serializer = PacienteSerializer(data, context={'request': request})
         return Response(serializer.data)
@@ -82,7 +84,7 @@ class getPaciente(APIView):
     serializer_class = PacienteSerializer
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
-        data=Paciente.objects.get(pk = request.data.paciente_pk)
+        data=Paciente.objects.get(pk = request.data['paciente_pk'])
         serializer = PacienteSerializer(data, context={'request': request})
         return Response(serializer.data)
 
@@ -94,25 +96,42 @@ class getPacienteList(APIView):
         serializer = PacienteSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
 
+class getListPacienteEmEsperaDeMedico(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = PacienteSerializer
+    def get(self, request, *args, **kwargs):
+        data=Paciente.objects.filter(emEsperaDeMedico=True)
+        serializer = PacienteSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+class getListPacienteComMedico(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = PacienteSerializer
+    def get(self, request, *args, **kwargs):
+        data=Paciente.objects.filter(emEsperaDeMedico=False)
+        serializer = PacienteSerializer(data, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+
 class createPaciente(APIView):
     serializer_class = PacienteSerializer
     def post(self, request, *args, **kwargs):
-        request.data
+        print(request.data)
         user = User.objects.create(
-            username = request.data.login.username,
-            password = request.data.login.password,
+            username = request.data['email'],
+            password = request.data.login['password'],
         )
         user.save()
         paciente = Paciente.objects.create(
-            nome = request.data.nome,
-            dataNascimento = request.data.dataNacimento,
-            peso = request.data.peso,
-            grauAsma = request.data.grauAsma,
-            altura = request.data.altura,
-            cpf = request.data.cpf,
+            nome = request.data['nome'],
+            dataNascimento = request.data['dataNacimento'],
+            peso = request.data['peso'],
+            grauAsma = request.data['grauAsma'],
+            altura = request.data['altura'],
+            cpf = request.data['cpf'],
             login = user,
-            emEsperaDeMedico = request.data.emEsperaDeMedico,
-            cadastro = request.data.cadastro,
+            emEsperaDeMedico = request.data['emEsperaDeMedico'],
+            cadastro = request.data['cadastro'],
         )
         paciente.save()
         serializer = PacienteSerializer(data=paciente)
@@ -126,12 +145,12 @@ class editPacienteLogged(APIView):
     def post(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
         paciente = Paciente.objects.get(login=user)
-        paciente.nome = request.data.nome
-        paciente.dataNascimento = request.data.dataNascimento
-        paciente.peso = request.data.peso
-        paciente.grauAsma = request.data.grauAsma
-        paciente.altura = request.data.altura
-        paciente.cpf = request.data.cpf
+        paciente.nome = request.data['nome']
+        paciente.dataNascimento = request.data['dataNascimento']
+        paciente.peso = request.data['peso']
+        paciente.grauAsma = request.data['grauAsma']
+        paciente.altura = request.data['altura']
+        paciente.cpf = request.data['cpf']
         paciente.emEsperaDeMedico = request.data.emEsperaDeMedico
         paciente.save()
         serializer = PacienteSerializer(data=paciente)
@@ -144,13 +163,13 @@ class editPaciente(APIView):
     serializer_class = PacienteSerializer
     def post(self, request, *args, **kwargs):
         paciente = Paciente.objects.get(pk=request.data.paciente_pk)
-        paciente.nome = request.data.nome
-        paciente.dataNascimento = request.data.dataNascimento
-        paciente.peso = request.data.peso
-        paciente.grauAsma = request.data.grauAsma
-        paciente.altura = request.data.altura
-        paciente.cpf = request.data.cpf
-        paciente.emEsperaDeMedico = request.data.emEsperaDeMedico
+        paciente.nome = request.data['nome']
+        paciente.dataNascimento = request.data['dataNascimento']
+        paciente.peso = request.data['peso']
+        paciente.grauAsma = request.data['grauAsma']
+        paciente.altura = request.data['altura']
+        paciente.cpf = request.data['cpf']
+        paciente.emEsperaDeMedico = request.data['emEsperaDeMedico']
         paciente.save()
         serializer = PacienteSerializer(data=paciente)
         if serializer.is_valid():
@@ -174,15 +193,15 @@ class createAgenteDeSaude(APIView):
     def post(self, request, *args, **kwargs):
         request.data
         user = User.objects.create(
-            username = request.data.email,
-            password = request.data.senha
+            username = request.data['email'],
+            password = request.data['senha']
         )
         user.save()
         agenteDeSaude = AgenteDeSaude.objects.create(
-            nome = request.data.nome,
+            nome = request.data['nome'],
             login = user,
-            cpf = request.data.cpf,
-            crm = request.data.crm
+            cpf = request.data['cpf'],
+            crm = request.data['crm']
         )
         agenteDeSaude.save()
         serializer = AgenteDeSaudeSerializer(data=agenteDeSaude)
@@ -196,9 +215,9 @@ class editAgenteDeSaudeLogged(APIView):
     def post(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
         agenteDeSaude = AgenteDeSaude.objects.get(login=user)
-        agenteDeSaude.nome = request.data.nome
-        agenteDeSaude.cpf = request.data.cpf
-        agenteDeSaude.crm = request.data.crm
+        agenteDeSaude.nome = request.data['nome']
+        agenteDeSaude.cpf = request.data['cpf']
+        agenteDeSaude.crm = request.data['crm']
         paciente.save()
         serializer = AgenteDeSaudeSerializer(data=agenteDeSaude)
         if serializer.is_valid():
@@ -209,10 +228,10 @@ class editAgenteDeSaude(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AgenteDeSaudeSerializer
     def post(self, request, *args, **kwargs):
-        agenteDeSaude = AgenteDeSaude.objects.get(pk=request.data.medico_pk)
-        agenteDeSaude.nome = request.data.nome
-        agenteDeSaude.cpf = request.data.cpf
-        agenteDeSaude.crm = request.data.crm
+        agenteDeSaude = AgenteDeSaude.objects.get(pk=request.data['medico_pk'])
+        agenteDeSaude.nome = request.data['nome']
+        agenteDeSaude.cpf = request.data['cpf']
+        agenteDeSaude.crm = request.data['crm']
         paciente.save()
         serializer = AgenteDeSaudeSerializer(data=agenteDeSaude)
         if serializer.is_valid():
@@ -237,7 +256,7 @@ class getListDiarioDeSintomasOfPaciente(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DiarioDeSintomasSerializer
     def get(self, request, *args, **kwargs):
-        paciente=Paciente.objects.get(pk=request.data.paciente_pk)
+        paciente=Paciente.objects.get(pk=request.data['paciente_pk'])
         data = DiarioDeSintomas.objects.filter(paciente=paciente)
         serializer = DiarioDeSintomasSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
@@ -246,42 +265,41 @@ class getDiarioDeSintomas(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DiarioDeSintomasSerializer
     def get(self, request, *args, **kwargs):
-        sintoma = DiarioDeSintomas.objects.get(pk = request.data.sintoma_pk)
+        sintoma = DiarioDeSintomas.objects.get(pk = request.data['sintoma_pk'])
         serializer = DiarioDeSintomasSerializer(data, context={'request': request})
         return Response(serializer.data)
 
 class createDiarioDeSintomas(APIView):
-    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DiarioDeSintomasSerializer
     def post(self, request, *args, **kwargs):
         print(request.data)
+        paciente = Paciente.objects.get(pk=request.data['paciente_pk']['pk'])
         sintoma = DiarioDeSintomas.objects.create(
-            tosse = request.data.tosse,
-            chiado = request.data.chiado,
-            dormir = request.data.dormir,
-            faltaDeAr = request.data.faltaDeAr,
-            observacao = request.data.observacao,
-            bombinha = request.data.bombinha,
+            tosse = request.data['tosse'],
+            chiado = request.data['chiado'],
+            dormir = request.data['dormir'],
+            faltaDeAr = request.data['faltaDeAr'],
+            observacao = request.data['observacao'],
+            bombinha = request.data['bombinha'],
             data = str(date.today()),
-            paciente = request.data.paciente,
+            paciente = paciente,
         )
         sintoma.save()
-        serializer = DiarioDeSintomasSerializer(data=sintoma)
-        if serializer.is_valid():
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = DiarioDeSintomasSerializer(sintoma, context={'request': request})
+        print(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class editDiarioDeSintomas(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = DiarioDeSintomasSerializer
     def post(self, request, *args, **kwargs):
         sintoma = DiarioDeSintomas.objects.get(pk=request.data.sintoma_pk)
-        sintoma.tosse = request.data.tosse
-        sintoma.chiado = request.data.chiado
-        sintoma.dormir = request.data.dormir
-        sintoma.faltaDeAr = request.data.faltaDeAr
-        sintoma.obeservacao = request.data.obeservacao
-        sintoma.data = request.data.data
+        sintoma.tosse = request.data['tosse']
+        sintoma.chiado = request.data['chiado']
+        sintoma.dormir = request.data['dormir']
+        sintoma.faltaDeAr = request.data['faltaDeAr']
+        sintoma.obeservacao = request.data['obeservacao']
+        sintoma.data = request.data['data']
         sintoma.save()
         serializer = DiarioDeSintomasSerializer(data=sintoma)
         if serializer.is_valid():
@@ -306,7 +324,7 @@ class getListAtividadeOfPaciente(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AtividadeSerializer
     def get(self, request, *args, **kwargs):
-        paciente=Paciente.objects.get(pk=request.data.paciente_pk)
+        paciente=Paciente.objects.get(pk=request.data['paciente_pk'])
         data = Atividade.objects.filter(paciente=paciente)
         serializer = AtividadeSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
@@ -315,7 +333,7 @@ class getAtividade(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AtividadeSerializer
     def get(self, request, *args, **kwargs):
-        data = Atividade.objects.filter(pk=request.data.atividade_pk)
+        data = Atividade.objects.filter(pk=request.data['atividade_pk'])
         serializer = AtividadeSerializer(data, context={'request': request})
         return Response(serializer.data)
 
@@ -326,11 +344,11 @@ class createAtividadeLogged(APIView):
         user = User.objects.get(username=request.user)
         paciente=Paciente.objects.get(login=user)
         atividade = Atividade.objects.create(
-            nome = request.data.nome,
-            passos = request.data.passos,
-            duracao = request.data.duracao,
-            intensidade = request.data.intensidade,
-            dataRealizada = request.data.dataRealizada,
+            nome = request.data['nome'],
+            passos = request.data['passos'],
+            duracao = request.data['duracao'],
+            intensidade = request.data['intensidade'],
+            dataRealizada = request.data['dataRealizada'],
             paciente = paciente,
         )
         atividade.save()
@@ -343,13 +361,13 @@ class createAtividadeOfPaciente(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AtividadeSerializer
     def post(self, request, *args, **kwargs):
-        paciente=Paciente.objects.get(pk=request.data.paciente_pk)
+        paciente=Paciente.objects.get(pk=request.data['paciente_pk'])
         atividade = Atividade.objects.create(
-            nome = request.data.nome,
-            passos = request.data.passos,
-            duracao = request.data.duracao,
-            intensidade = request.data.intensidade,
-            dataRealizada = request.data.dataRealizada,
+            nome = request.data['nome'],
+            passos = request.data['passos'],
+            duracao = request.data['duracao'],
+            intensidade = request.data['intensidade'],
+            dataRealizada = request.data['dataRealizada'],
             paciente = paciente,
         )
         atividade.save()
@@ -363,11 +381,11 @@ class editAtividade(APIView):
     serializer_class = AtividadeSerializer
     def post(self, request, *args, **kwargs):
         atividade = Atividade.objects.get(pk=request.data.atividade_pk)
-        atividade.nome = request.data.nome
-        atividade.passos = request.data.passos
-        atividade.duracao = request.data.duracao
-        atividade.intensidade = request.data.intensidade
-        atividade.dataRealizada = request.data.dataRealizada
+        atividade.nome = request.data['nome']
+        atividade.passos = request.data['passos']
+        atividade.duracao = request.data['duracao']
+        atividade.intensidade = request.data['intensidade']
+        atividade.dataRealizada = request.data['dataRealizada']
         atividade.save()
         serializer = DiarioDeSintomasSerializer(data=atividade)
         if serializer.is_valid():
@@ -392,7 +410,7 @@ class getAlocacaoMedica(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AlocacaoMedicaSerializer
     def get(self, request, *args, **kwargs):
-        data = AlocacaoMedica.objects.get(pk=request.data.alocacao_pk)
+        data = AlocacaoMedica.objects.get(pk=request.data['alocacao_pk'])
         serializer = AlocacaoMedicaSerializer(data, context={'request': request})
         return Response(serializer.data)
 
@@ -400,7 +418,8 @@ class createAlocacaoMedicaLogged(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AlocacaoMedicaSerializer
     def post(self, request, *args, **kwargs):
-        paciente = AlocacaoMedica.objects.get(pk=request.data.paciente_pk)
+        paciente = AlocacaoMedica.objects.get(pk=request.data['paciente_pk'])
+        paciente.emEsperaDeMedico = False
         user = User.objects.get(username=request.user)
         medico = AgenteDeSaude.objects.get(login=user)
         alocacao = AlocacaoMedica.objects.create(
@@ -418,7 +437,7 @@ class createAlocacaoMedicaOfMedico(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AlocacaoMedicaSerializer
     def post(self, request, *args, **kwargs):
-        paciente = AlocacaoMedica.objects.get(pk=request.data.paciente_pk)
+        paciente = AlocacaoMedica.objects.get(pk=request.data['paciente_pk'])
         medico = AgenteDeSaude.objects.get(pk=request.data.medico_pk)
         alocacao = AlocacaoMedica.objects.create(
             paciente = paciente,
@@ -435,13 +454,13 @@ class editAlocacaoMedicaLogged(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = AlocacaoMedicaSerializer
     def post(self, request, *args, **kwargs):
-        paciente = AlocacaoMedica.objects.get(pk=request.data.paciente_pk)
+        paciente = AlocacaoMedica.objects.get(pk=request.data['paciente_pk'])
         user = User.objects.get(username=request.user)
         medico = AgenteDeSaude.objects.get(login=user)
-        alocacao = AlocacaoMedica.objects.get(pk=request.data.alocacao_pk)
-        alocacao.paciente = request.data.paciente
-        alocacao.medico = request.data.medico
-        alocacao.ativo = request.data.ativo
+        alocacao = AlocacaoMedica.objects.get(pk=request.data['alocacao_pk'])
+        alocacao.paciente = paciente
+        alocacao.medico = request.data['medico']
+        alocacao.ativo = request.data['ativo']
         alocacao.save()
         serializer = AlocacaoMedicaSerializer(data=alocacao)
         if serializer.is_valid():
@@ -467,7 +486,7 @@ class getListOrientacoesMedicasOfPaciente(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = OrientacoesMedicasSerializer
     def get(self, request, *args, **kwargs):
-        paciente=Paciente.objects.get(pk=request.data.pk)
+        paciente=Paciente.objects.get(pk=request.data['orientacoes_pk'])
         data = OrientacoesMedicas.objects.filter(paciente=paciente)
         serializer = OrientacoesMedicasSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
@@ -476,7 +495,7 @@ class getOrientacoesMedicas(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = OrientacoesMedicasSerializer
     def get(self, request, *args, **kwargs):
-        data = OrientacoesMedicas.objects.get(pk=request.data.orientacoes_pk)
+        data = OrientacoesMedicas.objects.get(pk=request.data['orientacoes_pk'])
         serializer = OrientacoesMedicasSerializer(data, context={'request': request})
         return Response(serializer.data)
 
@@ -486,12 +505,12 @@ class createOrientacoesMedicas(APIView):
     def post(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
         medico = AgenteDeSaude.objects.get(login=user)
-        paciente = Paciente.objects.get(pk=request.data.paciente_pk)
+        paciente = Paciente.objects.get(pk=request.data['paciente_pk'])
         orientacoes = OrientacoesMedicas.objects.create(
-            mensagem = request.data.mensagem,
+            mensagem = request.data['mensagem'],
             paciente = paciente,
             medico = medico,
-            data = request.data.data,
+            data = request.data['data'],
         )
         orientacoes.save()
         serializer = OrientacoesMedicasSerializer(data=orientacoes)
@@ -503,9 +522,9 @@ class editOrientacoesMedicas(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = OrientacoesMedicasSerializer
     def get(self, request, *args, **kwargs):
-        orientacoes = OrientacoesMedicas.objects.get(pk=request.data.orientacoes_pk)
-        orientacoes.mensagem = request.data.mensagem
-        orientacoes.data = request.data.data
+        orientacoes = OrientacoesMedicas.objects.get(pk=request.data['orientacoes_pk'])
+        orientacoes.mensagem = request.data['mensagem']
+        orientacoes.data = request.data['data']
         orientacoes.save()
         serializer = OrientacoesMedicasSerializer(data=orientacoes)
         if serializer.is_valid():
@@ -533,13 +552,13 @@ class createNotificacaoDeAtividade(APIView):
     def post(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
         paciente = Paciente.objects.get(login=user)
-        atividade = Atividade.objects.get(pk=atividade_pk)
+        atividade = Atividade.objects.get(pk=reques.data['atividade_pk'])
         notificacao = NotificacaoDeAtividade.objects.create(
-            mensagem = request.data.mensagem,
+            mensagem = request.data['mensagem'],
             paciente = paciente,
             atividade = atividade,
-            data = request.data.data,
-            ativo = request.data.ativo,
+            data = request.data['data'],
+            ativo = request.data['ativo'],
         )
         notificacao.save()
         serializer = NotificacaoDeAtividadeSerializer(data=notificacao)
@@ -551,7 +570,7 @@ class disableNotificacaoDeAtividade(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = NotificacaoDeAtividadeSerializer
     def post(self, request, *args, **kwargs):
-        notificacao = NotificacaoDeAtividade.objects.get(pk=request.data.notificacao_pk)
+        notificacao = NotificacaoDeAtividade.objects.get(pk=request.data['notificacao_pk'])
         notificacao.ativo = False
         notificacao.save()
         serializer = NotificacaoDeAtividadeSerializer(data=notificacao)
@@ -583,11 +602,11 @@ class createMessage(APIView):
         user = User.objects.get(username=request.user)
         autor = Paciente.objects.get(login=user)
         chat = Chat.objects.create(
-            mensagem = request.data.mensagem,
+            mensagem = request.data['mensagem'],
             autor = autor,
-            alocacao = request.data.alocacao,
-            data = request.data.data,
-            ativo = request.data.ativo,
+            alocacao = request.data['alocacao'],
+            data = request.data['data'],
+            ativo = request.data['ativo'],
         )
         chat.save()
         serializer = ChatSerializer(data=chat)

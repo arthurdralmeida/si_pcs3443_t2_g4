@@ -1,12 +1,107 @@
 import React, { Component } from "react";
 import moment from 'moment';
-import { Layout, Menu, DatePicker, Space, Form, Input, Select, Button, InputNumber, PageHeader } from 'antd';
+import { Layout, Menu,  DatePicker, Space, Form, Input, Select, Button, InputNumber, PageHeader } from 'antd';
 import { UserOutlined, 
   QuestionCircleOutlined,
   ToolFilled,
   SearchOutlined } from '@ant-design/icons';
+import { Link, Redirect } from 'react-router-dom'
+import axios from 'axios'
 
 class CadastroPaciente extends Component {
+  state={
+    username:' ',
+    password:' ',
+    nome:' ',
+    dataNascimento:'2020-05-05',
+    peso:0,
+    grauAsma:0,
+    altura:0,
+    cpf:' ',
+    emEsperaDeMedico:false,
+    cadastro:false,
+  }
+  setPaciente = () =>{
+    console.log(this.state.username, this.state.password, this.state.nome,this.state.dataNascimento,this.state.peso,this.state.grauAsma,this.state.altura,this.state.cpf,this.state.emEsperaDeMedico,this.state.cadastro)
+    axios.post("http://localhost:8000/api/createPaciente/",
+      {
+        username: this.state.username,
+        password: this.state.password,
+        nome: this.state.nome,
+        dataNascimento: this.state.dataNascimento,
+        peso: this.state.peso,
+        grauAsma: this.state.grauAsma,
+        altura: this.state.altura,
+        cpf: this.state.cpf,
+        emEsperaDeMedico: this.state.emEsperaDeMedico,
+      },
+      { headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${JSON.parse(sessionStorage.getItem('token'))}`,
+      }}).then(() => {
+        console.log("Deu certo")
+    })
+  }
+  onChangeUsername = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+      username: e.target.value
+    });
+  };
+  onChangePassword = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+      password: e.target.value
+    });
+  };
+  onChangeNome = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+      nome: e.target.value
+    });
+  };
+  onChangeDataNascimento = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+      dataNascimento: e.target.value
+    });
+  };
+  onChangePeso = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        peso: e.target.value
+    });
+  };
+  onChangeGrauAsma = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        grauAsma: e.target.value
+    });
+  };
+  onChangeAltura = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        altura: e.target.value
+    });
+  };
+  onChangeCPF = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        cpf: e.target.value
+    });
+  };
+  onChangeEmEsperaDeMedico = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+      emEsperaDeMedico: e.target.value
+    });
+  };
+  onChangeCadastro = e => {
+    console.log('radio checked', e.target.value);
+    this.setState({
+        cadastro: e.target.value
+    });
+  };
   render() {
     const { Header, Content, Sider } = Layout;
     const layout = {
@@ -89,6 +184,7 @@ class CadastroPaciente extends Component {
                 <Form.Item
                   label="Nome"
                   name="name"
+                  onChange={this.onChangeNome}
                   rules={[
                     {
                       required: true,
@@ -102,6 +198,7 @@ class CadastroPaciente extends Component {
                 <Form.Item
                   label="Senha"
                   name="password"
+                  onChange={this.onChangePassword}
                   rules={[
                     {
                       required: true,
@@ -115,6 +212,7 @@ class CadastroPaciente extends Component {
                 <Form.Item
                   label="Senha novamente"
                   name="password2"
+                  onChange={this.onChangePassword}
                   rules={[
                     {
                       required: true,
@@ -128,6 +226,7 @@ class CadastroPaciente extends Component {
                 <Form.Item
                   label="Email"
                   name="email"
+                  onChange={this.onChangeUsername}
                   rules={[
                     {
                       required: true,
@@ -141,6 +240,7 @@ class CadastroPaciente extends Component {
                 <Form.Item
                   label="Data de nascimento"
                   name="dataNascimento"
+                  onChange={this.onChangeDataNascimento}
                   rules={[
                     {
                       required: true,
@@ -153,6 +253,7 @@ class CadastroPaciente extends Component {
                 <Form.Item
                   label="Altura"
                   name="altura"
+                  onChange={this.onChangeAltura}
                   rules={[
                     {
                       required: true,
@@ -160,12 +261,13 @@ class CadastroPaciente extends Component {
                     },
                   ]}
                 >
-                  <InputNumber min={60} max={300} defaultValue={0} onChange={onChange} />    cm 
+                  <InputNumber min={60} max={300} defaultValue={0} />    cm 
                 </Form.Item>
 
                 <Form.Item
                   label="Peso"
                   name="peso"
+                  onChange={this.onChangePeso}
                   rules={[
                     {
                       required: true,
@@ -179,6 +281,7 @@ class CadastroPaciente extends Component {
                 <Form.Item
                   label="CPF"
                   name="cpf"
+                  onChange={this.onChangeCPF}
                   rules={[
                     {
                       required: true,
@@ -186,17 +289,13 @@ class CadastroPaciente extends Component {
                     },
                   ]}
                 >
-                  <Input.Group compact>
-                    <InputNumber style={{ width: '12%' }} max={999} min={1} />
-                    <InputNumber style={{ width: '12%' }} max={999} min={1} />
-                    <InputNumber style={{ width: '12%' }} max={999} min={1} />
-                    <InputNumber style={{ width: '10%' }} max={99} min={1} />
-                  </Input.Group> 
+                  <Input  style={{ width: '50%' }}/> 
                 </Form.Item>
 
                 <Form.Item
                   label="Grau de Asma"
                   name="grauAsma"
+                  onChange={this.onChangeGrauAsma}
                   rules={[
                     {
                       required: true,
@@ -223,9 +322,9 @@ class CadastroPaciente extends Component {
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
-                  <Button type="primary" htmlType="submit">
+                <Link to={'/login'}><Button type="primary" htmlType="submit">
                     Cadastrar
-                  </Button>
+                  </Button></Link>
                 </Form.Item>
               </Form>
             </Content>
